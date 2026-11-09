@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 @import 'tailwindcss';
 
 /* Preline UI */
@@ -24,6 +25,8 @@
 }
 
 @theme {
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
   --color-primary: var(--primary);
   --color-primary-hover: var(--primary-hover);
   --color-primary-soft: var(--primary-soft);
@@ -35,12 +38,12 @@
   --color-border: var(--border);
   --color-white: var(--white);
 
-  /* Map existing utility classes in template to the required palette */
+  /* Map existing utility classes in template to the required palette with WCAG AA contrast */
   --color-yellow-50: var(--primary-soft);
   --color-yellow-100: var(--primary-soft);
   --color-yellow-200: var(--border);
   --color-yellow-300: var(--primary);
-  --color-yellow-400: var(--primary);
+  --color-yellow-400: var(--dark-green);
   --color-yellow-500: var(--accent);
   --color-yellow-600: var(--dark-green);
   --color-yellow-700: var(--dark-green);
@@ -51,7 +54,7 @@
   --color-orange-50: var(--primary-soft);
   --color-orange-100: var(--primary-soft);
   --color-orange-200: var(--border);
-  --color-orange-300: var(--primary);
+  --color-orange-300: var(--dark-green);
   --color-orange-400: var(--accent);
   --color-orange-500: var(--dark-green);
   --color-orange-600: var(--dark-green);
@@ -60,11 +63,12 @@
   --color-orange-900: var(--text);
   --color-orange-950: var(--text);
 
+  /* Neutral mappings ensure text is never washed-out/dim */
   --color-neutral-50: var(--white);
   --color-neutral-100: var(--bg);
-  --color-neutral-200: var(--primary-soft);
-  --color-neutral-300: var(--border);
-  --color-neutral-400: var(--border);
+  --color-neutral-200: var(--text);
+  --color-neutral-300: var(--text);
+  --color-neutral-400: var(--text-muted);
   --color-neutral-500: var(--text-muted);
   --color-neutral-600: var(--text-muted);
   --color-neutral-700: var(--text);
@@ -74,9 +78,9 @@
 
   --color-gray-50: var(--white);
   --color-gray-100: var(--bg);
-  --color-gray-200: var(--border);
-  --color-gray-300: var(--primary-soft);
-  --color-gray-400: var(--border);
+  --color-gray-200: var(--text);
+  --color-gray-300: var(--text);
+  --color-gray-400: var(--text-muted);
   --color-gray-500: var(--text-muted);
   --color-gray-600: var(--text-muted);
   --color-gray-700: var(--text);
@@ -86,9 +90,9 @@
 
   --color-zinc-50: var(--white);
   --color-zinc-100: var(--bg);
-  --color-zinc-200: var(--border);
-  --color-zinc-300: var(--primary-soft);
-  --color-zinc-400: var(--border);
+  --color-zinc-200: var(--text);
+  --color-zinc-300: var(--text);
+  --color-zinc-400: var(--text-muted);
   --color-zinc-500: var(--text-muted);
   --color-zinc-600: var(--text-muted);
   --color-zinc-700: var(--text);
@@ -106,9 +110,16 @@
     border-color: var(--border);
   }
 
+  html {
+    font-family: var(--font-sans);
+  }
+
   body {
+    font-family: var(--font-sans);
     background-color: var(--bg);
     color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   h1,
@@ -117,7 +128,18 @@
   h4,
   h5,
   h6 {
-    color: var(--dark-green);
+    font-family: var(--font-sans);
+    color: var(--dark-green) !important;
+  }
+
+  /* Footer contrast rules */
+  footer h1,
+  footer h2,
+  footer h3,
+  footer h4,
+  footer h5,
+  footer h6 {
+    color: var(--white) !important;
   }
 
   a {

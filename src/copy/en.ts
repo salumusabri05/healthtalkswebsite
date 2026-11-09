@@ -196,7 +196,7 @@ export const en = {
     banner: 'Join the HealthTalks Community & Latest Episodes',
     hero: {
       title:
-        'Empowering Healthier Lives Through <span class="text-yellow-500 dark:text-yellow-400">HealthTalks</span>',
+        'Empowering Healthier Lives Through <span class="text-dark-green font-extrabold">HealthTalks</span>',
       subTitle:
         'Engaging discussions, expert medical insights, and practical wellness guidance for individuals and communities.',
       primaryBtn: 'Explore Talks',
