@@ -1,0 +1,38 @@
+{
+  "title": "Accessible Health Memberships",
+  "subTitle": "Choose the right membership to access exclusive talks, masterclasses, and expert consultations.",
+  "badge": "Popular",
+  "thirdOption": "Healthcare Organization or Enterprise?",
+  "btnText": "Contact for Partnerships",
+
+  "starterKit": {
+    "name": "Community Access",
+    "description": "Ideal for individual listeners & wellness seekers",
+    "price": "19",
+    "cents": ".00",
+    "billingFrequency": "USD / monthly",
+    "features": [
+      "Access to public health talk recordings",
+      "Monthly live community Q&A",
+      "Weekly wellness newsletter"
+    ],
+    "purchaseBtnTitle": "Join Community",
+    "purchaseLink": "#"
+  },
+
+  "professionalToolbox": {
+    "name": "HealthTalks Plus",
+    "description": "Full access to specialized workshops & archives",
+    "price": "49",
+    "cents": ".00",
+    "billingFrequency": "USD / monthly",
+    "features": [
+      "Unlimited access to all clinical talk archives",
+      "Priority registration for live expert webinars",
+      "CME-accredited study summaries",
+      "Direct Q&A with featured medical specialists"
+    ],
+    "purchaseBtnTitle": "Get HealthTalks Plus",
+    "purchaseLink": "#"
+  }
+}

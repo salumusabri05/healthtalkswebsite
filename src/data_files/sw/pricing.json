@@ -1,0 +1,39 @@
+{
+  "title": "Uanachama na Kujiunga na Jamii",
+  "subTitle": "Chagua kifurushi kinachokufaa kupata fursa ya vipindi maalum, warsha za kina na mashauriano ya moja kwa moja.",
+  "badge": "Inayopendwa Zaidi",
+  "thirdOption": "Shirika la Afya au Taasisi?",
+  "btnText": "Wasiliana kwa Ushirikiano",
+
+  "starterKit": {
+    "name": "Uanachama wa Kijamii",
+    "description": "Bora kwa wasomaji binafsi na wanaotafuta mwongozo wa afya",
+    "price": "Bure",
+    "cents": "",
+    "billingFrequency": "daima bila malipo",
+    "features": [
+      "Kupata rekodi zote za vipindi vya wazi",
+      "Kushiriki maswali ya kila mwezi ya jamii",
+      "Kupokea jarida la kila wiki la afya na lishe"
+    ],
+    "purchaseBtnTitle": "Jiunge na Jamii",
+    "purchaseLink": "#"
+  },
+
+  "professionalToolbox": {
+    "name": "HealthTalks Plus",
+    "description": "Ufikiaji kamili wa warsha maalum na kumbukumbu zote za kitabibu",
+    "price": "25,000",
+    "cents": "TZS",
+    "billingFrequency": "/ kwa mwezi",
+    "features": [
+      "Kufikia kumbukumbu zote za mihadhara ya madaktari",
+      "Kipaumbele cha kushiriki warsha za moja kwa moja",
+      "Muhtasari wa tafiti na miongozo ya kisasa ya tiba",
+      "Nafasi ya kuuliza daktari bingwa maswali moja kwa moja"
+    ],
+    "purchaseBtnTitle": "Pata HealthTalks Plus",
+    "purchaseLink": "#"
+  }
+}
+

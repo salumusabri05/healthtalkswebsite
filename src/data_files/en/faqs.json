@@ -1,0 +1,29 @@
+{
+  "subTitle": "Have questions about HealthTalks, our expert medical reviews, and community access? Find answers here.",
+  "faqs": [
+    {
+      "question": "What is HealthTalks and what topics do you cover?",
+      "answer": "HealthTalks is an evidence-based health portal, wellness resource, and podcast platform. We cover clinical nutrition, cardiovascular fitness, preventive screening, mental health, chronic condition management, maternal health, and healthy longevity."
+    },
+    {
+      "question": "Are the articles and talks medically reviewed by licensed professionals?",
+      "answer": "Yes. Every article, wellness guide, and expert panel on HealthTalks is created in collaboration with or reviewed by board-certified physicians, registered dietitians, and clinical researchers to ensure scientific accuracy."
+    },
+    {
+      "question": "Can I submit questions for upcoming live doctor talks and Q&A sessions?",
+      "answer": "Absolutely! Community members can submit personal health questions and vote on upcoming session topics. Featured clinicians answer selected listener questions live during each talk."
+    },
+    {
+      "question": "Is HealthTalks a replacement for personal medical consultation?",
+      "answer": "No. HealthTalks provides educational and informational content designed to improve health literacy and empower proactive conversations with your primary care provider. It is never a substitute for direct medical diagnosis or treatment."
+    },
+    {
+      "question": "How often is new health content and research published?",
+      "answer": "We publish evidence-based articles, doctor interviews, and actionable wellness guides multiple times each week, alongside our regular HealthTalks video and podcast episodes."
+    },
+    {
+      "question": "How can doctors, clinics, or healthcare advocates partner with HealthTalks?",
+      "answer": "We welcome collaborations with passionate medical practitioners, researchers, and public health organizations. Reach out through our contact page to speak at an upcoming talk or contribute to our clinical review board."
+    }
+  ]
+}

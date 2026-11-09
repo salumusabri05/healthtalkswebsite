@@ -13,10 +13,10 @@
  * Every function here is pure so it can be unit-tested without Astro.
  */
 
-export const MARKETING_LOCALES = ['en', 'fr'] as const;
+export const MARKETING_LOCALES = ['sw', 'en'] as const;
 export type MarketingLocale = (typeof MARKETING_LOCALES)[number];
 
-export const DEFAULT_LOCALE: MarketingLocale = 'en';
+export const DEFAULT_LOCALE: MarketingLocale = 'sw';
 
 /** Locales that carry a URL prefix (every locale except the default). */
 const PREFIXED_LOCALES: readonly MarketingLocale[] = MARKETING_LOCALES.filter(
@@ -39,19 +39,19 @@ export const LOCALE_INFO: Record<
     intl: string;
   }
 > = {
+  sw: {
+    label: 'Kiswahili',
+    lang: 'sw',
+    ogLocale: 'sw_TZ',
+    inLanguage: 'sw-TZ',
+    intl: 'sw-TZ',
+  },
   en: {
     label: 'English',
     lang: 'en',
     ogLocale: 'en_US',
     inLanguage: 'en-US',
     intl: 'en-US',
-  },
-  fr: {
-    label: 'Français',
-    lang: 'fr',
-    ogLocale: 'fr_FR',
-    inLanguage: 'fr',
-    intl: 'fr-FR',
   },
 };
 

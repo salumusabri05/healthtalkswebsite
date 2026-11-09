@@ -1,0 +1,30 @@
+{
+  "subTitle": "Una maswali kuhusu HealthTalks, uhakiki wetu wa kitabibu na jinsi ya kujiunga na jamii yetu? Pata majibu hapa.",
+  "faqs": [
+    {
+      "question": "HealthTalks ni nini na inahusu mada gani?",
+      "answer": "HealthTalks ni jukwaa la elimu ya afya na ustawi linaloongozwa na sayansi. Tunafundisha kuhusu lishe ya kitabibu, mazoezi na afya ya moyo, uchunguzi wa mapema na kinga ya magonjwa, afya ya akili, uzazi na mtoto, na maisha marefu yenye afya."
+    },
+    {
+      "question": "Je, makala na vipindi vinakaguliwa na madaktari wenye weledi?",
+      "answer": "Ndiyo. Kila makala, mwongozo wa afya na mjadala unaochapishwa kwenye HealthTalks hutayarishwa au kukaguliwa na madaktari bingwa, wataalamu wa lishe na watafiti wa afya ili kuhakikisha usahihi wa kisayansi."
+    },
+    {
+      "question": "Je, ninaweza kuuliza maswali kwa ajili ya vipindi vya moja kwa moja na madaktari?",
+      "answer": "Bila shaka! Wanachama wa jamii yetu wanaweza kuwasilisha maswali yao na kupigia kura mada wanazopenda. Madaktari wetu wanajibu maswali yaliyochaguliwa moja kwa moja wakati wa vipindi."
+    },
+    {
+      "question": "Je, HealthTalks inachukua nafasi ya kumuona daktari hospitalini?",
+      "answer": "Hapana. Maudhui ya HealthTalks ni kwa ajili ya kutoa elimu na ufahamu ili kukuwezesha kufanya mazungumzo sahihi na daktari wako wa kituo cha afya. Haiwezi kuchukua nafasi ya vipimo au ushauri wa moja kwa moja wa daktari wako."
+    },
+    {
+      "question": "Maudhui mapya na tafiti za afya huchapishwa mara ngapi?",
+      "answer": "Tunachapisha makala mpya za kina, mahojiano na wataalamu, na miongozo ya vitendo mara kadhaa kwa wiki, sambamba na vipindi vyetu vya video na podcast."
+    },
+    {
+      "question": "Madaktari au vituo vya afya vinawezaje kushirikiana na HealthTalks?",
+      "answer": "Tunawakaribisha madaktari na mashirika ya afya yenye nia ya kusaidia jamii. Wasiliana nasi kupitia ukurasa wetu wa mawasiliano ili kushiriki kama mzungumzaji au mwanajopo wa uhakiki wa kitabibu."
+    }
+  ]
+}
+

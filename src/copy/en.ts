@@ -1,6 +1,6 @@
-import faqs from '@data/faqs.json';
-import features from '@data/features.json';
-import pricing from '@data/pricing.json';
+import faqs from '@data/en/faqs.json';
+import features from '@data/en/features.json';
+import pricing from '@data/en/pricing.json';
 
 /**
  * English copy table. This file defines the shape every other locale must
@@ -357,11 +357,11 @@ export const en = {
   contact: {
     title: 'Contact',
     metaDescription:
-      "Have questions or want to discuss a project? Reach out, and let's craft the perfect solution with our tools and services.",
-    ogTitle: 'Contact Us | ScrewFast',
-    heading: 'Contact us',
+      'Have questions or want to reach out to our medical team? Contact HealthTalks for health inquiries, collaborations, and community feedback.',
+    ogTitle: 'Contact Us | HealthTalks',
+    heading: 'Contact Us',
     subTitle:
-      "Have questions or want to discuss a project? Reach out, and let's craft the perfect solution with our tools and services.",
+      'Have questions, feedback, or health topics you want covered? Reach out and connect with the HealthTalks team.',
     formTitle: 'Fill in the form below',
     formSubTitle: "We'll get back to you in 1-2 business days.",
     firstName: 'First Name',
@@ -369,77 +369,77 @@ export const en = {
     details: 'Details',
     send: 'Send Message',
     demoMessage:
-      'Thanks! (Demo only — wire a form endpoint to receive real messages.)',
-    knowledgeHeading: 'Knowledgebase',
-    knowledgeContent: 'Browse through all of our knowledgebase articles.',
-    knowledgeLink: 'Visit guides & tutorials',
+      'Thanks! Your message has been sent to HealthTalks.',
+    knowledgeHeading: 'Health Guides',
+    knowledgeContent: 'Browse through all of our evidence-based wellness articles and health guides.',
+    knowledgeLink: 'Visit Guides & Articles',
     faqHeading: 'FAQ',
-    faqContent: 'Explore our FAQ for quick, clear answers to common queries.',
+    faqContent: 'Explore our FAQ for quick, clear answers to common health and portal questions.',
     faqLink: 'Visit FAQ',
-    officeHeading: 'Visit our office',
-    officeContent: 'UK ScrewFast',
+    officeHeading: 'Our Office',
+    officeContent: 'HealthTalks Media & Wellness',
     emailHeading: 'Contact us by email',
-    emailContent: 'Prefer the written word? Drop us an email at',
+    emailContent: 'Prefer email? Send your inquiries to',
   },
 
   blogIndex: {
-    title: 'Blog',
+    title: 'Blog & Articles',
     metaDescription:
-      "Stay up-to-date with the latest trends and developments in the construction industry with insights from ScrewFast's team of industry experts.",
-    ogTitle: 'Construction Industry Blog | ScrewFast',
-    heading: 'Your Gateway to Construction Excellence',
+      'Stay up-to-date with medical breakthroughs, preventive care, nutrition, and wellness guides from HealthTalks medical experts.',
+    ogTitle: 'Health & Wellness Blog | HealthTalks',
+    heading: 'Your Gateway to Health & Wellness',
     subTitle:
-      'Explore the latest news, tips, and insights from ScrewFast to enhance your construction projects. From product spotlights to project management strategies, our blog is your go-to resource for all things hardware and construction.',
-    insightsHeading: 'Insights',
+      'Explore the latest health research, doctor-approved wellness tips, nutrition strategies, and inspiring patient stories on HealthTalks.',
+    insightsHeading: 'Expert Insights',
     insightsSubTitle:
-      "Stay up-to-date with the latest trends and developments in the construction industry with insights from ScrewFast's team of industry experts. ",
-    noPosts: 'No blog posts yet. Check back soon.',
-    noInsights: 'No insights yet. Check back soon.',
+      'In-depth medical analyses, wellness research, and lifestyle tips curated by our certified practitioners.',
+    noPosts: 'No health articles published yet. Check back soon.',
+    noInsights: 'No insights available yet. Check back soon.',
   },
 
   productsIndex: {
-    title: 'Products',
+    title: 'Health Topics',
     metaDescription:
-      'Explore the durability and precision of ScrewFast tools, designed for both professionals and enthusiasts.',
-    ogTitle: 'Hardware Tools | ScrewFast',
-    heading: 'Products',
+      'Discover comprehensive health categories, medical specialties, preventive programs, and clinical guides.',
+    ogTitle: 'Health Topics & Programs | HealthTalks',
+    heading: 'Health Topics & Programs',
     subTitle:
-      'Explore the durability and precision of ScrewFast tools, designed for both professionals and enthusiasts. Each of our products is crafted with precision and built to last, ensuring you have the right tool for every job.',
-    customerStories: 'Customer Stories',
+      'Browse our curated health categories, evidence-based wellness programs, and specialized care guides designed to help you live healthier.',
+    customerStories: 'Community Stories',
     testimonials: {
-      title: 'What Our Customers Say',
+      title: 'Voices of HealthTalks Community',
       quotes: [
         {
           content:
-            ' "Since switching to ScrewFast\'s hardware tools, the efficiency on our construction sites has skyrocketed. The durability of the hex bolts and precision of the machine screws are simply unmatched. It\'s refreshing to work with a company that truly understands the daily demands of the industry." ',
-          author: 'Jason Clark',
-          role: 'Site Foreman | TopBuild',
-          avatarAlt: 'Image Description',
+            ' "HealthTalks transformed how I approach daily nutrition and managing my blood pressure. Having verified, doctor-reviewed information in simple language has been life-changing for my family." ',
+          author: 'Dr. Sarah Mwangi',
+          role: 'Community Health Advocate',
+          avatarAlt: 'Community Health Advocate',
         },
         {
           content:
-            ' "As an interior designer, I\'m always looking for high-quality materials and tools that help bring my visions to life. ScrewFast\'s mixed screws assortment has been a game-changer for my projects, providing the perfect blend of quality and variety. The outstanding customer support was just the cherry on top!" ',
-          author: 'Maria Gonzalez',
-          role: 'Interior Designer | Creative Spaces',
-          avatarAlt: 'Image Description',
+            ' "Finding trustworthy wellness advice used to feel overwhelming. HealthTalks makes medical topics accessible, engaging, and genuinely actionable for everyday living." ',
+          author: 'David Omondi',
+          role: 'Wellness Enthusiast & Marathon Runner',
+          avatarAlt: 'Community Member',
         },
         {
           content:
-            " \"I've been a professional carpenter for over 15 years, and I can sincerely say that ScrewFast's tap bolts and nuts are some of the best I've used. They grip like no other, and I have full confidence in every joint and fixture. Plus, the service is impeccable – they truly care about my project's success.\" ",
-          author: 'Richard Kim',
-          role: 'Master Carpenter | WoodWright',
-          avatarAlt: 'Image Description',
+            ' "The interactive discussions and patient-focused articles helped me understand preventive care and take proactive steps for my cardiovascular health." ',
+          author: 'Amina Kassim',
+          role: 'Patient & Nutrition Coach',
+          avatarAlt: 'Nutrition Coach',
         },
       ],
     },
     stats: {
-      title: 'Why Choose ScrewFast?',
+      title: 'Why Choose HealthTalks?',
       subTitle:
-        "Transform your ideas into tangible results with ScrewFast tools. Whether you're starting with a sketch on a napkin or diving into a comprehensive construction project, our tools are engineered to help you build with confidence.",
+        'Evidence-based healthcare information, doctor-reviewed articles, and community support designed to help you thrive at every stage of life.',
       benefits: [
-        'Robust and reliable tools for long-lasting performance.',
-        'Innovative solutions tailored to modern construction needs.',
-        "Customer support dedicated to your project's success.",
+        'Medically reviewed and verified health content.',
+        'Actionable nutrition, mental health, and wellness programs.',
+        'Empowering patient communities and open dialogues with clinicians.',
       ],
     },
   },
