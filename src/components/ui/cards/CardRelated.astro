@@ -13,24 +13,24 @@ interface Props {
 ---
 
 <a
-  class="group block rounded-xl ring-zinc-500 outline-hidden transition duration-300 focus-visible:ring-3 dark:ring-zinc-200 dark:focus:outline-hidden"
+  class="group block rounded-xl border border-border bg-white p-3 shadow-xs ring-accent outline-hidden transition duration-300 hover:shadow-md focus-visible:ring-2"
   href={pathFor(blogEntry)}
   data-astro-prefetch
 >
   <div>
     <Image
-      class="aspect-video rounded-xl"
+      class="aspect-video rounded-lg"
       src={blogEntry.data.cardImage}
       alt={blogEntry.data.cardImageAlt}
       draggable={'false'}
       format={'avif'}
     />
     {/* The title of the blog post */}
-    <h3 class="mt-2 text-lg font-medium text-balance text-neutral-800 group-hover:text-orange-400 dark:text-neutral-300 dark:group-hover:text-neutral-50">
+    <h3 class="mt-3 text-lg font-bold text-balance text-dark-green group-hover:text-accent transition duration-200">
       {blogEntry.data.title}
     </h3>
     {/* The formatted publication date of the blog post */}
-    <p class="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+    <p class="mt-2 text-sm text-text-muted">
       {formatDate(blogEntry.data.pubDate, localeOf(blogEntry))}
     </p>
   </div>

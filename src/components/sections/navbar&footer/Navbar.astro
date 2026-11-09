@@ -15,15 +15,15 @@ const { locale, copy: t } = Astro.locals;
 <header class="sticky inset-x-0 top-4 z-50 flex w-full flex-wrap text-sm md:flex-nowrap md:justify-start">
   {/* Navigation container */}
   <nav
-    class="relative mx-2 w-full rounded-[36px] border border-yellow-100/40 bg-yellow-50/60 px-4 py-3 backdrop-blur-md md:flex md:items-center md:justify-between md:px-6 md:py-0 lg:px-8 xl:mx-auto dark:border-neutral-700/40 dark:bg-neutral-800/80 dark:backdrop-blur-md"
+    class="relative mx-2 w-full rounded-[36px] border border-border bg-white/95 px-4 py-3 backdrop-blur-md shadow-xs md:flex md:items-center md:justify-between md:px-6 md:py-0 lg:px-8 xl:mx-auto"
     aria-label="Global"
   >
     <div class="flex items-center justify-between">
       {/* Brand logo */}
       <a
-        class="flex-none rounded-lg text-xl font-bold ring-zinc-500 outline-hidden focus-visible:ring-3 dark:ring-zinc-200 dark:focus:outline-hidden"
+        class="flex-none rounded-lg text-xl font-bold ring-accent outline-hidden focus-visible:ring-3"
         href={localePath(locale)}
-        aria-label="ScrewFast"
+        aria-label="HealthTalks"
       >
         <BrandLogo class="h-auto w-24" />
       </a>

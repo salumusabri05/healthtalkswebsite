@@ -14,13 +14,13 @@ export const en = {
   site: {
     /** Default `<meta name="description">` when a page sets none. */
     description:
-      'ScrewFast offers top-tier hardware tools and expert construction services to meet all your project needs. Start exploring and contact our sales team for superior quality and reliability.',
+      'HealthTalks brings you insightful discussions, expert medical perspectives, and practical wellness guidance to empower healthier lives and communities.',
     /** schema.org `WebSite.description` in every page's `isPartOf`. */
     descriptionShort:
-      'ScrewFast offers top-tier hardware tools and expert construction services to meet all your project needs.',
-    ogTitle: 'ScrewFast: Hardware Tools & Construction Services',
+      'HealthTalks brings you insightful discussions, expert medical perspectives, and practical wellness guidance.',
+    ogTitle: 'HealthTalks: Wellness, Medicine & Community Health Conversations',
     ogDescription:
-      "Equip your projects with ScrewFast's top-quality hardware tools and expert construction services. Trusted by industry leaders, ScrewFast offers simplicity, affordability, and reliability. Experience the difference with user-centric design and cutting-edge tools. Start exploring now!",
+      'Explore life-changing health discussions with leading medical practitioners, wellness researchers, and health advocates on HealthTalks.',
   },
 
   layout: {
@@ -193,18 +193,18 @@ export const en = {
   },
 
   home: {
-    banner: 'Explore ScrewFast on GitHub',
+    banner: 'Join the HealthTalks Community & Latest Episodes',
     hero: {
       title:
-        'Equip Your Projects with <span class="text-yellow-500 dark:text-yellow-400">ScrewFast</span>',
+        'Empowering Healthier Lives Through <span class="text-yellow-500 dark:text-yellow-400">HealthTalks</span>',
       subTitle:
-        'Top-quality hardware tools and expert construction services for every project need.',
-      primaryBtn: 'Start Exploring',
-      secondaryBtn: 'Contact Sales Team',
-      rating: '<span class="font-bold">4.8</span> / 5',
-      reviews: 'From Over <span class="font-bold">12.8k</span> Reviews',
+        'Engaging discussions, expert medical insights, and practical wellness guidance for individuals and communities.',
+      primaryBtn: 'Explore Talks',
+      secondaryBtn: 'Join Community',
+      rating: '<span class="font-bold">4.9</span> / 5',
+      reviews: 'From Over <span class="font-bold">15k+</span> Active Listeners',
       imageAlt:
-        'Stack of ScrewFast product boxes containing assorted hardware tools',
+        'HealthTalks panel discussion and health insights presentation',
     },
     clients: {
       title: 'Trusted by Industry Leaders',

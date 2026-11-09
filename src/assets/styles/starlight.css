@@ -11,9 +11,9 @@
 :root {
   --border: hsla(var(--border-neutral), 0.4);
   --backdrop-color: #272727cc;
-  --sl-color-accent: #ff801f;
-  --sl-color-accent-high: #ffa057;
-  --sl-color-accent-low: #562800;
+  --sl-color-accent: #4CAF2A;
+  --sl-color-accent-high: #A8E08A;
+  --sl-color-accent-low: #2E7D1F;
   --sl-color-black: #181818;
   --sl-color-gray-1: #eee;
   --sl-color-gray-2: #c2c2c2;
@@ -22,7 +22,7 @@
   --sl-color-gray-5: #383838;
   --sl-color-gray-6: #272727;
   --sl-color-white: #fff;
-  --list-marker-color: #fb923c;
+  --list-marker-color: #4CAF2A;
   --border-neutral: 0, 0%, 25.1%;
 }
 
@@ -30,9 +30,9 @@
 :root[data-theme='light'] {
   --border: hsla(var(--border-yellow), 0.4);
   --backdrop-color: #f6f6f699;
-  --sl-color-accent: #b73d00;
-  --sl-color-accent-high: #562800;
-  --sl-color-accent-low: #ffa057;
+  --sl-color-accent: #2E7D1F;
+  --sl-color-accent-high: #1F2A1C;
+  --sl-color-accent-low: #E4F5D8;
   --sl-color-black: #fff;
   --sl-color-gray-1: #272727;
   --sl-color-gray-2: #383838;
@@ -42,8 +42,8 @@
   --sl-color-gray-6: #eee;
   --sl-color-gray-7: #f6f6f6;
   --sl-color-white: #181818;
-  --list-marker-color: #fb923c;
-  --border-yellow: 54.9, 96.7%, 88%;
+  --list-marker-color: #2E7D1F;
+  --border-yellow: 96, 44%, 85%;
 }
 
 header {
@@ -117,17 +117,17 @@ article.card {
 }
 
 .starlight-aside--tip {
-  background: linear-gradient(45deg, #ff512f, #f09819);
+  background: linear-gradient(45deg, #2E7D1F, #4CAF2A);
   border: none;
   border-radius: 0.5rem;
-  color: #66350c;
+  color: #FFFFFF;
 }
 
 .starlight-aside--note {
-  background: linear-gradient(45deg, #00b4db, #2193b0);
+  background: linear-gradient(45deg, #2E7D1F, #8FD16C);
   border: none;
   border-radius: 0.5rem;
-  color: #004558;
+  color: #FFFFFF;
 }
 
 .starlight-aside__icon {
@@ -135,11 +135,11 @@ article.card {
 }
 
 .starlight-aside--tip .starlight-aside__title {
-  color: #ffe0c2;
+  color: #FFFFFF;
 }
 
 .starlight-aside--note .starlight-aside__title {
-  color: #bbf3fef7;
+  color: #FFFFFF;
 }
 
 .sl-markdown-content ul:not(:where(.not-content *)) {
