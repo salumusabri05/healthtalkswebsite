@@ -1,14 +1,14 @@
 import ogImageSrc from '@images/social.png';
 
 export const SITE = {
-  title: 'ScrewFast',
-  tagline: 'Top-quality Hardware Tools',
+  title: 'HealthTalks',
+  tagline: 'Inspiring Conversations on Health & Wellness',
   description:
-    'ScrewFast offers top-tier hardware tools and expert construction services to meet all your project needs. Start exploring and contact our sales team for superior quality and reliability.',
+    'HealthTalks brings you insightful discussions, expert medical perspectives, and practical wellness guidance to empower healthier lives.',
   description_short:
-    'ScrewFast offers top-tier hardware tools and expert construction services to meet all your project needs.',
-  url: 'https://screwfast.uk',
-  author: 'Emil Gulamov',
+    'Inspiring conversations, medical insights, and practical wellness guidance.',
+  url: 'https://healthtalks.org',
+  author: 'HealthTalks Team',
 };
 
 // Per-locale titles, descriptions and Open Graph text live in `src/copy/`;
