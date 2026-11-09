@@ -48,9 +48,7 @@ export const footerSections: {
 ];
 
 export const socialLinks = {
-  facebook: 'https://www.facebook.com/',
-  x: 'https://twitter.com/',
-  github: 'https://github.com/mearashadowfax/ScrewFast',
-  google: 'https://www.google.com/',
-  slack: 'https://slack.com/',
+  facebook: 'https://www.facebook.com/share/1JBQkLTBy9/?mibextid=wwXIfr',
+  instagram: 'https://www.instagram.com/healthtalks.official?psln=MTk3YWgxOTduZzNnYw%3D%3D&utm_source=qr',
+  whatsapp: 'https://whatsapp.com/channel/0029VagGCByEVccPEOMlr11w',
 };

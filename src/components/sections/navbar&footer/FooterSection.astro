@@ -85,25 +85,17 @@ const footer = t.nav.footer;
       </div>
 
       {/* Social Brands */}
-      <div>
+      <div class="flex items-center gap-2">
+        <FooterSocialLink url={socialLinks.instagram} label="Instagram">
+          <Icon name="instagram" class="h-4 w-4 shrink-0 text-white hover:text-primary transition" title="Instagram" />
+        </FooterSocialLink>
+
         <FooterSocialLink url={socialLinks.facebook} label="Facebook">
-          <Icon name="facebook" class="h-4 w-4 shrink-0 text-white hover:text-primary" title="Facebook" />
+          <Icon name="facebook" class="h-4 w-4 shrink-0 text-white hover:text-primary transition" title="Facebook" />
         </FooterSocialLink>
 
-        <FooterSocialLink url={socialLinks.x} label="X">
-          <Icon name="x" class="h-4 w-4 shrink-0 text-white hover:text-primary" title="X" />
-        </FooterSocialLink>
-
-        <FooterSocialLink url={socialLinks.github} label="GitHub">
-          <Icon name="githubMark" class="h-4 w-4 shrink-0 text-white hover:text-primary" title="GitHub" />
-        </FooterSocialLink>
-
-        <FooterSocialLink url={socialLinks.google} label="Google">
-          <Icon name="google" class="h-4 w-4 shrink-0 text-white hover:text-primary" title="Google" />
-        </FooterSocialLink>
-
-        <FooterSocialLink url={socialLinks.slack} label="Slack">
-          <Icon name="slack" class="h-4 w-4 shrink-0 text-white hover:text-primary" title="Slack" />
+        <FooterSocialLink url={socialLinks.whatsapp} label="WhatsApp Channel">
+          <Icon name="whatsapp" class="h-4 w-4 shrink-0 text-white hover:text-primary transition" title="WhatsApp Channel" />
         </FooterSocialLink>
       </div>
     </div>
