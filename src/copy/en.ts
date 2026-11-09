@@ -36,33 +36,33 @@ export const en = {
     /** Labels for `navLinks` in `@data/navigation`, keyed by id. */
     labels: {
       home: 'Home',
-      products: 'Products',
-      services: 'Services',
-      blog: 'Blog',
+      products: 'Health Topics',
+      services: 'Talks & Programs',
+      blog: 'Blog & Articles',
       contact: 'Contact',
     },
     footer: {
       /** Section titles and link labels for `footerSections` in `@data/navigation`, keyed by id. */
       sectionTitles: {
-        ecosystem: 'Ecosystem',
-        company: 'Company',
+        ecosystem: 'Health Portal',
+        company: 'HealthTalks',
       },
       links: {
-        documentation: 'Documentation',
-        tools: 'Tools & Equipment',
-        services: 'Construction Services',
-        about: 'About us',
-        blog: 'Blog',
-        careers: 'Careers',
-        customers: 'Customers',
+        documentation: 'Wellness Guides',
+        tools: 'Health Topics',
+        services: 'Programs & Care',
+        about: 'About Us',
+        blog: 'Blog & Articles',
+        careers: 'Join Our Team',
+        customers: 'Community Stories',
       },
       hiringBadge: "We're hiring!",
       stayUpToDate: 'Stay up to date',
       stayUpToDateContent:
-        'Stay updated with the latest tools and exclusive deals.',
-      craftedBy: 'Crafted by',
+        'Get weekly evidence-based health insights, nutrition guides, and expert episode alerts.',
+      craftedBy: 'Crafted for healthier communities',
       newsletterDemoMessage:
-        'Thanks! (Demo only — wire an email service to collect real subscribers.)',
+        'Thank you! You are now subscribed to HealthTalks updates.',
     },
     /** Text for the optional mega menu (`@data/mega_link`). */
     megaMenu: {
@@ -207,79 +207,79 @@ export const en = {
         'HealthTalks panel discussion and health insights presentation',
     },
     clients: {
-      title: 'Trusted by Industry Leaders',
-      subTitle: 'Experience the reliability chosen by industry giants.',
+      title: 'Trusted by Health & Wellness Leaders',
+      subTitle: 'Collaborating with clinics, medical professionals, and wellness organizations.',
     },
     featuresGeneral: {
-      title: 'Meeting Industry Demands',
+      title: 'Evidence-Based Wellness for Everyday Life',
       subTitle:
-        "At ScrewFast, we tackle the unique challenges encountered in the hardware and construction sectors. From cutting-edge tools to expert services, we're dedicated to helping you overcome obstacles and achieve your goals.",
-      imageAlt: 'ScrewFast products in floating boxes',
+        "At HealthTalks, we bridge clinical medical research with practical lifestyle solutions. From nutrition and mental resilience to preventive healthcare, our mission is to empower you to make informed decisions for your health and longevity.",
+      imageAlt: 'Community members engaging in an interactive HealthTalks wellness workshop',
     },
     featuresNavs: {
       title:
-        'Customize <span class="text-yellow-500 dark:text-yellow-400">ScrewFast</span>\'s offerings to perfectly suit your hardware and construction needs.',
+        'Explore <span class="text-dark-green font-bold">HealthTalks</span> core wellness pillars to support your everyday vitality.',
       tabs: {
         tools: {
-          heading: 'Cutting-Edge Tools',
+          heading: 'Clinical & Whole-Food Nutrition',
           content:
-            "Empower your projects with ScrewFast's cutting-edge tools. Experience enhanced efficiency in construction management with our sophisticated automated solutions.",
-          alt: 'Yellow and black heavy equipment on brown grass field',
+            "Discover science-backed meal planning, metabolic health advice, and personalized nutrition strategies shared by certified clinical dietitians and physicians.",
+          alt: 'Nutritious balanced meal with colorful vegetables and healthy proteins',
         },
         dashboard: {
-          heading: 'Intuitive Dashboards',
+          heading: 'Active Living & Cardiovascular Fitness',
           content:
-            "Navigate with ease using ScrewFast's intuitive dashboards. Set up and oversee your projects seamlessly, with user-friendly interfaces designed for quick and effective workflow management.",
-          alt: 'A screenshot or graphic representation of the intuitive dashboard',
+            "Build sustainable movement habits, functional fitness routines, and joint mobility practices designed for all ages to increase daily energy and long-term vitality.",
+          alt: 'Group of people jogging together in a park for healthy active living',
         },
         features: {
-          heading: 'Robust Features',
+          heading: 'Preventive Care & Health Screening',
           content:
-            "Minimize complexity, maximize productivity. ScrewFast's robust features are engineered to streamline your construction process, delivering results that stand out for their excellence.",
-          alt: 'Gray metal building frame near tower crane during daytime',
+            "Stay proactive with regular health screenings, immunization awareness, and early detection insights delivered by board-certified healthcare clinicians.",
+          alt: 'Healthcare provider administering preventive vaccine in a clinic',
         },
       },
     },
     testimonials: {
-      title: 'Fast-Track Your Projects',
+      title: 'Inspiring Healthier Lives Daily',
       subTitle:
-        'At ScrewFast, we ensure a swift start with instant account setup. Experience the speed of construction redefined.',
+        'Thousands of readers, patients, and health seekers trust HealthTalks for clear, reliable, and uplifting health education.',
       quotes: [
         {
           content:
-            'ScrewFast dramatically boosted our project efficiency. Setup was instant, and their rapid response times are phenomenal. Truly a game-changer in hardware and construction support!',
-          author: 'Samantha Ruiz',
-          role: 'Chief Operating Officer | ConstructIt Inc.',
+            'HealthTalks breaks down intimidating medical topics into clear, compassionate, and actionable steps. Their practical episodes on heart health and daily nutrition transformed the lifestyle of our entire clinic community!',
+          author: 'Dr. Amanda Chen, MD',
+          role: 'Family Medicine Physician & Community Health Advocate',
         },
       ],
       statistics: [
         {
-          count: '70k+',
+          count: '50k+',
           description:
-            'customers equipped – from DIY to major construction firms',
+            'monthly readers and listeners exploring our evidence-based health portal',
         },
         {
-          count: '35%',
+          count: '98%',
           description:
-            'uptick in project efficiency with ScrewFast tools and services',
+            'of listeners report adopting healthier daily habits within four weeks',
         },
         {
-          count: '15.3%',
+          count: '150+',
           description:
-            'reduction in maintenance costs reported by long-term clients',
+            'certified doctors, dietitians, and specialists featured across our sessions',
         },
         {
-          count: '2x',
-          description: 'quicker assembly using innovative fastening solutions',
+          count: '100%',
+          description: 'medically reviewed and fact-checked health articles',
         },
       ],
     },
     faqTitle: 'Frequently<br />asked questions',
     heroAlt: {
-      title: "Let's Build Together",
+      title: "Join the HealthTalks Community",
       subTitle:
-        'ScrewFast is an open-source template, meticulously crafted with Astro, Tailwind CSS, and Preline UI frameworks.',
-      btn: 'Continue with Github',
+        'Your trusted health portal and wellness publication — inspiring healthier communities through credible knowledge, expert advice, and open dialogue.',
+      btn: 'Explore Health Articles',
     },
   },
 

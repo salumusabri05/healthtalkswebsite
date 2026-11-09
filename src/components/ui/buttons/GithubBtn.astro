@@ -8,23 +8,20 @@ interface Props {
 }
 
 const baseClasses =
-  'group inline-flex items-center justify-center gap-x-3 rounded-lg px-4 py-3 text-center text-sm font-medium text-neutral-700 ring-zinc-500 focus-visible:ring-3 transition duration-300 outline-hidden';
-const borderClasses = 'border border-transparent';
-const bgColorClasses = 'bg-yellow-400 dark:focus:outline-hidden';
-const hoverClasses = 'hover:shadow-2xl hover:shadow-yellow-500';
+  'group inline-flex items-center justify-center gap-x-3 rounded-lg px-6 py-3.5 text-center text-sm font-semibold text-text shadow-sm transition duration-300 outline-hidden';
+const borderClasses = 'border border-border';
+const bgColorClasses = 'bg-primary hover:bg-primary-hover';
+const hoverClasses = 'hover:shadow-md';
 const fontSizeClasses = '2xl:text-base';
-const ringClasses = 'dark:ring-zinc-200';
 ---
 
 <a
-  class={`${baseClasses} ${borderClasses} ${bgColorClasses} ${hoverClasses} ${fontSizeClasses} ${ringClasses}`}
+  class={`${baseClasses} ${borderClasses} ${bgColorClasses} ${hoverClasses} ${fontSizeClasses}`}
   href={url}
-  target="_blank"
-  rel="noopener noreferrer"
 >
-  <Icon
-    name="github"
-    class="h-4.5 w-4.5 shrink-0 text-neutral-700 transition duration-300 group-hover:-translate-y-1"
-  />
   {title}
+  <Icon
+    name="arrowRight"
+    class="h-4 w-4 shrink-0 text-text transition duration-300 group-hover:translate-x-1"
+  />
 </a>

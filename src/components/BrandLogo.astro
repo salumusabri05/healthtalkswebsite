@@ -1,37 +1,22 @@
-<svg {...Astro.props} viewBox="0 0 260 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- Health / Conversation Pulse Icon -->
-  <g class="brand-icon">
-    <!-- Rounded conversation badge -->
-    <rect
-      x="4"
-      y="6"
-      width="48"
-      height="48"
-      rx="14"
-      fill="var(--primary-soft)"
-      stroke="var(--dark-green)"
-      stroke-width="2.5"
-    />
-    <!-- ECG / Heartbeat pulse line -->
-    <path
-      d="M12 30h7l4-9 6 18 5-12 4 5h8"
-      fill="none"
-      stroke="var(--dark-green)"
-      stroke-width="3"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    />
-  </g>
+---
+interface Props {
+  class?: string;
+  isInFooter?: boolean;
+}
 
-  <!-- HealthTalks Typography -->
-  <text
-    x="64"
-    y="39"
-    font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
-    font-size="28"
-    font-weight="800"
-    letter-spacing="-0.5"
-  >
-    <tspan fill="var(--text)">Health</tspan><tspan fill="var(--dark-green)">Talks</tspan>
-  </text>
-</svg>
+const { class: className = '', isInFooter = false } = Astro.props;
+---
+
+<div class={`inline-flex items-center gap-2.5 ${className}`}>
+  <img
+    src="/logo.jpg"
+    alt="HealthTalks Logo"
+    class="h-9 w-9 shrink-0 rounded-xl object-cover ring-1 ring-border/60 shadow-xs"
+    width="36"
+    height="36"
+    loading="eager"
+  />
+  <span class={`text-xl font-extrabold tracking-tight whitespace-nowrap ${isInFooter ? 'text-white' : 'text-text'}`}>
+    Health<span class={isInFooter ? 'text-primary' : 'text-dark-green'}>Talks</span>
+  </span>
+</div>

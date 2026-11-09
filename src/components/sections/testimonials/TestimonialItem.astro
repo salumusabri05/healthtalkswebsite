@@ -8,7 +8,7 @@ interface Props {
   content: string;
   author: string;
   role: string;
-  avatarSrc: string;
+  avatarSrc: any;
 }
 ---
 
@@ -28,11 +28,12 @@ interface Props {
     <div class="flex items-center">
       <div class="shrink-0">
         <Image
-          class="h-8 w-8 rounded-full"
+          class="h-8 w-8 rounded-full object-cover"
           src={avatarSrc}
           alt={`${author} photo`}
           loading="lazy"
-          inferSize
+          width={64}
+          height={64}
         />
       </div>
       <div class="ms-4 grow">
