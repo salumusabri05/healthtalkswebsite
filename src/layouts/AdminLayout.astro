@@ -1,0 +1,205 @@
+---
+import '@styles/global.css';
+
+interface Props {
+  title: string;
+  activeNav?: 'dashboard' | 'articles' | 'categories' | 'announcements' | 'messages';
+}
+
+const { title, activeNav = 'dashboard' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="sw" class="h-full bg-bg">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title} | HealthTalks CMS Admin</title>
+    <link rel="icon" type="image/jpeg" href="/logo.jpg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script is:inline>
+      // Auth guard
+      if (!localStorage.getItem('healthtalks_admin_session')) {
+        window.location.href = '/admin/login';
+      }
+    </script>
+  </head>
+  <body class="flex h-full flex-col font-sans text-text antialiased">
+    {/* Admin Top Navigation Bar */}
+    <header class="sticky top-0 z-40 border-b border-border bg-white shadow-2xs">
+      <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center gap-4">
+          <a href="/admin" class="flex items-center gap-2.5">
+            <img src="/logo.jpg" alt="HealthTalks Logo" class="size-8 rounded-full object-cover border border-border" />
+            <span class="text-lg font-extrabold tracking-tight text-dark-green">HealthTalks</span>
+          </a>
+          <span class="rounded-full bg-primary-soft px-2.5 py-0.5 text-xs font-bold text-dark-green border border-border">
+            CMS Admin
+          </span>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <a
+            href="/"
+            target="_blank"
+            class="inline-flex items-center gap-1.5 rounded-lg border border-border bg-white px-3 py-1.5 text-xs font-bold text-text transition hover:bg-primary-soft hover:text-dark-green"
+          >
+            <svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+              <polyline points="15 3 21 3 21 9" />
+              <line x1="10" y1="14" x2="21" y2="3" />
+            </svg>
+            Tazama Tovuti (View Site)
+          </a>
+
+          <div class="flex items-center gap-2 border-s border-border ps-3">
+            <div class="size-8 rounded-full bg-dark-green text-white flex items-center justify-center font-bold text-xs">
+              HT
+            </div>
+            <span class="text-xs font-bold text-text hidden sm:inline" id="admin-user-display">Msimamizi</span>
+            <button
+              type="button"
+              id="admin-logout-btn"
+              title="Toka kwenye CMS (Sign Out)"
+              class="ms-1 rounded-lg border border-border p-1.5 text-text-muted hover:bg-red-50 hover:text-red-600 hover:border-red-200 transition cursor-pointer"
+            >
+              <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                <polyline points="16 17 21 12 16 7" />
+                <line x1="21" y1="12" x2="9" y2="12" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    {/* Admin Shell */}
+    <div class="mx-auto flex w-full max-w-7xl flex-1 px-4 py-6 sm:px-6 lg:px-8">
+      {/* Sidebar Navigation */}
+      <aside class="hidden w-64 shrink-0 lg:block pe-6">
+        <nav class="space-y-1">
+          <a
+            href="/admin"
+            class={`flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-bold transition ${
+              activeNav === 'dashboard'
+                ? 'bg-primary-soft text-dark-green border border-border'
+                : 'text-text-muted hover:bg-white hover:text-dark-green'
+            }`}
+          >
+            <svg class="size-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect width="7" height="9" x="3" y="3" rx="1" />
+              <rect width="7" height="5" x="14" y="3" rx="1" />
+              <rect width="7" height="9" x="14" y="12" rx="1" />
+              <rect width="7" height="5" x="3" y="16" rx="1" />
+            </svg>
+            Dashibodi (Dashboard)
+          </a>
+
+          <a
+            href="/admin/articles"
+            class={`flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-bold transition ${
+              activeNav === 'articles'
+                ? 'bg-primary-soft text-dark-green border border-border'
+                : 'text-text-muted hover:bg-white hover:text-dark-green'
+            }`}
+          >
+            <svg class="size-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z" />
+              <path d="M6 6h10" />
+              <path d="M6 10h10" />
+            </svg>
+            Makala za Afya (Articles)
+          </a>
+
+          <a
+            href="/admin/articles/new"
+            class="flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-bold text-dark-green hover:bg-primary-soft transition"
+          >
+            <svg class="size-5 shrink-0 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="12" y1="8" x2="12" y2="16" />
+              <line x1="8" y1="12" x2="16" y2="12" />
+            </svg>
+            Andika Makala Mpya (New)
+          </a>
+
+          <a
+            href="/admin/categories"
+            class={`flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-bold transition ${
+              activeNav === 'categories'
+                ? 'bg-primary-soft text-dark-green border border-border'
+                : 'text-text-muted hover:bg-white hover:text-dark-green'
+            }`}
+          >
+            <svg class="size-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
+            </svg>
+            Mada & Makundi (Categories)
+          </a>
+
+          <a
+            href="/admin/announcements"
+            class={`flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-bold transition ${
+              activeNav === 'announcements'
+                ? 'bg-primary-soft text-dark-green border border-border'
+                : 'text-text-muted hover:bg-white hover:text-dark-green'
+            }`}
+          >
+            <svg class="size-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="m3 11 18-5v12L3 14v-3z" />
+              <path d="M11.6 16.8a3 3 0 1 1-5.8-1.6" />
+            </svg>
+            Matangazo (Announcements)
+          </a>
+
+          <a
+            href="/admin/messages"
+            class={`flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-bold transition ${
+              activeNav === 'messages'
+                ? 'bg-primary-soft text-dark-green border border-border'
+                : 'text-text-muted hover:bg-white hover:text-dark-green'
+            }`}
+          >
+            <svg class="size-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+            </svg>
+            Ujumbe & Maswali (Messages)
+          </a>
+        </nav>
+      </aside>
+
+      {/* Main Content Area */}
+      <main class="flex-1 overflow-y-auto">
+        <slot />
+      </main>
+    </div>
+
+    <script is:inline>
+      try {
+        const sessionStr = localStorage.getItem('healthtalks_admin_session');
+        if (sessionStr) {
+          const session = JSON.parse(sessionStr);
+          const displayEl = document.getElementById('admin-user-display');
+          if (displayEl && session?.user?.email) {
+            displayEl.textContent = session.user.email.split('@')[0];
+          }
+        }
+      } catch (e) {
+        console.error(e);
+      }
+
+      document.getElementById('admin-logout-btn')?.addEventListener('click', () => {
+        if (confirm('Una uhakika unataka kutoka (Log out)?')) {
+          localStorage.removeItem('healthtalks_admin_session');
+          window.location.href = '/admin/login';
+        }
+      });
+    </script>
+  </body>
+</html>

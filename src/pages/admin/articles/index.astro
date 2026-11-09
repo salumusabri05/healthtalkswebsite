@@ -1,0 +1,223 @@
+---
+import AdminLayout from '@/layouts/AdminLayout.astro';
+import { getArticles } from '@/utils/supabase';
+
+const articles = await getArticles();
+const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL || 'https://rgbnwbeyrjxmgmamwdgd.supabase.co';
+const supabaseKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY || import.meta.env.SUPABASE_SERVICE_ROLE_KEY || '';
+---
+
+<AdminLayout title="Makala Zote za Afya" activeNav="articles">
+  <div class="space-y-6">
+    <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <div>
+        <h1 class="text-2xl font-extrabold tracking-tight text-dark-green sm:text-3xl">
+          Makala za Afya (Articles & Stories)
+        </h1>
+        <p class="mt-1 text-sm text-text-muted">
+          Pitia, hariri, na chapisha makala na rasimu zilizopo kwenye hifadhidata ya Supabase.
+        </p>
+      </div>
+
+      <a
+        href="/admin/articles/new"
+        class="inline-flex items-center gap-2 rounded-xl bg-dark-green px-4 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-accent cursor-pointer"
+      >
+        <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <line x1="12" y1="5" x2="12" y2="19" />
+          <line x1="5" y1="12" x2="19" y2="12" />
+        </svg>
+        Andika Makala Mpya
+      </a>
+    </div>
+
+    {/* Articles List Table */}
+    <div class="rounded-2xl border border-border bg-white shadow-2xs overflow-hidden">
+      {/* Filter Tabs */}
+      <div class="p-4 border-b border-border bg-bg flex flex-wrap items-center justify-between gap-4">
+        <div class="flex items-center gap-2" id="filter-tabs">
+          <button
+            type="button"
+            data-filter="all"
+            class="filter-tab active rounded-lg bg-dark-green px-3 py-1.5 text-xs font-bold text-white transition cursor-pointer"
+          >
+            Zote ({articles.length})
+          </button>
+          <button
+            type="button"
+            data-filter="published"
+            class="filter-tab rounded-lg bg-white border border-border px-3 py-1.5 text-xs font-bold text-text-muted hover:text-dark-green hover:bg-primary-soft transition cursor-pointer"
+          >
+            Zilizochapishwa ({articles.filter(a => a.status === 'published').length})
+          </button>
+          <button
+            type="button"
+            data-filter="draft"
+            class="filter-tab rounded-lg bg-white border border-border px-3 py-1.5 text-xs font-bold text-text-muted hover:text-dark-green hover:bg-primary-soft transition cursor-pointer"
+          >
+            Rasimu (Drafts) ({articles.filter(a => a.status === 'draft').length})
+          </button>
+        </div>
+
+        <span class="text-xs font-bold text-text-muted uppercase tracking-wider">
+          Jumla: {articles.length} Makala
+        </span>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-start text-sm" id="articles-table">
+          <thead class="bg-white text-xs font-bold uppercase tracking-wider text-text-muted border-b border-border">
+            <tr>
+              <th class="px-6 py-3.5 text-start">Makala (Article)</th>
+              <th class="px-6 py-3.5 text-start">Kundi (Category)</th>
+              <th class="px-6 py-3.5 text-start">Mwandishi</th>
+              <th class="px-6 py-3.5 text-start">Hali (Status)</th>
+              <th class="px-6 py-3.5 text-start">Tarehe</th>
+              <th class="px-6 py-3.5 text-end">Vitendo</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-border">
+            {articles.map(article => (
+              <tr class="article-row hover:bg-primary-soft/20 transition" data-id={article.id} data-status={article.status}>
+                <td class="px-6 py-4">
+                  <div class="flex items-center gap-3">
+                    {article.featured_image ? (
+                      <img
+                        src={article.featured_image}
+                        alt={article.title}
+                        class="size-10 rounded-lg object-cover border border-border shrink-0"
+                      />
+                    ) : (
+                      <div class="size-10 rounded-lg bg-primary-soft text-dark-green flex items-center justify-center font-bold text-xs shrink-0">
+                        HT
+                      </div>
+                    )}
+                    <div>
+                      <div class="flex items-center gap-2">
+                        {article.is_featured && (
+                          <span class="rounded bg-accent/20 px-1.5 py-0.5 text-[10px] font-bold text-dark-green">
+                            Featured
+                          </span>
+                        )}
+                        {article.medically_reviewed && (
+                          <span class="rounded bg-emerald-100 px-1.5 py-0.5 text-[10px] font-bold text-emerald-800">
+                            ✓ Verified
+                          </span>
+                        )}
+                        <a
+                          href={`/admin/articles/${article.id}`}
+                          class="font-bold text-text line-clamp-1 hover:text-dark-green transition"
+                        >
+                          {article.title || '(Bila Jina)'}
+                        </a>
+                      </div>
+                      <span class="text-xs text-text-muted">/{article.slug}</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="px-6 py-4 text-xs font-semibold">
+                  <span class="rounded-md bg-primary-soft px-2.5 py-1 text-dark-green border border-border/60">
+                    {article.categories?.name || 'Afya'}
+                  </span>
+                </td>
+                <td class="px-6 py-4 text-xs font-medium text-text-muted">
+                  {article.author_name || 'Admin'}
+                </td>
+                <td class="px-6 py-4">
+                  <span
+                    class={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-bold ${
+                      article.status === 'published'
+                        ? 'bg-emerald-100 text-emerald-800'
+                        : 'bg-amber-100 text-amber-800'
+                    }`}
+                  >
+                    <span class={`size-1.5 rounded-full ${article.status === 'published' ? 'bg-emerald-600' : 'bg-amber-600'}`}></span>
+                    {article.status === 'published' ? 'Imechapishwa' : 'Rasimu'}
+                  </span>
+                </td>
+                <td class="px-6 py-4 text-xs text-text-muted">
+                  {new Date(article.created_at).toLocaleDateString('sw-TZ')}
+                </td>
+                <td class="px-6 py-4 text-end">
+                  <div class="flex items-center justify-end gap-2">
+                    <a
+                      href={`/admin/articles/${article.id}`}
+                      class="rounded-lg border border-border bg-white px-2.5 py-1.5 text-xs font-bold text-dark-green hover:bg-primary-soft transition"
+                    >
+                      {article.status === 'draft' ? 'Endelea Kuandika' : 'Hariri'}
+                    </a>
+                    <button
+                      type="button"
+                      class="delete-btn rounded-lg border border-red-200 bg-white px-2.5 py-1.5 text-xs font-bold text-red-600 hover:bg-red-50 transition cursor-pointer"
+                      data-id={article.id}
+                      data-title={article.title}
+                    >
+                      Futa
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script define:vars={{ supabaseUrl, supabaseKey }}>
+    // Filter tabs functionality
+    const tabs = document.querySelectorAll('.filter-tab');
+    const rows = document.querySelectorAll('.article-row');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => {
+          t.classList.remove('bg-dark-green', 'text-white');
+          t.classList.add('bg-white', 'text-text-muted');
+        });
+        tab.classList.remove('bg-white', 'text-text-muted');
+        tab.classList.add('bg-dark-green', 'text-white');
+
+        const filter = tab.getAttribute('data-filter');
+        rows.forEach(row => {
+          const status = row.getAttribute('data-status');
+          if (filter === 'all' || status === filter) {
+            row.style.display = '';
+          } else {
+            row.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // Delete handling via Supabase REST API directly from browser
+    document.querySelectorAll('.delete-btn').forEach(btn => {
+      btn.addEventListener('click', async (e) => {
+        const id = btn.getAttribute('data-id');
+        const title = btn.getAttribute('data-title');
+        if (!confirm(`Je, una uhakika unataka kufuta makala "${title}"?`)) {
+          return;
+        }
+
+        try {
+          const res = await fetch(`${supabaseUrl}/rest/v1/articles?id=eq.${id}`, {
+            method: 'DELETE',
+            headers: {
+              'apikey': supabaseKey,
+              'Authorization': `Bearer ${supabaseKey}`,
+            },
+          });
+
+          if (res.ok) {
+            document.querySelector(`tr[data-id="${id}"]`)?.remove();
+          } else {
+            alert('Haikuweza kufuta makala.');
+          }
+        } catch (err) {
+          console.error(err);
+          alert('Hitilafu ya mtandao.');
+        }
+      });
+    });
+  </script>
+</AdminLayout>

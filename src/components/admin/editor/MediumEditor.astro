@@ -1,0 +1,775 @@
+---
+import type { Article } from '@/utils/supabase';
+
+interface Props {
+  initialArticle?: Article | null;
+  supabaseUrl: string;
+  supabaseKey: string;
+}
+
+const { initialArticle = null, supabaseUrl, supabaseKey } = Astro.props;
+---
+
+<div
+  id="editor-root"
+  data-initial-article={initialArticle ? JSON.stringify(initialArticle) : ''}
+  data-supabase-url={supabaseUrl}
+  data-supabase-key={supabaseKey}
+  class="relative mx-auto w-full max-w-[680px] px-4 py-8 sm:py-16 selection:bg-primary-soft selection:text-dark-green"
+>
+  {/* Article Title */}
+  <textarea
+    id="editor-title"
+    rows="1"
+    placeholder="Title"
+    class="w-full resize-none border-0 bg-transparent p-0 text-3xl sm:text-[42px] font-extrabold leading-[1.18] tracking-tight text-dark-green placeholder:text-border focus:outline-none focus:ring-0"
+  >{initialArticle?.title || ''}</textarea>
+
+  {/* Optional Subtitle / Story Excerpt */}
+  <textarea
+    id="editor-subtitle"
+    rows="1"
+    placeholder="Tell your story..."
+    class="mt-3 w-full resize-none border-0 bg-transparent p-0 text-lg sm:text-[22px] font-normal leading-relaxed text-text-muted placeholder:text-border/70 focus:outline-none focus:ring-0"
+  >{initialArticle?.excerpt || ''}</textarea>
+
+  {/* Floating Quick Action "+" Button */}
+  <div id="plus-btn-container" class="relative my-4 flex items-center">
+    <button
+      type="button"
+      id="plus-action-btn"
+      class="flex size-9 items-center justify-center rounded-full border border-border bg-white text-text-muted shadow-2xs transition hover:border-dark-green hover:text-dark-green cursor-pointer"
+      title="Ongeza picha, kigawanyishi, au nukuu (Add block)"
+    >
+      <svg id="plus-icon" class="size-4.5 transition-transform duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <line x1="12" y1="5" x2="12" y2="19" />
+        <line x1="5" y1="12" x2="19" y2="12" />
+      </svg>
+    </button>
+
+    {/* Expanded Action Menu */}
+    <div id="plus-menu" class="hidden ms-3 flex items-center gap-1.5 rounded-full border border-border bg-white p-1 shadow-md">
+      <button
+        type="button"
+        id="btn-add-image"
+        class="flex size-8 items-center justify-center rounded-full text-text-muted hover:bg-primary-soft hover:text-dark-green transition cursor-pointer"
+        title="Weka Picha (Image URL)"
+      >
+        <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect width="18" height="18" x="3" y="3" rx="2" />
+          <circle cx="9" cy="9" r="2" />
+          <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
+        </svg>
+      </button>
+
+      <button
+        type="button"
+        id="btn-add-divider"
+        class="flex size-8 items-center justify-center rounded-full text-text-muted hover:bg-primary-soft hover:text-dark-green transition cursor-pointer"
+        title="Kigawanyishi (Divider)"
+      >
+        <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="5" y1="12" x2="19" y2="12" />
+        </svg>
+      </button>
+
+      <button
+        type="button"
+        id="btn-add-code"
+        class="flex size-8 items-center justify-center rounded-full text-text-muted hover:bg-primary-soft hover:text-dark-green transition cursor-pointer"
+        title="Code Block"
+      >
+        <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="16 18 22 12 16 6" />
+          <polyline points="8 6 2 12 8 18" />
+        </svg>
+      </button>
+
+      <button
+        type="button"
+        id="btn-add-quote"
+        class="flex size-8 items-center justify-center rounded-full text-text-muted hover:bg-primary-soft hover:text-dark-green transition cursor-pointer"
+        title="Nukuu (Blockquote)"
+      >
+        <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z" />
+          <path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  {/* Floating Medium Selection Bubble Toolbar */}
+  <div
+    id="bubble-toolbar"
+    class="hidden absolute z-50 flex items-center gap-1 rounded-full border border-dark-green/20 bg-dark-green px-2.5 py-1.5 shadow-xl text-white transition-opacity duration-150"
+  >
+    <button
+      type="button"
+      id="tb-bold"
+      class="flex size-7 items-center justify-center rounded-full font-bold text-xs hover:bg-white/20 transition cursor-pointer"
+      title="Bold (Cmd/Ctrl+B)"
+    >
+      B
+    </button>
+
+    <button
+      type="button"
+      id="tb-italic"
+      class="flex size-7 items-center justify-center rounded-full italic font-serif text-sm hover:bg-white/20 transition cursor-pointer"
+      title="Italic (Cmd/Ctrl+I)"
+    >
+      i
+    </button>
+
+    <button
+      type="button"
+      id="tb-link"
+      class="flex size-7 items-center justify-center rounded-full text-xs hover:bg-white/20 transition cursor-pointer"
+      title="Kiungo (Cmd/Ctrl+K)"
+    >
+      🔗
+    </button>
+
+    <span class="h-4 w-px bg-white/20 mx-0.5"></span>
+
+    <button
+      type="button"
+      id="tb-h2"
+      class="flex size-7 items-center justify-center rounded-full font-bold text-xs hover:bg-white/20 transition cursor-pointer"
+      title="Heading Kubwa (H2)"
+    >
+      H
+    </button>
+
+    <button
+      type="button"
+      id="tb-h3"
+      class="flex size-7 items-center justify-center rounded-full font-bold text-xs hover:bg-white/20 transition cursor-pointer"
+      title="Subheading Ndogo (H3)"
+    >
+      h
+    </button>
+
+    <button
+      type="button"
+      id="tb-blockquote"
+      class="flex size-7 items-center justify-center rounded-full text-xs hover:bg-white/20 transition cursor-pointer"
+      title="Nukuu (Quote)"
+    >
+      ”
+    </button>
+  </div>
+
+  {/* Main TipTap Editor Canvas */}
+  <div
+    id="tiptap-editor"
+    class="medium-prose mt-4 min-h-[500px] text-[21px] leading-[1.58] text-text focus:outline-none"
+  ></div>
+</div>
+
+<style is:global>
+  /* TipTap Medium Editor Typography */
+  .medium-prose {
+    font-family: 'Source Serif 4', Charter, Georgia, 'Times New Roman', serif;
+  }
+
+  .medium-prose .tiptap {
+    outline: none !important;
+  }
+
+  .medium-prose .tiptap p {
+    margin-bottom: 1.5rem;
+  }
+
+  .medium-prose .tiptap h2 {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-weight: 800;
+    font-size: 1.85rem;
+    line-height: 1.25;
+    color: #2E7D1F;
+    margin-top: 2.75rem;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.02em;
+  }
+
+  .medium-prose .tiptap h3 {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-weight: 700;
+    font-size: 1.4rem;
+    line-height: 1.3;
+    color: #2E7D1F;
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.01em;
+  }
+
+  .medium-prose .tiptap blockquote {
+    border-left: 4px solid #2E7D1F;
+    padding-left: 1.25rem;
+    font-style: italic;
+    color: #5B6B57;
+    font-size: 1.35rem;
+    line-height: 1.6;
+    margin: 2rem 0;
+  }
+
+  .medium-prose .tiptap ul {
+    list-style-type: disc;
+    padding-left: 1.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .medium-prose .tiptap ol {
+    list-style-type: decimal;
+    padding-left: 1.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .medium-prose .tiptap pre {
+    background-color: #F4FAEE;
+    border: 1px solid #D5E8C8;
+    border-radius: 1rem;
+    padding: 1.25rem;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.9rem;
+    overflow-x: auto;
+    margin: 1.75rem 0;
+  }
+
+  .medium-prose .tiptap code:not(pre code) {
+    background-color: #F4FAEE;
+    border: 1px solid #D5E8C8;
+    border-radius: 0.375rem;
+    padding: 0.15rem 0.4rem;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.85em;
+    color: #2E7D1F;
+  }
+
+  .medium-prose .tiptap hr {
+    border: none;
+    border-top: 2px solid #D5E8C8;
+    margin: 2.75rem 0;
+  }
+
+  .medium-prose .tiptap img {
+    border-radius: 1rem;
+    border: 1px solid rgba(213, 232, 200, 0.6);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    margin: 2rem 0;
+    width: 100%;
+    display: block;
+  }
+
+  .medium-prose .tiptap a {
+    color: #4CAF2A;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .medium-prose .tiptap p.is-editor-empty:first-child::before {
+    color: #D5E8C8;
+    content: 'Tell your story...';
+    float: left;
+    height: 0;
+    pointer-events: none;
+  }
+</style>
+
+<script>
+  import { Editor } from '@tiptap/core';
+  import StarterKit from '@tiptap/starter-kit';
+  import BubbleMenu from '@tiptap/extension-bubble-menu';
+  import Placeholder from '@tiptap/extension-placeholder';
+  import Link from '@tiptap/extension-link';
+  import Image from '@tiptap/extension-image';
+
+  // Read config from DOM root
+  const rootEl = document.getElementById('editor-root');
+  const rawArticle = rootEl?.dataset.initialArticle;
+  const initialArticle = rawArticle ? JSON.parse(rawArticle) : null;
+  const supabaseUrl = rootEl?.dataset.supabaseUrl || '';
+  const supabaseKey = rootEl?.dataset.supabaseKey || '';
+
+  // Auto-resize textareas
+  const titleEl = document.getElementById('editor-title') as HTMLTextAreaElement | null;
+  const subtitleEl = document.getElementById('editor-subtitle') as HTMLTextAreaElement | null;
+
+  function autoResize(textarea: HTMLTextAreaElement | null) {
+    if (!textarea) return;
+    textarea.style.height = 'auto';
+    textarea.style.height = textarea.scrollHeight + 'px';
+  }
+
+  autoResize(titleEl);
+  autoResize(subtitleEl);
+
+  titleEl?.addEventListener('input', () => autoResize(titleEl));
+  subtitleEl?.addEventListener('input', () => autoResize(subtitleEl));
+
+  // Pressing Enter in title jumps to subtitle / body
+  titleEl?.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      subtitleEl?.focus();
+    }
+  });
+
+  subtitleEl?.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      editor?.commands.focus();
+    }
+  });
+
+  // Setup TipTap Editor
+  const bubbleMenuEl = document.getElementById('bubble-toolbar') as HTMLElement | null;
+  const editorEl = document.getElementById('tiptap-editor');
+
+  const editor = new Editor({
+    element: editorEl || undefined,
+    extensions: [
+      StarterKit.configure({
+        heading: { levels: [2, 3] },
+        codeBlock: {},
+      }),
+      Placeholder.configure({
+        placeholder: 'Tell your story...',
+      }),
+      Link.configure({
+        openOnClick: false,
+      }),
+      Image.configure({
+        inline: false,
+        allowBase64: true,
+      }),
+      ...(bubbleMenuEl
+        ? [
+            BubbleMenu.configure({
+              element: bubbleMenuEl,
+            }),
+          ]
+        : []),
+    ],
+    content: initialArticle?.content || '',
+    onUpdate() {
+      scheduleAutosave();
+    },
+    onSelectionUpdate() {
+      updateActiveToolbarButtons();
+    },
+  });
+
+  // Update active state on floating bubble menu buttons
+  function updateActiveToolbarButtons() {
+    const boldBtn = document.getElementById('tb-bold');
+    const italicBtn = document.getElementById('tb-italic');
+    const h2Btn = document.getElementById('tb-h2');
+    const h3Btn = document.getElementById('tb-h3');
+    const quoteBtn = document.getElementById('tb-blockquote');
+
+    if (boldBtn) {
+      boldBtn.classList.toggle('bg-white/30', editor.isActive('bold'));
+    }
+    if (italicBtn) {
+      italicBtn.classList.toggle('bg-white/30', editor.isActive('italic'));
+    }
+    if (h2Btn) {
+      h2Btn.classList.toggle('bg-white/30', editor.isActive('heading', { level: 2 }));
+    }
+    if (h3Btn) {
+      h3Btn.classList.toggle('bg-white/30', editor.isActive('heading', { level: 3 }));
+    }
+    if (quoteBtn) {
+      quoteBtn.classList.toggle('bg-white/30', editor.isActive('blockquote'));
+    }
+  }
+
+  // Bubble Toolbar actions
+  document.getElementById('tb-bold')?.addEventListener('click', () => {
+    editor.chain().focus().toggleBold().run();
+  });
+  document.getElementById('tb-italic')?.addEventListener('click', () => {
+    editor.chain().focus().toggleItalic().run();
+  });
+  document.getElementById('tb-h2')?.addEventListener('click', () => {
+    editor.chain().focus().toggleHeading({ level: 2 }).run();
+  });
+  document.getElementById('tb-h3')?.addEventListener('click', () => {
+    editor.chain().focus().toggleHeading({ level: 3 }).run();
+  });
+  document.getElementById('tb-blockquote')?.addEventListener('click', () => {
+    editor.chain().focus().toggleBlockquote().run();
+  });
+  document.getElementById('tb-link')?.addEventListener('click', () => {
+    const currentLink = editor.getAttributes('link').href;
+    const url = prompt('Weka kiungo (URL):', currentLink || 'https://');
+    if (url) {
+      editor.chain().focus().setLink({ href: url }).run();
+    } else if (url === '') {
+      editor.chain().focus().unsetLink().run();
+    }
+  });
+
+  // Keyboard shortcut for Link (Cmd/Ctrl + K)
+  window.addEventListener('keydown', (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+      if (editor.isFocused) {
+        e.preventDefault();
+        const currentLink = editor.getAttributes('link').href;
+        const url = prompt('Weka kiungo (URL):', currentLink || 'https://');
+        if (url) {
+          editor.chain().focus().setLink({ href: url }).run();
+        }
+      }
+    }
+  });
+
+  // Plus button toggle menu
+  const plusBtn = document.getElementById('plus-action-btn');
+  const plusMenu = document.getElementById('plus-menu');
+  const plusIcon = document.getElementById('plus-icon');
+
+  plusBtn?.addEventListener('click', () => {
+    const isHidden = plusMenu?.classList.contains('hidden');
+    if (isHidden) {
+      plusMenu?.classList.remove('hidden');
+      plusIcon?.classList.add('rotate-45');
+    } else {
+      plusMenu?.classList.add('hidden');
+      plusIcon?.classList.remove('rotate-45');
+    }
+  });
+
+  document.getElementById('btn-add-image')?.addEventListener('click', () => {
+    const url = prompt('Weka anwani ya picha (Image URL):');
+    if (url) {
+      editor.chain().focus().setImage({ src: url }).run();
+      plusMenu?.classList.add('hidden');
+      plusIcon?.classList.remove('rotate-45');
+    }
+  });
+
+  document.getElementById('btn-add-divider')?.addEventListener('click', () => {
+    editor.chain().focus().setHorizontalRule().run();
+    plusMenu?.classList.add('hidden');
+    plusIcon?.classList.remove('rotate-45');
+  });
+
+  document.getElementById('btn-add-code')?.addEventListener('click', () => {
+    editor.chain().focus().toggleCodeBlock().run();
+    plusMenu?.classList.add('hidden');
+    plusIcon?.classList.remove('rotate-45');
+  });
+
+  document.getElementById('btn-add-quote')?.addEventListener('click', () => {
+    editor.chain().focus().toggleBlockquote().run();
+    plusMenu?.classList.add('hidden');
+    plusIcon?.classList.remove('rotate-45');
+  });
+
+  // Paste & Drag-and-drop Image Support
+  function insertImageFile(file: File) {
+    if (!file.type.startsWith('image/')) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const result = e.target?.result as string;
+      if (result) {
+        editor.chain().focus().setImage({ src: result }).run();
+      }
+    };
+    reader.readAsDataURL(file);
+  }
+
+  editorEl?.addEventListener('paste', (e: ClipboardEvent) => {
+    const files = e.clipboardData?.files;
+    if (files && files.length > 0) {
+      for (let i = 0; i < files.length; i++) {
+        if (files[i].type.startsWith('image/')) {
+          e.preventDefault();
+          insertImageFile(files[i]);
+          return;
+        }
+      }
+    }
+  });
+
+  editorEl?.addEventListener('drop', (e: DragEvent) => {
+    const files = e.dataTransfer?.files;
+    if (files && files.length > 0) {
+      for (let i = 0; i < files.length; i++) {
+        if (files[i].type.startsWith('image/')) {
+          e.preventDefault();
+          insertImageFile(files[i]);
+          return;
+        }
+      }
+    }
+  });
+
+  // Autosave Logic (Debounced ~1.5s)
+  let autosaveTimeout: any = null;
+  let currentArticleId = initialArticle?.id || null;
+  const saveStatusText = document.getElementById('save-status-text');
+  const saveStatusIndicator = document.querySelector('#save-status span') as HTMLElement | null;
+
+  function setStatusSaving() {
+    if (saveStatusText) saveStatusText.textContent = 'Saving...';
+    if (saveStatusIndicator) {
+      saveStatusIndicator.className = 'size-2 rounded-full bg-amber-400 animate-pulse';
+    }
+  }
+
+  function setStatusSaved() {
+    if (saveStatusText) saveStatusText.textContent = 'Draft saved';
+    if (saveStatusIndicator) {
+      saveStatusIndicator.className = 'size-2 rounded-full bg-emerald-500';
+    }
+  }
+
+  function setStatusError() {
+    if (saveStatusText) saveStatusText.textContent = 'Haikuhifadhiwa';
+    if (saveStatusIndicator) {
+      saveStatusIndicator.className = 'size-2 rounded-full bg-red-500';
+    }
+  }
+
+  function scheduleAutosave() {
+    setStatusSaving();
+    if (autosaveTimeout) clearTimeout(autosaveTimeout);
+
+    autosaveTimeout = setTimeout(async () => {
+      const title = titleEl?.value.trim() || '';
+      const excerpt = subtitleEl?.value.trim() || '';
+      const content = editor.getHTML();
+
+      if (!title) {
+        if (saveStatusText) saveStatusText.textContent = 'Rasimu (Weka Kichwa)';
+        if (saveStatusIndicator) saveStatusIndicator.className = 'size-2 rounded-full bg-border';
+        return;
+      }
+
+      const slug = title
+        .toLowerCase()
+        .trim()
+        .replace(/[^\w\s-]/g, '')
+        .replace(/[\s_-]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+
+      const payload = {
+        title,
+        slug,
+        excerpt,
+        content,
+        status: initialArticle?.status || 'draft',
+        updated_at: new Date().toISOString(),
+      };
+
+      try {
+        if (currentArticleId) {
+          // Update existing draft
+          await fetch(`${supabaseUrl}/rest/v1/articles?id=eq.${currentArticleId}`, {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json',
+              'apikey': supabaseKey,
+              'Authorization': `Bearer ${supabaseKey}`,
+            },
+            body: JSON.stringify(payload),
+          });
+        } else {
+          // Insert new draft
+          const res = await fetch(`${supabaseUrl}/rest/v1/articles`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'apikey': supabaseKey,
+              'Authorization': `Bearer ${supabaseKey}`,
+              'Prefer': 'return=representation',
+            },
+            body: JSON.stringify({
+              ...payload,
+              author_name: 'Dkt. Sarah Mwangi',
+            }),
+          });
+          if (res.ok) {
+            const created = await res.json();
+            if (created && created[0]) {
+              currentArticleId = created[0].id;
+              window.history.replaceState(null, '', `/admin/articles/${currentArticleId}`);
+            }
+          }
+        }
+        setStatusSaved();
+      } catch (err) {
+        console.error('Autosave error:', err);
+        setStatusError();
+      }
+    }, 1500);
+  }
+
+  titleEl?.addEventListener('input', scheduleAutosave);
+  subtitleEl?.addEventListener('input', scheduleAutosave);
+
+  // Publish Modal Interactions
+  const publishModal = document.getElementById('publish-modal');
+  const openModalBtn = document.getElementById('open-publish-modal-btn');
+  const closeModalBtn = document.getElementById('close-publish-modal-btn');
+  const saveDraftBtn = document.getElementById('save-draft-btn');
+  const publishNowBtn = document.getElementById('publish-now-btn') as HTMLButtonElement | null;
+
+  // Preview elements
+  const previewTitle = document.getElementById('preview-title');
+  const previewSubtitle = document.getElementById('preview-subtitle');
+  const previewImageEl = document.getElementById('preview-image-el') as HTMLImageElement | null;
+  const previewPlaceholder = document.getElementById('preview-image-placeholder');
+  const publishCategorySelect = document.getElementById('publish-category') as HTMLSelectElement | null;
+  const previewCategoryBadge = document.getElementById('preview-category-badge');
+  const publishImageUrlInput = document.getElementById('publish-image-url') as HTMLInputElement | null;
+  const publishSlugInput = document.getElementById('publish-slug') as HTMLInputElement | null;
+  const publishAuthorInput = document.getElementById('publish-author') as HTMLInputElement | null;
+  const publishTagsInput = document.getElementById('publish-tags') as HTMLInputElement | null;
+  const publishReviewedInput = document.getElementById('publish-reviewed') as HTMLInputElement | null;
+  const publishFeaturedInput = document.getElementById('publish-featured') as HTMLInputElement | null;
+
+  openModalBtn?.addEventListener('click', () => {
+    const title = titleEl?.value.trim() || 'Bila Jina';
+    const excerpt = subtitleEl?.value.trim() || 'Muhtasari wa makala utaonekana hapa...';
+    if (previewTitle) previewTitle.textContent = title;
+    if (previewSubtitle) previewSubtitle.textContent = excerpt;
+
+    const autoSlug = title
+      .toLowerCase()
+      .trim()
+      .replace(/[^\w\s-]/g, '')
+      .replace(/[\s_-]+/g, '-')
+      .replace(/^-+|-+$/g, '');
+
+    if (publishSlugInput && !publishSlugInput.value) {
+      publishSlugInput.value = initialArticle?.slug || autoSlug;
+    }
+
+    if (initialArticle?.featured_image && publishImageUrlInput && previewImageEl && previewPlaceholder) {
+      publishImageUrlInput.value = initialArticle.featured_image;
+      previewImageEl.src = initialArticle.featured_image;
+      previewImageEl.classList.remove('hidden');
+      previewPlaceholder.classList.add('hidden');
+    }
+
+    if (initialArticle?.category_id && publishCategorySelect) {
+      publishCategorySelect.value = initialArticle.category_id;
+    }
+
+    publishModal?.classList.remove('hidden');
+  });
+
+  closeModalBtn?.addEventListener('click', () => {
+    publishModal?.classList.add('hidden');
+  });
+
+  publishCategorySelect?.addEventListener('change', () => {
+    const selectedOption = publishCategorySelect.options[publishCategorySelect.selectedIndex];
+    if (previewCategoryBadge && selectedOption) {
+      previewCategoryBadge.textContent = selectedOption.text || 'Afya';
+    }
+  });
+
+  publishImageUrlInput?.addEventListener('input', (e) => {
+    const target = e.target as HTMLInputElement;
+    const val = target.value.trim();
+    if (val && previewImageEl && previewPlaceholder) {
+      previewImageEl.src = val;
+      previewImageEl.classList.remove('hidden');
+      previewPlaceholder.classList.add('hidden');
+    } else if (previewImageEl && previewPlaceholder) {
+      previewImageEl.classList.add('hidden');
+      previewPlaceholder.classList.remove('hidden');
+    }
+  });
+
+  // Final Publish / Save Draft handler
+  async function submitArticle(status: 'published' | 'draft' = 'published') {
+    const title = titleEl?.value.trim();
+    if (!title) {
+      alert('Tafadhali weka kichwa cha habari kabla ya kuchapisha.');
+      return;
+    }
+
+    if (publishNowBtn) {
+      publishNowBtn.disabled = true;
+      publishNowBtn.textContent = status === 'published' ? 'Inachapisha...' : 'Inahifadhi...';
+    }
+
+    const categoryId = publishCategorySelect?.value || initialArticle?.category_id || null;
+    const authorName = publishAuthorInput?.value.trim() || initialArticle?.author_name || 'Dkt. Sarah Mwangi';
+    const imageUrl = publishImageUrlInput?.value.trim() || initialArticle?.featured_image || null;
+    const slug = publishSlugInput?.value.trim() || initialArticle?.slug;
+    const medicallyReviewed = publishReviewedInput?.checked ?? true;
+    const isFeatured = publishFeaturedInput?.checked ?? false;
+
+    const tags = publishTagsInput?.value
+      ? publishTagsInput.value.split(',').map((t) => t.trim()).filter(Boolean).slice(0, 5)
+      : [];
+
+    const payload: Record<string, any> = {
+      title,
+      slug,
+      excerpt: subtitleEl?.value.trim() || '',
+      content: editor.getHTML(),
+      category_id: categoryId,
+      author_name: authorName,
+      featured_image: imageUrl,
+      medically_reviewed: medicallyReviewed,
+      is_featured: isFeatured,
+      status,
+      published_at: status === 'published' ? new Date().toISOString() : null,
+      updated_at: new Date().toISOString(),
+    };
+
+    if (tags.length > 0) {
+      payload.tags = tags;
+    }
+
+    try {
+      const endpoint = currentArticleId
+        ? `${supabaseUrl}/rest/v1/articles?id=eq.${currentArticleId}`
+        : `${supabaseUrl}/rest/v1/articles`;
+
+      const method = currentArticleId ? 'PATCH' : 'POST';
+
+      const res = await fetch(endpoint, {
+        method,
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': supabaseKey,
+          'Authorization': `Bearer ${supabaseKey}`,
+          'Prefer': 'return=representation',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (res.ok) {
+        alert(status === 'published' ? 'Makala imechapishwa vizuri kwenye HealthTalks!' : 'Rasimu imehifadhiwa!');
+        window.location.href = '/admin/articles';
+      } else {
+        const err = await res.json();
+        alert('Hitilafu: ' + (err.message || 'Haikuweza kuhifadhi.'));
+        if (publishNowBtn) {
+          publishNowBtn.disabled = false;
+          publishNowBtn.textContent = 'Publish Now';
+        }
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Hitilafu ya mtandao.');
+      if (publishNowBtn) {
+        publishNowBtn.disabled = false;
+        publishNowBtn.textContent = 'Publish Now';
+      }
+    }
+  }
+
+  publishNowBtn?.addEventListener('click', () => submitArticle('published'));
+  saveDraftBtn?.addEventListener('click', () => submitArticle('draft'));
+</script>

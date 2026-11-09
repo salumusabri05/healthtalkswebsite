@@ -1,0 +1,221 @@
+---
+import AdminLayout from '@/layouts/AdminLayout.astro';
+import { getAnnouncements } from '@/utils/supabase';
+
+const announcements = await getAnnouncements();
+const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL || 'https://rgbnwbeyrjxmgmamwdgd.supabase.co';
+const supabaseKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY || import.meta.env.SUPABASE_SERVICE_ROLE_KEY || '';
+---
+
+<AdminLayout title="Usimamizi wa Matangazo" activeNav="announcements">
+  <div class="space-y-6">
+    <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <div>
+        <h1 class="text-2xl font-extrabold tracking-tight text-dark-green sm:text-3xl">
+          Matangazo na Ujumbe wa Haraka (Announcements)
+        </h1>
+        <p class="mt-1 text-sm text-text-muted">
+          Dhibiti bango la matangazo linalotokea chini au juu ya tovuti ya HealthTalks.
+        </p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
+      {/* Create Announcement Form */}
+      <div class="rounded-2xl border border-border bg-white p-6 shadow-2xs h-fit">
+        <h2 class="text-lg font-bold text-dark-green mb-4">Tangazo Jipya</h2>
+        <form id="create-announcement-form" class="space-y-4">
+          <div>
+            <label for="ann-title" class="block text-xs font-bold text-text uppercase">Kichwa cha Tangazo</label>
+            <input
+              type="text"
+              id="ann-title"
+              placeholder="mf. Warsha Mpya ya Lishe"
+              class="mt-1.5 block w-full rounded-xl border border-border bg-bg px-3.5 py-2.5 text-sm text-text focus:border-accent focus:bg-white focus:outline-none"
+            />
+          </div>
+
+          <div>
+            <label for="ann-msg" class="block text-xs font-bold text-text uppercase">Ujumbe Kamili *</label>
+            <textarea
+              id="ann-msg"
+              required
+              rows="3"
+              placeholder="Jiunge na mkutano wetu wa moja kwa moja na madaktari wiki hii..."
+              class="mt-1.5 block w-full rounded-xl border border-border bg-bg px-3.5 py-2.5 text-sm text-text focus:border-accent focus:bg-white focus:outline-none"
+            ></textarea>
+          </div>
+
+          <div>
+            <label for="ann-link-url" class="block text-xs font-bold text-text uppercase">Kiungo (Link URL)</label>
+            <input
+              type="text"
+              id="ann-link-url"
+              placeholder="/blog au https://..."
+              class="mt-1.5 block w-full rounded-xl border border-border bg-bg px-3.5 py-2.5 text-sm text-text focus:border-accent focus:bg-white focus:outline-none"
+            />
+          </div>
+
+          <div>
+            <label for="ann-link-text" class="block text-xs font-bold text-text uppercase">Maandishi ya Kitufe (Button Text)</label>
+            <input
+              type="text"
+              id="ann-link-text"
+              placeholder="Soma Zaidi >"
+              class="mt-1.5 block w-full rounded-xl border border-border bg-bg px-3.5 py-2.5 text-sm text-text focus:border-accent focus:bg-white focus:outline-none"
+            />
+          </div>
+
+          <div>
+            <label for="ann-type" class="block text-xs font-bold text-text uppercase">Aina ya Tangazo</label>
+            <select
+              id="ann-type"
+              class="mt-1.5 block w-full rounded-xl border border-border bg-bg px-3.5 py-2.5 text-sm text-text focus:border-accent focus:bg-white focus:outline-none"
+            >
+              <option value="update">Taarifa (Update)</option>
+              <option value="tip">Ushauri wa Afya (Tip)</option>
+              <option value="alert">Tahadhari (Alert)</option>
+              <option value="reminder">Kikumbusho (Reminder)</option>
+              <option value="info">Maelezo (Info)</option>
+            </select>
+          </div>
+
+          <button
+            type="submit"
+            id="ann-submit-btn"
+            class="w-full rounded-xl bg-dark-green py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-accent"
+          >
+            Chapisha Tangazo
+          </button>
+        </form>
+      </div>
+
+      {/* Announcements List */}
+      <div class="lg:col-span-2 rounded-2xl border border-border bg-white shadow-2xs overflow-hidden">
+        <div class="p-4 border-b border-border bg-bg flex items-center justify-between">
+          <span class="text-xs font-bold text-text-muted uppercase tracking-wider">
+            Matangazo Yaliyopo ({announcements.length})
+          </span>
+        </div>
+
+        {announcements.length === 0 ? (
+          <div class="p-8 text-center text-text-muted text-sm">Hakuna matangazo yaliyohifadhiwa bado.</div>
+        ) : (
+          <div class="divide-y divide-border">
+            {announcements.map(ann => (
+              <div class="p-5 flex items-start justify-between gap-4 hover:bg-primary-soft/10 transition" data-id={ann.id}>
+                <div>
+                  <div class="flex items-center gap-2">
+                    <span
+                      class={`rounded-full px-2 py-0.5 text-[10px] font-bold ${
+                        ann.is_active ? 'bg-emerald-100 text-emerald-800' : 'bg-neutral-200 text-neutral-700'
+                      }`}
+                    >
+                      {ann.is_active ? 'Inafanya Kazi (Active)' : 'Imesitishwa'}
+                    </span>
+                    <span class="text-xs font-bold uppercase tracking-wider text-accent">{ann.type || 'info'}</span>
+                  </div>
+                  {ann.title && <h3 class="font-bold text-text text-base mt-1.5">{ann.title}</h3>}
+                  <p class="text-sm text-text-muted mt-1 leading-relaxed">{ann.message}</p>
+                  {ann.link_url && (
+                    <span class="mt-2 inline-block text-xs font-bold text-dark-green underline">
+                      {ann.link_text || ann.link_url}
+                    </span>
+                  )}
+                </div>
+
+                <button
+                  type="button"
+                  class="toggle-ann-btn rounded-lg border border-border px-3 py-1.5 text-xs font-bold hover:bg-primary-soft transition shrink-0"
+                  data-id={ann.id}
+                  data-active={ann.is_active ? 'true' : 'false'}
+                >
+                  {ann.is_active ? 'Sitisha' : 'Washa'}
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+
+  <script define:vars={{ supabaseUrl, supabaseKey }}>
+    // Create Announcement
+    const form = document.getElementById('create-announcement-form');
+    const submitBtn = document.getElementById('ann-submit-btn');
+
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Inahifadhi...';
+
+      const payload = {
+        title: document.getElementById('ann-title').value || null,
+        message: document.getElementById('ann-msg').value,
+        link_url: document.getElementById('ann-link-url').value || null,
+        link_text: document.getElementById('ann-link-text').value || null,
+        type: document.getElementById('ann-type').value,
+        is_active: true,
+      };
+
+      try {
+        const res = await fetch(`${supabaseUrl}/rest/v1/announcements`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': supabaseKey,
+            'Authorization': `Bearer ${supabaseKey}`,
+            'Prefer': 'return=representation'
+          },
+          body: JSON.stringify(payload)
+        });
+
+        if (res.ok) {
+          alert('Tangazo limechapishwa vizuri!');
+          window.location.reload();
+        } else {
+          const err = await res.json();
+          alert('Hitilafu: ' + (err.message || 'Haikuweza kuhifadhi.'));
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Chapisha Tangazo';
+        }
+      } catch (err) {
+        alert('Hitilafu ya mtandao.');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Chapisha Tangazo';
+      }
+    });
+
+    // Toggle Active/Inactive
+    document.querySelectorAll('.toggle-ann-btn').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const id = btn.getAttribute('data-id');
+        const currentActive = btn.getAttribute('data-active') === 'true';
+        btn.disabled = true;
+
+        try {
+          const res = await fetch(`${supabaseUrl}/rest/v1/announcements?id=eq.${id}`, {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json',
+              'apikey': supabaseKey,
+              'Authorization': `Bearer ${supabaseKey}`
+            },
+            body: JSON.stringify({ is_active: !currentActive })
+          });
+
+          if (res.ok) {
+            window.location.reload();
+          } else {
+            alert('Hitilafu.');
+            btn.disabled = false;
+          }
+        } catch (err) {
+          alert('Hitilafu.');
+          btn.disabled = false;
+        }
+      });
+    });
+  </script>
+</AdminLayout>

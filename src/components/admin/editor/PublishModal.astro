@@ -1,0 +1,168 @@
+---
+import type { Category } from '@/utils/supabase';
+
+interface Props {
+  categories: Category[];
+}
+
+const { categories } = Astro.props;
+---
+
+<div
+  id="publish-modal"
+  class="fixed inset-0 z-50 hidden bg-text/60 backdrop-blur-xs flex items-center justify-center p-4 transition-all duration-300"
+  role="dialog"
+  aria-modal="true"
+>
+  <div class="relative w-full max-w-2xl rounded-3xl bg-white p-6 sm:p-8 shadow-2xl border border-border max-h-[90vh] overflow-y-auto">
+    {/* Header & Close Button */}
+    <div class="flex items-center justify-between border-b border-border/60 pb-4">
+      <div>
+        <h2 class="text-xl font-extrabold text-dark-green">Kagua Kabla ya Kuchapisha (Story Preview)</h2>
+        <p class="text-xs text-text-muted mt-0.5">Weka maelezo ya mwisho, lebo, na uchague kundi sahihi la afya.</p>
+      </div>
+      <button
+        type="button"
+        id="close-publish-modal-btn"
+        class="size-8 rounded-full border border-border text-text-muted hover:bg-bg hover:text-text flex items-center justify-center cursor-pointer transition"
+      >
+        ✕
+      </button>
+    </div>
+
+    {/* Modal Body */}
+    <div class="mt-6 space-y-5">
+      {/* Story Preview Card */}
+      <div class="rounded-2xl border border-border/80 bg-bg p-4 flex gap-4 items-start">
+        <div id="preview-image-box" class="size-24 rounded-xl bg-primary-soft/40 border border-border shrink-0 overflow-hidden flex items-center justify-center text-xs font-bold text-dark-green">
+          <span id="preview-image-placeholder">Picha (Image)</span>
+          <img id="preview-image-el" src="" alt="Cover Preview" class="size-full object-cover hidden" />
+        </div>
+        <div class="grow min-w-0">
+          <span id="preview-category-badge" class="text-[10px] font-bold uppercase tracking-wider text-accent">Afya</span>
+          <h3 id="preview-title" class="font-extrabold text-dark-green text-base line-clamp-2 mt-0.5">
+            Kichwa cha Habari (Title)
+          </h3>
+          <p id="preview-subtitle" class="text-xs text-text-muted line-clamp-2 mt-1">
+            Muhtasari wa makala hii utaonekana hapa...
+          </p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {/* Category */}
+        <div>
+          <label for="publish-category" class="block text-xs font-bold uppercase tracking-wider text-text">
+            Kundi la Afya (Category) <span class="text-red-500">*</span>
+          </label>
+          <select
+            id="publish-category"
+            class="mt-1.5 block w-full rounded-xl border border-border bg-white px-3.5 py-2.5 text-sm text-text focus:border-accent focus:outline-none"
+          >
+            <option value="">Chagua Kundi...</option>
+            {categories.map(cat => (
+              <option value={cat.id}>{cat.name}</option>
+            ))}
+          </select>
+        </div>
+
+        {/* Author Name */}
+        <div>
+          <label for="publish-author" class="block text-xs font-bold uppercase tracking-wider text-text">
+            Mwandishi (Author)
+          </label>
+          <input
+            type="text"
+            id="publish-author"
+            value="Dkt. Sarah Mwangi"
+            class="mt-1.5 block w-full rounded-xl border border-border bg-white px-3.5 py-2.5 text-sm text-text focus:border-accent focus:outline-none"
+          />
+        </div>
+
+        {/* Featured Image URL */}
+        <div class="sm:col-span-2">
+          <label for="publish-image-url" class="block text-xs font-bold uppercase tracking-wider text-text">
+            Picha Kuu ya Makala (Cover Image URL)
+          </label>
+          <input
+            type="text"
+            id="publish-image-url"
+            placeholder="Weka URL ya picha (mf. https://images.unsplash.com/...)"
+            class="mt-1.5 block w-full rounded-xl border border-border bg-white px-3.5 py-2.5 text-sm text-text focus:border-accent focus:outline-none"
+          />
+        </div>
+
+        {/* Custom Slug */}
+        <div class="sm:col-span-2">
+          <label for="publish-slug" class="block text-xs font-bold uppercase tracking-wider text-text">
+            Anwani ya Makala (Slug)
+          </label>
+          <div class="mt-1.5 flex rounded-xl border border-border bg-white overflow-hidden text-sm">
+            <span class="flex items-center px-3 text-xs font-semibold text-text-muted bg-border/40">/blog/</span>
+            <input
+              type="text"
+              id="publish-slug"
+              placeholder="anwani-ya-makala"
+              class="block w-full bg-transparent px-3 py-2 text-sm text-text focus:outline-none"
+            />
+          </div>
+        </div>
+
+        {/* Tags (up to 5) */}
+        <div class="sm:col-span-2">
+          <label for="publish-tags" class="block text-xs font-bold uppercase tracking-wider text-text">
+            Lebo / Mada (Tags - hadi 5, tenga kwa koma)
+          </label>
+          <input
+            type="text"
+            id="publish-tags"
+            placeholder="mf. Lishe, Afya ya Moyo, Mazoezi, Kinga"
+            class="mt-1.5 block w-full rounded-xl border border-border bg-white px-3.5 py-2.5 text-sm text-text focus:border-accent focus:outline-none"
+          />
+          <p class="mt-1 text-[11px] text-text-muted">Ongeza maneno muhimu yanayosaidia wasomaji kupata makala hii.</p>
+        </div>
+
+        {/* Badges */}
+        <div class="sm:col-span-2 flex flex-wrap gap-5 pt-1">
+          <label class="flex items-center gap-2.5 cursor-pointer">
+            <input
+              type="checkbox"
+              id="publish-reviewed"
+              checked
+              class="size-4 rounded border-border text-dark-green focus:ring-accent"
+            />
+            <span class="text-xs font-bold text-text">✓ Imethibitishwa na Daktari (Medically Reviewed)</span>
+          </label>
+
+          <label class="flex items-center gap-2.5 cursor-pointer">
+            <input
+              type="checkbox"
+              id="publish-featured"
+              class="size-4 rounded border-border text-dark-green focus:ring-accent"
+            />
+            <span class="text-xs font-bold text-text">★ Weka Ukurasa wa Kwanza (Featured Story)</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    {/* Modal Footer Actions */}
+    <div class="mt-6 flex items-center justify-end gap-3 border-t border-border/60 pt-4">
+      <button
+        type="button"
+        id="save-draft-btn"
+        class="rounded-full px-5 py-2 text-xs font-bold text-text-muted hover:bg-bg hover:text-text transition cursor-pointer"
+      >
+        Hifadhi kama Rasimu (Save Draft)
+      </button>
+
+      <button
+        type="button"
+        id="publish-now-btn"
+        class="rounded-full bg-dark-green px-6 py-2.5 text-xs font-bold text-white shadow-sm transition hover:bg-accent focus:outline-none focus:ring-2 focus:ring-accent cursor-pointer"
+      >
+        Publish Now (Chapisha Moja kwa Moja)
+      </button>
+    </div>
+  </div>
+</div>
