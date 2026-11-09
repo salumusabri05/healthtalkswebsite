@@ -199,6 +199,40 @@ export const sw: Copy = {
       title: 'Inaaminika na Mashirika na Vituo vya Afya',
       subTitle: 'Ushirikiano madhubuti na kliniki, wataalamu wa tiba na jamii.',
     },
+    trending: {
+      sectionTitle: 'Zinazovuma Zaidi HealthTalks',
+      badge: 'Zinazovuma',
+      featured: {
+        tag: 'Afya ya Mfumo wa Chakula',
+        title: 'Dalili za Tumbo na Mfumo wa Chakula: Jinsi ya Kutambua na Kuboresha Usagaji Chakula',
+        description:
+          'Gundua miongozo ya kitabibu kuhusu vyakula vyenye nyuzinyuzi, utambuzi wa mapema wa changamoto za tumbo, na tabia za kila siku za kujenga kinga imara.',
+        author: 'Dkt. Sarah Mwangi',
+        readTime: 'Dakika 5 kusoma',
+      },
+      stories: [
+        {
+          tag: 'Afya ya Wanawake na Uzazi',
+          title: 'Utafiti wa Wanawake 1,032: Changamoto Zinazozuia Uchunguzi wa Mapema wa Afya',
+          readTime: 'Dakika 4 kusoma',
+        },
+        {
+          tag: 'Usingizi na Siha',
+          title: 'Mbinu 10 Zilizothibitishwa Kisayansi za Kupata Usingizi Mnono na Kuondoa Uchovu',
+          readTime: 'Dakika 3 kusoma',
+        },
+        {
+          tag: 'Uangalizi wa Wazee',
+          title: 'Kudhibiti Magonjwa Sugu na Vipimo Muhimu vya Mara kwa Mara kwa Wazee Wetu',
+          readTime: 'Dakika 6 kusoma',
+        },
+        {
+          tag: 'Elimu ya Afya na Usafi',
+          title: 'Tabia za Kila Siku Zinazosaidia Kuzuia Maambukizi ya Mara kwa Mara Katika Jamii',
+          readTime: 'Dakika 4 kusoma',
+        },
+      ],
+    },
     featuresGeneral: {
       title: 'Elimu ya Afya Inayotegemea Ushahidi wa Kisayansi',
       subTitle:

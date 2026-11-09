@@ -210,6 +210,40 @@ export const en = {
       title: 'Trusted by Health & Wellness Leaders',
       subTitle: 'Collaborating with clinics, medical professionals, and wellness organizations.',
     },
+    trending: {
+      sectionTitle: 'Trending on HealthTalks',
+      badge: 'Trending',
+      featured: {
+        tag: 'Gut Health & Digestion',
+        title: 'Day 6: IBS or IBD? Decode Your Gut Symptoms & Microbiome Health',
+        description:
+          'Learn the evidence-based nutritional strategies, fiber balance, and medical checkpoints that help manage digestive symptoms and protect overall wellness.',
+        author: 'Dr. Sarah Mwangi',
+        readTime: '5 min read',
+      },
+      stories: [
+        {
+          tag: "Women's Health",
+          title: 'We Surveyed 1,032 Women: Barriers to Early Screenings and Preventive Care',
+          readTime: '4 min read',
+        },
+        {
+          tag: 'Sleep & Recovery',
+          title: '10 Evidence-Based Habits and Natural Sleep Aids for Restful Nights',
+          readTime: '3 min read',
+        },
+        {
+          tag: 'Senior & Family Care',
+          title: 'Managing Chronic Health and Essential Clinical Screenings for Elders',
+          readTime: '6 min read',
+        },
+        {
+          tag: 'Health Literacy',
+          title: 'Practical Daily Habits That Strengthen Immunity and Lower Infection Risks',
+          readTime: '4 min read',
+        },
+      ],
+    },
     featuresGeneral: {
       title: 'Evidence-Based Wellness for Everyday Life',
       subTitle:

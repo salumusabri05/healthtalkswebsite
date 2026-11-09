@@ -1,0 +1,138 @@
+---
+import { Image } from 'astro:assets';
+import type { MarketingLocale } from '@utils/locale';
+import { localePath } from '@utils/locale';
+
+interface Story {
+  tag: string;
+  title: string;
+  readTime: string;
+  src?: any;
+  href?: string;
+}
+
+interface Featured {
+  tag: string;
+  title: string;
+  description: string;
+  author: string;
+  readTime: string;
+  src?: any;
+  href?: string;
+}
+
+interface Props {
+  locale: MarketingLocale;
+  badge: string;
+  featured: Featured;
+  stories: Story[];
+}
+
+const { locale, badge, featured, stories } = Astro.props;
+---
+
+<section class="mx-auto max-w-[85rem] px-4 py-8 sm:px-6 lg:px-8 lg:py-12 2xl:max-w-full">
+  <div class="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-10 items-start">
+    {/* Left Column: Big Featured Health Story */}
+    <article class="lg:col-span-7 xl:col-span-8">
+      <a
+        href={featured.href ?? localePath(locale, '/blog')}
+        class="group block overflow-hidden rounded-3xl bg-white p-4 sm:p-5 border border-border/60 shadow-sm transition duration-300 hover:shadow-md hover:border-accent/40"
+      >
+        <div class="relative aspect-[16/10] sm:aspect-[16/9] w-full overflow-hidden rounded-2xl bg-primary-soft/30">
+          {featured.src && (
+            <Image
+              src={featured.src}
+              alt={featured.title}
+              class="h-full w-full object-cover object-center transition duration-500 ease-out group-hover:scale-103"
+              draggable={'false'}
+              format={'avif'}
+              loading="eager"
+            />
+          )}
+          <span class="absolute top-3 left-3 rounded-full bg-white/90 backdrop-blur-md px-3 py-1 text-xs font-bold text-dark-green shadow-xs border border-border/60">
+            {featured.tag}
+          </span>
+        </div>
+
+        <div class="mt-5">
+          <p class="text-xs font-bold uppercase tracking-wider text-accent">
+            {featured.tag}
+          </p>
+          <h3 class="mt-1 text-2xl font-extrabold tracking-tight text-dark-green transition-colors duration-200 group-hover:text-accent sm:text-3xl">
+            {featured.title}
+          </h3>
+          <p class="mt-2.5 text-base leading-relaxed text-text-muted">
+            {featured.description}
+          </p>
+          <div class="mt-4 flex items-center gap-3 text-xs font-semibold text-text-muted">
+            <span class="flex items-center gap-1.5 text-text">
+              <span class="size-2 rounded-full bg-accent"></span>
+              {featured.author}
+            </span>
+            <span>·</span>
+            <span>{featured.readTime}</span>
+          </div>
+        </div>
+      </a>
+    </article>
+
+    {/* Right Column: Trending Stories List */}
+    <aside class="lg:col-span-5 xl:col-span-4 rounded-3xl bg-white/80 p-5 sm:p-6 border border-border/60 shadow-sm">
+      <div class="flex items-center gap-2.5 pb-4 border-b border-border/60">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="size-5 text-accent"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
+          <polyline points="16 7 22 7 22 13" />
+        </svg>
+        <h2 class="text-xl font-extrabold tracking-tight text-dark-green">
+          {badge}
+        </h2>
+      </div>
+
+      <div class="mt-4 divide-y divide-border/40">
+        {stories.map((story, index) => (
+          <a
+            href={story.href ?? localePath(locale, `/blog/post-${(index % 3) + 1}`)}
+            class="group flex items-center gap-4 py-3.5 transition duration-200 hover:opacity-90 first:pt-1 last:pb-1"
+          >
+            <div class="size-20 sm:size-22 shrink-0 overflow-hidden rounded-xl bg-primary-soft/30 border border-border/40 shadow-2xs">
+              {story.src && (
+                <Image
+                  src={story.src}
+                  alt={story.title}
+                  class="h-full w-full object-cover object-center transition duration-300 group-hover:scale-105"
+                  draggable={'false'}
+                  format={'avif'}
+                  loading="lazy"
+                  width={180}
+                  height={180}
+                />
+              )}
+            </div>
+
+            <div class="flex flex-col grow">
+              <span class="text-[11px] font-bold uppercase tracking-wider text-accent">
+                {story.tag}
+              </span>
+              <h4 class="mt-0.5 text-sm sm:text-base font-bold leading-snug text-text transition-colors duration-200 group-hover:text-dark-green line-clamp-2">
+                {story.title}
+              </h4>
+              <span class="mt-1 text-xs font-medium text-text-muted">
+                {story.readTime}
+              </span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </aside>
+  </div>
+</section>

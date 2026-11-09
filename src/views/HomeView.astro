@@ -2,7 +2,7 @@
 import MainLayout from '@/layouts/MainLayout.astro';
 import HeroSection from '@components/sections/landing/HeroSection.astro';
 import HeroSectionAlt from '@components/sections/landing/HeroSectionAlt.astro';
-import ClientsSection from '@components/sections/landing/ClientsSection.astro';
+import TrendingSection from '@components/sections/landing/TrendingSection.astro';
 import FeaturesGeneral from '@components/sections/features/FeaturesGeneral.astro';
 import FeaturesNavs from '@components/sections/features/FeaturesNavs.astro';
 import TestimonialsSection from '@components/sections/testimonials/TestimonialsSection.astro';
@@ -19,7 +19,11 @@ import avatar1 from '@images/health/runningwoman.jpeg';
 import avatar2 from '@images/health/mom_and_child.jpeg';
 import avatar3 from '@images/health/sippingcoffe.jpeg';
 import avatar4 from '@images/health/doctor.jpeg';
-import { partnersData } from '@data/constants';
+import gutHealthImage from '@images/health/healthymeal.jpeg';
+import womenHealthImage from '@images/health/mom_and_child.jpeg';
+import sleepHealthImage from '@images/health/sleepinginanet.jpeg';
+import seniorHealthImage from '@images/health/elderly_and_nurse.jpeg';
+import dailyWellnessImage from '@images/health/washinghands.jpeg';
 import { getCopy } from '@/copy';
 import { localePath, type MarketingLocale } from '@utils/locale';
 
@@ -63,10 +67,31 @@ const testimonials = copy.testimonials.quotes.map(quote => ({
     alt={copy.hero.imageAlt}
   />
 
-  <ClientsSection
-    title={copy.clients.title}
-    subTitle={copy.clients.subTitle}
-    partners={partnersData}
+  <TrendingSection
+    locale={locale}
+    badge={copy.trending.badge}
+    featured={{
+      ...copy.trending.featured,
+      src: gutHealthImage,
+    }}
+    stories={[
+      {
+        ...copy.trending.stories[0],
+        src: womenHealthImage,
+      },
+      {
+        ...copy.trending.stories[1],
+        src: sleepHealthImage,
+      },
+      {
+        ...copy.trending.stories[2],
+        src: seniorHealthImage,
+      },
+      {
+        ...copy.trending.stories[3],
+        src: dailyWellnessImage,
+      },
+    ]}
   />
 
   <FeaturesGeneral
