@@ -64,41 +64,41 @@
   --color-orange-950: var(--text);
 
   /* Neutral mappings ensure text is never washed-out/dim while light backgrounds remain soft */
-  --color-neutral-50: var(--white);
-  --color-neutral-100: var(--bg);
-  --color-neutral-200: var(--dark-green);
-  --color-neutral-300: var(--text);
-  --color-neutral-400: #3E513A;
-  --color-neutral-500: #2E3E2B;
+  --color-neutral-50: #FAFDF7;
+  --color-neutral-100: #F4FAEE;
+  --color-neutral-200: #E2ECD8;
+  --color-neutral-300: #CBD9C0;
+  --color-neutral-400: #6B7C66;
+  --color-neutral-500: #4B5E46;
   --color-neutral-600: #2E3E2B;
-  --color-neutral-700: var(--text);
-  --color-neutral-800: var(--dark-green);
-  --color-neutral-900: var(--dark-green);
-  --color-neutral-950: var(--text);
+  --color-neutral-700: #1B291A;
+  --color-neutral-800: #111810;
+  --color-neutral-900: #0B110A;
+  --color-neutral-950: #050805;
 
-  --color-gray-50: var(--white);
-  --color-gray-100: var(--bg);
-  --color-gray-200: var(--dark-green);
-  --color-gray-300: var(--text);
-  --color-gray-400: #3E513A;
-  --color-gray-500: #2E3E2B;
+  --color-gray-50: #FAFDF7;
+  --color-gray-100: #F4FAEE;
+  --color-gray-200: #E2ECD8;
+  --color-gray-300: #CBD9C0;
+  --color-gray-400: #6B7C66;
+  --color-gray-500: #4B5E46;
   --color-gray-600: #2E3E2B;
-  --color-gray-700: var(--text);
-  --color-gray-800: var(--dark-green);
-  --color-gray-900: var(--dark-green);
-  --color-gray-950: var(--text);
+  --color-gray-700: #1B291A;
+  --color-gray-800: #111810;
+  --color-gray-900: #0B110A;
+  --color-gray-950: #050805;
 
-  --color-zinc-50: var(--white);
-  --color-zinc-100: var(--bg);
-  --color-zinc-200: var(--dark-green);
-  --color-zinc-300: var(--text);
-  --color-zinc-400: #3E513A;
-  --color-zinc-500: #2E3E2B;
+  --color-zinc-50: #FAFDF7;
+  --color-zinc-100: #F4FAEE;
+  --color-zinc-200: #E2ECD8;
+  --color-zinc-300: #CBD9C0;
+  --color-zinc-400: #6B7C66;
+  --color-zinc-500: #4B5E46;
   --color-zinc-600: #2E3E2B;
-  --color-zinc-700: var(--text);
-  --color-zinc-800: var(--dark-green);
-  --color-zinc-900: var(--dark-green);
-  --color-zinc-950: var(--text);
+  --color-zinc-700: #1B291A;
+  --color-zinc-800: #111810;
+  --color-zinc-900: #0B110A;
+  --color-zinc-950: #050805;
 }
 
 @layer base {
@@ -129,7 +129,7 @@
   h5,
   h6 {
     font-family: var(--font-sans);
-    color: var(--dark-green) !important;
+    color: var(--dark-green);
   }
 
   /* Footer contrast rules */
@@ -139,7 +139,7 @@
   footer h4,
   footer h5,
   footer h6 {
-    color: var(--white) !important;
+    color: var(--white);
   }
 
   a {

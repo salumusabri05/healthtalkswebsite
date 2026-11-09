@@ -32,43 +32,43 @@ const supabaseKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY || '';
         <div class="absolute -left-10 -top-10 size-48 rounded-full bg-accent/20 blur-2xl pointer-events-none"></div>
 
         <div class="relative z-10">
-          <div class="inline-flex items-center gap-2 rounded-full bg-white/10 px-3.5 py-1 text-xs font-bold backdrop-blur-md border border-white/15">
+          <div class="inline-flex items-center gap-2 rounded-full bg-white/15 px-3.5 py-1 text-xs font-bold text-white backdrop-blur-md border border-white/20">
             <span class="size-2 rounded-full bg-primary animate-ping"></span>
-            <span>{isSwahili ? 'Jarida Maalum la Afya' : 'VIP Health Newsletter'}</span>
+            <span class="text-white font-bold">{isSwahili ? 'Jarida Maalum la Afya' : 'VIP Health Newsletter'}</span>
           </div>
 
-          <h3 class="mt-4 text-2xl sm:text-3xl font-extrabold leading-tight tracking-tight text-white">
+          <h3 class="mt-4 text-2xl sm:text-3xl font-extrabold leading-tight tracking-tight text-white" style="color: #ffffff !important;">
             {isSwahili
               ? 'Jiunge na Wasomaji 10,000+ Wanaopata Ushauri wa Madaktari!'
               : 'Join 10,000+ Readers Getting Weekly Medical Insights!'}
           </h3>
 
-          <p class="mt-3 text-xs sm:text-sm text-neutral-200 leading-relaxed">
+          <p class="mt-3 text-xs sm:text-sm text-white/90 leading-relaxed" style="color: rgba(255, 255, 255, 0.9) !important;">
             {isSwahili
               ? 'Pata maarifa sahihi ya kuzuia magonjwa, mpangilio wa lishe bora, na majibu ya wataalamu moja kwa moja kwenye email yako kila wiki.'
               : 'Receive vetted medical guides, clinical nutrition protocols, and preventive lifestyle habits delivered weekly to your inbox.'}
           </p>
 
           <!-- Benefits List -->
-          <ul class="mt-6 space-y-3 text-xs sm:text-sm text-neutral-100">
-            <li class="flex items-start gap-2.5">
+          <ul class="mt-6 space-y-3 text-xs sm:text-sm text-white">
+            <li class="flex items-start gap-2.5 text-white" style="color: #ffffff !important;">
               <span class="flex size-5 shrink-0 items-center justify-center rounded-full bg-primary text-dark-green font-bold text-xs">✓</span>
-              <span>{isSwahili ? 'Miongozo ya kisayansi ya kudhibiti presha & kisukari' : 'Evidence-based guides for metabolic & heart health'}</span>
+              <span style="color: #ffffff !important;">{isSwahili ? 'Miongozo ya kisayansi ya kudhibiti presha & kisukari' : 'Evidence-based guides for metabolic & heart health'}</span>
             </li>
-            <li class="flex items-start gap-2.5">
+            <li class="flex items-start gap-2.5 text-white" style="color: #ffffff !important;">
               <span class="flex size-5 shrink-0 items-center justify-center rounded-full bg-primary text-dark-green font-bold text-xs">✓</span>
-              <span>{isSwahili ? 'Ushauri wa madaktari bingwa wa uzazi na watoto' : 'Family, maternal and pediatric health expert Q&A'}</span>
+              <span style="color: #ffffff !important;">{isSwahili ? 'Ushauri wa madaktari bingwa wa uzazi na watoto' : 'Family, maternal and pediatric health expert Q&A'}</span>
             </li>
-            <li class="flex items-start gap-2.5">
+            <li class="flex items-start gap-2.5 text-white" style="color: #ffffff !important;">
               <span class="flex size-5 shrink-0 items-center justify-center rounded-full bg-primary text-dark-green font-bold text-xs">✓</span>
-              <span>{isSwahili ? 'Video mpya za afya kabla hazijawekwa mtandaoni' : 'Exclusive health talks & video masterclasses'}</span>
+              <span style="color: #ffffff !important;">{isSwahili ? 'Video mpya za afya kabla hazijawekwa mtandaoni' : 'Exclusive health talks & video masterclasses'}</span>
             </li>
           </ul>
         </div>
 
-        <div class="relative z-10 mt-8 pt-4 border-t border-white/15 flex items-center justify-between text-[11px] text-neutral-300">
-          <span>{isSwahili ? 'Inaaminika nchini Tanzania' : 'Trusted in East Africa'}</span>
-          <span class="font-bold text-primary">HealthTalks Tanzania</span>
+        <div class="relative z-10 mt-8 pt-4 border-t border-white/20 flex items-center justify-between text-[11px] text-white/80" style="color: rgba(255, 255, 255, 0.8) !important;">
+          <span style="color: rgba(255, 255, 255, 0.8) !important;">{isSwahili ? 'Inaaminika nchini Tanzania' : 'Trusted in East Africa'}</span>
+          <span class="font-bold text-primary" style="color: #A8E08A !important;">HealthTalks Tanzania</span>
         </div>
       </div>
 
