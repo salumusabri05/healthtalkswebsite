@@ -1,0 +1,245 @@
+---
+import { getActiveFeaturedVideos } from '@/utils/supabase';
+import { localePath, type MarketingLocale } from '@utils/locale';
+
+interface Props {
+  locale?: MarketingLocale;
+}
+
+const { locale = 'sw' } = Astro.props;
+const videos = await getActiveFeaturedVideos();
+const video = videos[0]; // Primary active video fetched from Supabase Storage
+
+if (!video) {
+  return;
+}
+
+const isSwahili = locale === 'sw';
+const badgeText = isSwahili ? 'HealthTalks Video' : 'HealthTalks Video';
+const ctaText = isSwahili ? 'Soma Makala' : 'Read Article';
+const reopenText = isSwahili ? 'Video' : 'Video';
+---
+
+<!-- Floating Corner Video Player (Sleek Picture-in-Picture in bottom-right corner) -->
+<div
+  id="ht-corner-video-widget"
+  class="fixed bottom-5 right-5 z-50 w-72 sm:w-84 max-w-[calc(100vw-2rem)] translate-y-8 opacity-0 pointer-events-none transition-all duration-500 ease-out"
+  role="complementary"
+  aria-label="Floating video preview"
+>
+  <div class="overflow-hidden rounded-2xl border border-dark-green/20 bg-white shadow-2xl backdrop-blur-md transition-shadow hover:shadow-3xl">
+    <!-- Header Bar -->
+    <div class="flex items-center justify-between bg-dark-green px-3 py-2 text-white">
+      <div class="flex items-center gap-1.5">
+        <span class="size-2 rounded-full bg-primary animate-pulse"></span>
+        <span class="text-[11px] font-bold tracking-wide uppercase">{badgeText}</span>
+      </div>
+
+      <div class="flex items-center gap-1.5">
+        <!-- Sound Toggle Button -->
+        <button
+          type="button"
+          id="ht-corner-audio-toggle"
+          class="rounded-md p-1 text-white/80 hover:text-white hover:bg-white/10 transition cursor-pointer"
+          title="Sauti (Mute / Unmute)"
+          aria-label="Toggle sound"
+        >
+          <svg id="ht-icon-muted" class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="1" y1="1" x2="23" y2="23" />
+            <path d="M9 9v3a3 3 0 0 0 5.12 2.12M15 9.34V4a3 3 0 0 0-5.94-.6" />
+            <path d="M17 16.95A7 7 0 0 1 5 12v-2m14 0v2a7 7 0 0 1-.11 1.23" />
+            <line x1="12" y1="19" x2="12" y2="23" />
+            <line x1="8" y1="23" x2="16" y2="23" />
+          </svg>
+          <svg id="ht-icon-unmuted" class="hidden size-3.5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07" />
+          </svg>
+        </button>
+
+        <!-- Close Button -->
+        <button
+          type="button"
+          id="ht-corner-close-btn"
+          class="size-6 rounded-md flex items-center justify-center text-white/80 hover:text-white hover:bg-white/10 transition cursor-pointer text-xs font-bold"
+          title="Funga"
+          aria-label="Close floating video"
+        >
+          ✕
+        </button>
+      </div>
+    </div>
+
+    <!-- Video Area -->
+    <div class="relative aspect-video w-full bg-neutral-950 overflow-hidden cursor-pointer group">
+      {video.video_url?.endsWith('.mp4') || video.video_url?.includes('supabase.co/storage') ? (
+        <video
+          id="ht-corner-video"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="metadata"
+          poster={video.thumbnail_url || undefined}
+          class="size-full object-cover"
+        >
+          <source src={video.video_url} type="video/mp4" />
+        </video>
+      ) : video.video_url?.includes('youtube.com') || video.video_url?.includes('youtu.be') ? (
+        <iframe
+          id="ht-corner-iframe"
+          src={`${video.video_url.replace('watch?v=', 'embed/').split('&')[0]}?autoplay=1&mute=1`}
+          title={video.title}
+          class="size-full border-0 pointer-events-auto"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      ) : (
+        <video
+          id="ht-corner-video"
+          autoplay
+          muted
+          loop
+          playsinline
+          poster={video.thumbnail_url || undefined}
+          class="size-full object-cover"
+        >
+          <source src={video.video_url} type="video/mp4" />
+        </video>
+      )}
+
+      <!-- Overlay Play/Pause indicator on hover -->
+      <div id="ht-corner-play-overlay" class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
+        <span class="size-9 rounded-full bg-dark-green/90 text-white flex items-center justify-center shadow-md">
+          <svg class="size-4 ml-0.5 fill-current" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        </span>
+      </div>
+    </div>
+
+    <!-- Mini Footer -->
+    <div class="p-3 bg-white flex items-center justify-between gap-2 border-t border-border/60">
+      <div class="min-w-0 flex-1">
+        <h4 class="text-xs font-bold text-dark-green line-clamp-1" title={video.title}>
+          {video.title}
+        </h4>
+      </div>
+
+      <a
+        href={localePath(locale, '/blog')}
+        class="shrink-0 inline-flex items-center gap-1 rounded-lg bg-primary-soft px-2.5 py-1 text-[11px] font-bold text-dark-green hover:bg-primary transition"
+      >
+        <span>{ctaText}</span>
+        <svg class="size-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Reopen Pill in Bottom Corner (Visible only when user closes the player) -->
+<button
+  type="button"
+  id="ht-corner-reopen-btn"
+  class="fixed bottom-5 right-5 z-40 hidden items-center gap-1.5 rounded-full border border-dark-green/30 bg-white/95 px-3 py-1.5 text-xs font-bold text-dark-green shadow-lg backdrop-blur-xs transition hover:scale-105 hover:bg-primary-soft cursor-pointer"
+  title="Fungua Video ya Afya"
+>
+  <span class="flex size-4 items-center justify-center rounded-full bg-dark-green text-white text-[9px]">
+    ▶
+  </span>
+  <span>{reopenText}</span>
+</button>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    const widget = document.getElementById('ht-corner-video-widget');
+    const video = document.getElementById('ht-corner-video');
+    const closeBtn = document.getElementById('ht-corner-close-btn');
+    const reopenBtn = document.getElementById('ht-corner-reopen-btn');
+    const audioBtn = document.getElementById('ht-corner-audio-toggle');
+    const iconMuted = document.getElementById('ht-icon-muted');
+    const iconUnmuted = document.getElementById('ht-icon-unmuted');
+
+    if (!widget) return;
+
+    function showWidget() {
+      widget.classList.remove('pointer-events-none', 'translate-y-8', 'opacity-0');
+      widget.classList.add('translate-y-0', 'opacity-100');
+      if (reopenBtn) {
+        reopenBtn.classList.add('hidden');
+        reopenBtn.classList.remove('inline-flex');
+      }
+
+      if (video && typeof video.play === 'function') {
+        video.muted = true;
+        video.play().catch(() => {});
+      }
+    }
+
+    function hideWidget() {
+      widget.classList.remove('translate-y-0', 'opacity-100');
+      widget.classList.add('translate-y-8', 'opacity-0', 'pointer-events-none');
+
+      if (video && typeof video.pause === 'function') {
+        video.pause();
+      }
+
+      setTimeout(() => {
+        if (reopenBtn) {
+          reopenBtn.classList.remove('hidden');
+          reopenBtn.classList.add('inline-flex');
+        }
+      }, 400);
+
+      try {
+        sessionStorage.setItem('ht_corner_video_dismissed', 'true');
+      } catch (e) {}
+    }
+
+    // Audio Toggle
+    audioBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (!video) return;
+      video.muted = !video.muted;
+      if (video.muted) {
+        iconMuted?.classList.remove('hidden');
+        iconUnmuted?.classList.add('hidden');
+      } else {
+        iconMuted?.classList.add('hidden');
+        iconUnmuted?.classList.remove('hidden');
+        if (video.paused) video.play().catch(() => {});
+      }
+    });
+
+    // Clicking video area toggles play/pause or controls
+    video?.addEventListener('click', () => {
+      if (video.paused) {
+        video.play().catch(() => {});
+      } else {
+        video.pause();
+      }
+    });
+
+    closeBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      hideWidget();
+    });
+
+    reopenBtn?.addEventListener('click', () => {
+      showWidget();
+    });
+
+    // Automatically slide in around the corner after 1.2s
+    let wasDismissed = false;
+    try {
+      wasDismissed = sessionStorage.getItem('ht_corner_video_dismissed') === 'true';
+    } catch (e) {}
+
+    if (!wasDismissed) {
+      setTimeout(() => {
+        showWidget();
+      }, 1200);
+    } else if (reopenBtn) {
+      reopenBtn.classList.remove('hidden');
+      reopenBtn.classList.add('inline-flex');
+    }
+  });
+</script>

@@ -1,0 +1,700 @@
+---
+import AdminLayout from '@/layouts/AdminLayout.astro';
+import { getFeaturedVideos } from '@/utils/supabase';
+
+const videos = await getFeaturedVideos();
+const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL || 'https://rgbnwbeyrjxmgmamwdgd.supabase.co';
+const supabaseKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY || import.meta.env.SUPABASE_SERVICE_ROLE_KEY || '';
+---
+
+<AdminLayout title="Video & Mazungumzo (Featured Videos)" activeNav="videos">
+  <div class="space-y-6">
+    {/* Page Header */}
+    <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <div>
+        <h1 class="text-2xl font-extrabold tracking-tight text-dark-green sm:text-3xl">
+          Video & Mazungumzo (Health Talks & Videos)
+        </h1>
+        <p class="mt-1 text-sm text-text-muted">
+          Weka na simamia video za elimu ya afya moja kwa moja kutoka Supabase Storage Buckets au YouTube/Vimeo.
+        </p>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2">
+        <button
+          type="button"
+          id="open-bucket-modal-btn"
+          class="inline-flex items-center gap-2 rounded-xl border border-dark-green bg-white px-4 py-2.5 text-xs font-bold text-dark-green shadow-2xs transition hover:bg-primary-soft cursor-pointer"
+        >
+          <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
+          </svg>
+          📁 Vinjari Storage Buckets
+        </button>
+
+        <button
+          type="button"
+          id="open-video-modal-btn"
+          class="inline-flex items-center gap-2 rounded-xl bg-dark-green px-4 py-2.5 text-xs font-bold text-white shadow-sm transition hover:bg-accent cursor-pointer"
+        >
+          <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="12" y1="5" x2="12" y2="19" />
+            <line x1="5" y1="12" x2="19" y2="12" />
+          </svg>
+          Weka Video Mpya
+        </button>
+      </div>
+    </div>
+
+    {/* Video Grid */}
+    {videos.length === 0 ? (
+      <div class="rounded-3xl border border-dashed border-border bg-white p-12 text-center">
+        <div class="mx-auto flex size-12 items-center justify-center rounded-full bg-primary-soft text-dark-green">
+          <svg class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="23 7 16 12 23 17 23 7" />
+            <rect width="15" height="14" x="1" y="5" rx="2" />
+          </svg>
+        </div>
+        <h3 class="mt-4 text-base font-extrabold text-dark-green">Hakuna Video Zilizowekwa Bado</h3>
+        <p class="mt-1 text-xs text-text-muted max-w-sm mx-auto">
+          Ongeza video kutoka kwenye Supabase Storage bucket `featured-videos` au YouTube.
+        </p>
+        <div class="mt-4 flex items-center justify-center gap-3">
+          <button
+            type="button"
+            onclick="document.getElementById('open-bucket-modal-btn')?.click()"
+            class="inline-flex items-center gap-2 rounded-xl border border-dark-green bg-white px-4 py-2 text-xs font-bold text-dark-green hover:bg-primary-soft transition cursor-pointer"
+          >
+            Vinjari Files za Bucket
+          </button>
+          <button
+            type="button"
+            onclick="document.getElementById('open-video-modal-btn')?.click()"
+            class="inline-flex items-center gap-2 rounded-xl bg-dark-green px-4 py-2 text-xs font-bold text-white hover:bg-accent transition cursor-pointer"
+          >
+            Weka Video Mpya
+          </button>
+        </div>
+      </div>
+    ) : (
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {videos.map(video => {
+          const isDirectVideo = video.video_url?.endsWith('.mp4') || video.video_url?.includes('supabase.co/storage');
+          const isYoutube = video.video_url?.includes('youtube.com') || video.video_url?.includes('youtu.be');
+
+          return (
+            <div class="rounded-2xl border border-border bg-white overflow-hidden shadow-2xs flex flex-col justify-between" data-id={video.id}>
+              <div>
+                <div class="relative aspect-video w-full bg-neutral-950 overflow-hidden flex items-center justify-center">
+                  {isDirectVideo ? (
+                    <video
+                      controls
+                      playsinline
+                      preload="metadata"
+                      poster={video.thumbnail_url || undefined}
+                      class="size-full object-cover"
+                    >
+                      <source src={video.video_url} type="video/mp4" />
+                      Video haikupatikana.
+                    </video>
+                  ) : isYoutube ? (
+                    <iframe
+                      src={video.video_url.replace('watch?v=', 'embed/').split('&')[0]}
+                      title={video.title}
+                      class="size-full border-0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowfullscreen
+                    ></iframe>
+                  ) : video.thumbnail_url ? (
+                    <img src={video.thumbnail_url} alt={video.title} class="size-full object-cover" />
+                  ) : (
+                    <div class="size-12 rounded-full bg-white/20 text-white flex items-center justify-center font-bold">▶</div>
+                  )}
+
+                  <span class={`absolute top-3 left-3 z-10 pointer-events-none rounded-full px-2.5 py-0.5 text-[10px] font-bold shadow-xs ${video.status === 'active' ? 'bg-emerald-600 text-white' : 'bg-neutral-800/80 text-white'}`}>
+                    {video.status === 'active' ? 'Active' : 'Inactive'}
+                  </span>
+
+                  {video.duration && (
+                    <span class="absolute bottom-3 right-3 z-10 pointer-events-none rounded bg-black/80 backdrop-blur-xs px-2 py-0.5 text-[10px] font-mono text-white">
+                      {Math.floor(video.duration / 60)}:{(video.duration % 60).toString().padStart(2, '0')} min
+                    </span>
+                  )}
+                </div>
+
+                <div class="p-5">
+                  <h3 class="text-base font-extrabold text-dark-green line-clamp-1">{video.title}</h3>
+                  {video.description && (
+                    <p class="mt-1 text-xs text-text-muted line-clamp-2 leading-relaxed">{video.description}</p>
+                  )}
+                  <a
+                    href={video.video_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="mt-3 inline-flex items-center gap-1.5 text-xs text-accent font-semibold hover:underline"
+                  >
+                    <span>Fungua Kiungo cha Video</span>
+                    <svg class="size-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                      <polyline points="15 3 21 3 21 9" />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              <div class="p-4 border-t border-border/60 flex items-center justify-between bg-bg/50">
+                <span class="text-[11px] text-text-muted">Views: {video.view_count || 0}</span>
+                <div class="flex items-center gap-2">
+                  <button
+                    type="button"
+                    class="edit-video-btn rounded-lg border border-border bg-white px-2.5 py-1 text-xs font-bold text-dark-green hover:bg-primary-soft transition cursor-pointer"
+                    data-video={JSON.stringify(video)}
+                  >
+                    Hariri
+                  </button>
+                  <button
+                    type="button"
+                    class="delete-video-btn rounded-lg border border-red-200 bg-white px-2.5 py-1 text-xs font-bold text-red-600 hover:bg-red-50 transition cursor-pointer"
+                    data-id={video.id}
+                    data-title={video.title}
+                  >
+                    Futa
+                  </button>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    )}
+  </div>
+
+  {/* Storage Bucket Explorer Modal */}
+  <div id="bucket-modal" class="fixed inset-0 z-50 hidden bg-text/60 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="relative w-full max-w-4xl rounded-3xl bg-white p-6 shadow-2xl border border-border max-h-[90vh] flex flex-col">
+      <div class="flex items-center justify-between border-b border-border pb-4">
+        <div>
+          <h2 class="text-lg font-extrabold text-dark-green flex items-center gap-2">
+            <span>📁 Supabase Storage Bucket Explorer</span>
+          </h2>
+          <p class="text-xs text-text-muted mt-0.5">Vinjari video na picha zilizopakiwa kwenye storage ya Supabase na uziweke kama Featured Videos.</p>
+        </div>
+        <button type="button" id="close-bucket-modal-btn" class="size-8 rounded-full border border-border text-text-muted flex items-center justify-center hover:bg-bg cursor-pointer text-sm font-bold">✕</button>
+      </div>
+
+      {/* Bucket Selector & Actions Bar */}
+      <div class="mt-4 flex flex-wrap items-center justify-between gap-3 bg-bg/70 p-3 rounded-2xl border border-border">
+        <div class="flex items-center gap-2">
+          <label class="text-xs font-bold text-dark-green">Chagua Bucket:</label>
+          <select id="bucket-select" class="rounded-xl border border-border bg-white px-3 py-1.5 text-xs font-bold text-text focus:outline-none focus:border-accent">
+            <option value="featured-videos" selected>featured-videos (Public)</option>
+            <option value="article-videos">article-videos (Public)</option>
+            <option value="carousel-images">carousel-images (Public)</option>
+            <option value="announcements">announcements (Public)</option>
+          </select>
+
+          <button id="refresh-bucket-btn" type="button" class="inline-flex items-center gap-1 rounded-xl bg-white border border-border px-3 py-1.5 text-xs font-semibold text-text hover:bg-primary-soft transition cursor-pointer">
+            <svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+            Pakia Upya
+          </button>
+        </div>
+
+        {/* Upload Directly to Bucket */}
+        <div class="flex items-center gap-2">
+          <label class="inline-flex items-center gap-1.5 rounded-xl bg-dark-green px-3.5 py-1.5 text-xs font-bold text-white hover:bg-accent transition cursor-pointer shadow-2xs">
+            <svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            <span>Pakia Faili Kwenye Bucket</span>
+            <input type="file" id="bucket-file-upload" class="hidden" accept="video/mp4,video/webm,image/*" />
+          </label>
+        </div>
+      </div>
+
+      {/* Loading Status */}
+      <div id="bucket-loading" class="hidden py-10 text-center">
+        <div class="inline-block size-6 animate-spin rounded-full border-2 border-dark-green border-t-transparent"></div>
+        <p class="mt-2 text-xs font-semibold text-text-muted">Inatafuta faili kutoka Supabase Storage...</p>
+      </div>
+
+      {/* Bucket Files Grid */}
+      <div id="bucket-files-list" class="mt-4 flex-1 overflow-y-auto space-y-3 pr-1">
+        {/* Dynamic content loaded via JS */}
+      </div>
+
+      <div class="mt-4 pt-3 border-t border-border flex justify-between items-center text-xs text-text-muted">
+        <span id="bucket-count-badge">Inapakia...</span>
+        <button type="button" id="close-bucket-modal-btn2" class="px-4 py-1.5 text-xs font-bold text-text-muted hover:text-text cursor-pointer">Funga</button>
+      </div>
+    </div>
+  </div>
+
+  {/* Video Modal */}
+  <div id="video-modal" class="fixed inset-0 z-50 hidden bg-text/60 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="relative w-full max-w-lg rounded-3xl bg-white p-6 shadow-2xl border border-border max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between border-b border-border pb-3">
+        <h2 id="video-modal-title" class="text-base font-extrabold text-dark-green">Weka Video Mpya</h2>
+        <button type="button" id="close-video-modal-btn" class="size-7 rounded-full border border-border text-text-muted flex items-center justify-center cursor-pointer">✕</button>
+      </div>
+
+      <form id="video-form" class="mt-4 space-y-4">
+        <input type="hidden" id="video-id" value="" />
+
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-text">Kichwa cha Video (Title) *</label>
+          <input
+            type="text"
+            id="video-title"
+            required
+            placeholder="mf. Daktari Azungumzia Njia 5 za Kudhibiti Shinikizo la Damu"
+            class="mt-1 block w-full rounded-xl border border-border bg-bg px-3.5 py-2 text-sm text-text focus:outline-none focus:border-accent"
+          />
+        </div>
+
+        <div>
+          <div class="flex items-center justify-between">
+            <label class="block text-xs font-bold uppercase tracking-wider text-text">Kiungo cha Video (Video URL) *</label>
+            <button
+              type="button"
+              onclick="document.getElementById('open-bucket-modal-btn')?.click()"
+              class="text-[11px] text-accent font-bold hover:underline"
+            >
+              Chagua kutoka Bucket
+            </button>
+          </div>
+          <input
+            type="text"
+            id="video-url"
+            required
+            placeholder="https://rgbnwbeyrjxmgmamwdgd.supabase.co/storage/v1/object/public/featured-videos/..."
+            class="mt-1 block w-full rounded-xl border border-border bg-bg px-3.5 py-2 text-sm text-text focus:outline-none focus:border-accent"
+          />
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-text">Picha ya Jalada (Thumbnail URL)</label>
+          <input
+            type="text"
+            id="video-thumb"
+            placeholder="https://... au picha kutoka bucket"
+            class="mt-1 block w-full rounded-xl border border-border bg-bg px-3.5 py-2 text-sm text-text focus:outline-none focus:border-accent"
+          />
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-text">Maelezo Mafupi (Description)</label>
+          <textarea
+            id="video-desc"
+            rows="2"
+            placeholder="Maelezo kuhusu mada na daktari aliyezungumza..."
+            class="mt-1 block w-full rounded-xl border border-border bg-bg px-3.5 py-2 text-sm text-text focus:outline-none focus:border-accent"
+          ></textarea>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-text">Urefu (Sekunde - Duration)</label>
+            <input
+              type="number"
+              id="video-duration"
+              placeholder="mf. 180 (dakika 3)"
+              class="mt-1 block w-full rounded-xl border border-border bg-bg px-3.5 py-2 text-sm text-text focus:outline-none focus:border-accent"
+            />
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-text">Nafasi (Display Order)</label>
+            <input
+              type="number"
+              id="video-order"
+              value="1"
+              class="mt-1 block w-full rounded-xl border border-border bg-bg px-3.5 py-2 text-sm text-text focus:outline-none focus:border-accent"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-text">Hali (Status)</label>
+          <select
+            id="video-status"
+            class="mt-1 block w-full rounded-xl border border-border bg-bg px-3.5 py-2 text-sm text-text focus:outline-none focus:border-accent"
+          >
+            <option value="active">Active (Inaonekana)</option>
+            <option value="inactive">Inactive (Imefichwa)</option>
+          </select>
+        </div>
+
+        <div class="pt-2 flex justify-end gap-2 border-t border-border">
+          <button type="button" id="cancel-video-modal-btn" class="px-4 py-2 text-xs font-bold text-text-muted hover:text-text cursor-pointer">Ghairi</button>
+          <button type="submit" id="save-video-btn" class="rounded-xl bg-dark-green px-5 py-2 text-xs font-bold text-white hover:bg-accent transition cursor-pointer">Hifadhi Video</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script define:vars={{ supabaseUrl, supabaseKey }}>
+    const modal = document.getElementById('video-modal');
+    const form = document.getElementById('video-form');
+    const modalTitle = document.getElementById('video-modal-title');
+    const idInput = document.getElementById('video-id');
+    const titleInput = document.getElementById('video-title');
+    const urlInput = document.getElementById('video-url');
+    const thumbInput = document.getElementById('video-thumb');
+    const descInput = document.getElementById('video-desc');
+    const durationInput = document.getElementById('video-duration');
+    const orderInput = document.getElementById('video-order');
+    const statusInput = document.getElementById('video-status');
+
+    function resetForm() {
+      idInput.value = '';
+      titleInput.value = '';
+      urlInput.value = '';
+      thumbInput.value = '';
+      descInput.value = '';
+      durationInput.value = '';
+      orderInput.value = '1';
+      statusInput.value = 'active';
+      modalTitle.textContent = 'Weka Video Mpya';
+    }
+
+    document.getElementById('open-video-modal-btn')?.addEventListener('click', () => {
+      resetForm();
+      modal?.classList.remove('hidden');
+    });
+
+    document.getElementById('close-video-modal-btn')?.addEventListener('click', () => modal?.classList.add('hidden'));
+    document.getElementById('cancel-video-modal-btn')?.addEventListener('click', () => modal?.classList.add('hidden'));
+
+    // Edit
+    document.querySelectorAll('.edit-video-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const raw = btn.getAttribute('data-video');
+        if (!raw) return;
+        const vid = JSON.parse(raw);
+        idInput.value = vid.id;
+        titleInput.value = vid.title || '';
+        urlInput.value = vid.video_url || '';
+        thumbInput.value = vid.thumbnail_url || '';
+        descInput.value = vid.description || '';
+        durationInput.value = vid.duration || '';
+        orderInput.value = vid.display_order ?? 1;
+        statusInput.value = vid.status || 'active';
+        modalTitle.textContent = 'Hariri Video';
+        modal?.classList.remove('hidden');
+      });
+    });
+
+    // Save
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const id = idInput.value;
+      const payload = {
+        title: titleInput.value.trim(),
+        video_url: urlInput.value.trim(),
+        thumbnail_url: thumbInput.value.trim() || null,
+        description: descInput.value.trim() || null,
+        duration: parseInt(durationInput.value) || null,
+        display_order: parseInt(orderInput.value) || 1,
+        status: statusInput.value,
+        updated_at: new Date().toISOString(),
+      };
+
+      try {
+        const endpoint = id
+          ? `${supabaseUrl}/rest/v1/featured_videos?id=eq.${id}`
+          : `${supabaseUrl}/rest/v1/featured_videos`;
+        const method = id ? 'PATCH' : 'POST';
+
+        const res = await fetch(endpoint, {
+          method,
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': supabaseKey,
+            'Authorization': `Bearer ${supabaseKey}`,
+            'Prefer': 'return=representation',
+          },
+          body: JSON.stringify(payload),
+        });
+
+        if (res.ok) {
+          alert('Video imehifadhiwa kikamilifu!');
+          window.location.reload();
+        } else {
+          const errData = await res.json().catch(() => ({}));
+          alert(`Haikuweza kuhifadhi: ${errData.message || res.statusText}`);
+        }
+      } catch (err) {
+        console.error(err);
+        alert('Hitilafu ya mtandao.');
+      }
+    });
+
+    // Delete
+    document.querySelectorAll('.delete-video-btn').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const id = btn.getAttribute('data-id');
+        const title = btn.getAttribute('data-title');
+        if (!confirm(`Je, una uhakika unataka kufuta video "${title}"?`)) return;
+
+        try {
+          const res = await fetch(`${supabaseUrl}/rest/v1/featured_videos?id=eq.${id}`, {
+            method: 'DELETE',
+            headers: {
+              'apikey': supabaseKey,
+              'Authorization': `Bearer ${supabaseKey}`,
+            },
+          });
+          if (res.ok) {
+            document.querySelector(`div[data-id="${id}"]`)?.remove();
+          } else {
+            alert('Haikuweza kufuta.');
+          }
+        } catch (err) {
+          console.error(err);
+          alert('Hitilafu ya mtandao.');
+        }
+      });
+    });
+
+    // ==========================================
+    // STORAGE BUCKET EXPLORER IMPLEMENTATION
+    // ==========================================
+    const bucketModal = document.getElementById('bucket-modal');
+    const bucketSelect = document.getElementById('bucket-select');
+    const bucketLoading = document.getElementById('bucket-loading');
+    const bucketFilesList = document.getElementById('bucket-files-list');
+    const bucketCountBadge = document.getElementById('bucket-count-badge');
+    const refreshBucketBtn = document.getElementById('refresh-bucket-btn');
+    const fileUploadInput = document.getElementById('bucket-file-upload');
+
+    document.getElementById('open-bucket-modal-btn')?.addEventListener('click', () => {
+      bucketModal?.classList.remove('hidden');
+      loadBucketFiles(bucketSelect.value);
+    });
+
+    document.getElementById('close-bucket-modal-btn')?.addEventListener('click', () => bucketModal?.classList.add('hidden'));
+    document.getElementById('close-bucket-modal-btn2')?.addEventListener('click', () => bucketModal?.classList.add('hidden'));
+
+    bucketSelect?.addEventListener('change', () => {
+      loadBucketFiles(bucketSelect.value);
+    });
+
+    refreshBucketBtn?.addEventListener('click', () => {
+      loadBucketFiles(bucketSelect.value);
+    });
+
+    async function loadBucketFiles(bucketName) {
+      if (!bucketFilesList) return;
+      bucketLoading?.classList.remove('hidden');
+      bucketFilesList.innerHTML = '';
+      bucketCountBadge.textContent = 'Inachunguza faili...';
+
+      try {
+        const files = await scanBucketRecursively(bucketName, '');
+        bucketLoading?.classList.add('hidden');
+        bucketCountBadge.textContent = `Jumla ya faili zilizopatikana: ${files.length} katika bucket "${bucketName}"`;
+
+        if (files.length === 0) {
+          bucketFilesList.innerHTML = `
+            <div class="rounded-2xl border border-dashed border-border p-8 text-center bg-bg/40">
+              <p class="text-xs font-bold text-dark-green">Hakuna faili katika bucket hii bado.</p>
+              <p class="text-[11px] text-text-muted mt-1">Pakia video au picha kwa kutumia kitufe cha "Pakia Faili Kwenye Bucket" hapo juu.</p>
+            </div>
+          `;
+          return;
+        }
+
+        bucketFilesList.innerHTML = files.map(file => {
+          const isVideo = file.name.endsWith('.mp4') || file.name.endsWith('.webm') || file.metadata?.mimetype?.startsWith('video/');
+          const isImage = file.name.endsWith('.png') || file.name.endsWith('.jpg') || file.name.endsWith('.jpeg') || file.metadata?.mimetype?.startsWith('image/');
+          const sizeKb = file.metadata?.size ? (file.metadata.size / 1024).toFixed(1) : '?';
+          const sizeMb = file.metadata?.size ? (file.metadata.size / (1024 * 1024)).toFixed(2) : '?';
+          const displaySize = file.metadata?.size > 1024 * 1024 ? `${sizeMb} MB` : `${sizeKb} KB`;
+
+          return `
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-2xl border border-border bg-white hover:border-dark-green/40 transition">
+              <div class="flex items-center gap-3">
+                <div class="relative size-16 shrink-0 rounded-xl bg-neutral-900 overflow-hidden flex items-center justify-center">
+                  ${isVideo ? `
+                    <video src="${file.url}" class="size-full object-cover" muted preload="metadata"></video>
+                    <span class="absolute inset-0 bg-black/40 flex items-center justify-center text-white text-xs">▶</span>
+                  ` : isImage ? `
+                    <img src="${file.url}" alt="${file.name}" class="size-full object-cover" />
+                  ` : `
+                    <span class="text-xs font-bold text-white">DOC</span>
+                  `}
+                </div>
+                <div>
+                  <h4 class="text-xs font-extrabold text-dark-green break-all">${file.name}</h4>
+                  <p class="text-[11px] text-text-muted mt-0.5">
+                    Njia: <span class="font-mono text-dark-green">${file.path}</span> • Ukubwa: <span class="font-bold">${displaySize}</span>
+                  </p>
+                  <p class="text-[10px] text-text-muted">Aina: ${file.metadata?.mimetype || (isVideo ? 'video/mp4' : 'image')}</p>
+                </div>
+              </div>
+
+              <div class="flex flex-wrap items-center gap-2 self-end sm:self-center">
+                <button
+                  type="button"
+                  class="copy-url-btn rounded-xl border border-border bg-white px-3 py-1.5 text-xs font-semibold text-text hover:bg-bg transition cursor-pointer"
+                  data-url="${file.url}"
+                >
+                  Nakili URL
+                </button>
+
+                ${isVideo ? `
+                  <button
+                    type="button"
+                    class="use-video-btn rounded-xl bg-dark-green px-3.5 py-1.5 text-xs font-bold text-white hover:bg-accent transition cursor-pointer shadow-2xs"
+                    data-url="${file.url}"
+                    data-name="${file.name}"
+                    data-size="${file.metadata?.size || ''}"
+                  >
+                    ⚡ Sajili Kama Video
+                  </button>
+                ` : isImage ? `
+                  <button
+                    type="button"
+                    class="use-thumb-btn rounded-xl border border-dark-green bg-primary-soft/50 px-3 py-1.5 text-xs font-bold text-dark-green hover:bg-primary transition cursor-pointer"
+                    data-url="${file.url}"
+                  >
+                    Weka Thumbnail
+                  </button>
+                ` : ''}
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        // Attach event handlers for newly rendered buttons
+        bucketFilesList.querySelectorAll('.copy-url-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const url = btn.getAttribute('data-url');
+            if (url) {
+              navigator.clipboard.writeText(url);
+              btn.textContent = '✓ Imenakiliwa!';
+              setTimeout(() => { btn.textContent = 'Nakili URL'; }, 2000);
+            }
+          });
+        });
+
+        bucketFilesList.querySelectorAll('.use-video-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const url = btn.getAttribute('data-url');
+            const name = btn.getAttribute('data-name');
+
+            bucketModal?.classList.add('hidden');
+            resetForm();
+            urlInput.value = url || '';
+            // Generate friendly title from name
+            const cleanTitle = (name || '')
+              .replace(/\.[^/.]+$/, '')
+              .replace(/[-_]/g, ' ')
+              .replace(/video \d+/i, 'HealthTalks Video Kipindi');
+            titleInput.value = cleanTitle.charAt(0).toUpperCase() + cleanTitle.slice(1);
+            descInput.value = `Kipindi cha video cha afya kutoka maktaba ya HealthTalks.`;
+            modal?.classList.remove('hidden');
+          });
+        });
+
+        bucketFilesList.querySelectorAll('.use-thumb-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const url = btn.getAttribute('data-url');
+            thumbInput.value = url || '';
+            btn.textContent = '✓ Imechaguliwa!';
+            setTimeout(() => { btn.textContent = 'Weka Thumbnail'; }, 1500);
+          });
+        });
+
+      } catch (err) {
+        console.error('Error scanning bucket:', err);
+        bucketLoading?.classList.add('hidden');
+        bucketFilesList.innerHTML = `
+          <div class="rounded-2xl border border-red-200 bg-red-50 p-4 text-xs text-red-700">
+            Haikuweza kuungana na Supabase Storage: ${err.message || 'Mtandao ulikatika'}.
+          </div>
+        `;
+      }
+    }
+
+    async function scanBucketRecursively(bucket, prefix) {
+      const allFiles = [];
+
+      async function scan(currentPrefix) {
+        const res = await fetch(`${supabaseUrl}/storage/v1/object/list/${bucket}`, {
+          method: 'POST',
+          headers: {
+            'apikey': supabaseKey,
+            'Authorization': `Bearer ${supabaseKey}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            prefix: currentPrefix,
+            limit: 100,
+            sortBy: { column: 'name', order: 'asc' },
+          }),
+        });
+
+        if (!res.ok) return;
+        const items = await res.json();
+
+        for (const item of items) {
+          if (!item.id) {
+            // Folder detected
+            const subPrefix = currentPrefix ? `${currentPrefix}/${item.name}` : item.name;
+            await scan(subPrefix);
+          } else {
+            // Real file
+            const fullPath = currentPrefix ? `${currentPrefix}/${item.name}` : item.name;
+            allFiles.push({
+              ...item,
+              path: fullPath,
+              url: `${supabaseUrl}/storage/v1/object/public/${bucket}/${fullPath}`,
+            });
+          }
+        }
+      }
+
+      await scan(prefix);
+      return allFiles;
+    }
+
+    // Direct Upload to Bucket
+    fileUploadInput?.addEventListener('change', async (e) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+
+      const currentBucket = bucketSelect.value;
+      const fileName = `${Date.now()}_${file.name.replace(/[^a-zA-Z0-9._-]/g, '_')}`;
+      const uploadPath = `${fileName}`;
+
+      bucketLoading?.classList.remove('hidden');
+      bucketCountBadge.textContent = `Inapakia ${file.name} (${(file.size / (1024 * 1024)).toFixed(2)} MB)...`;
+
+      try {
+        const res = await fetch(`${supabaseUrl}/storage/v1/object/${currentBucket}/${uploadPath}`, {
+          method: 'POST',
+          headers: {
+            'apikey': supabaseKey,
+            'Authorization': `Bearer ${supabaseKey}`,
+            'Content-Type': file.type || 'application/octet-stream',
+          },
+          body: file,
+        });
+
+        if (res.ok) {
+          alert(`Faili "${file.name}" limepakiwa kikamilifu kwenye bucket "${currentBucket}"!`);
+          loadBucketFiles(currentBucket);
+        } else {
+          const err = await res.json().catch(() => ({}));
+          alert(`Upakiaji umeshindwa: ${err.message || res.statusText}`);
+          bucketLoading?.classList.add('hidden');
+        }
+      } catch (err) {
+        console.error('Upload error:', err);
+        alert('Hitilafu ya mtandao wakati wa kupakia faili.');
+        bucketLoading?.classList.add('hidden');
+      } finally {
+        fileUploadInput.value = '';
+      }
+    });
+  </script>
+</AdminLayout>

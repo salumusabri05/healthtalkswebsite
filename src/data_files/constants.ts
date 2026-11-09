@@ -7,7 +7,7 @@ export const SITE = {
     'HealthTalks brings you insightful discussions, expert medical perspectives, and practical wellness guidance to empower healthier lives.',
   description_short:
     'Inspiring conversations, medical insights, and practical wellness guidance.',
-  url: 'https://healthtalks.org',
+  url: 'https://healthtalks.co.tz',
   author: 'HealthTalks Team',
 };
 

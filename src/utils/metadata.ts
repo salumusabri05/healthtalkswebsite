@@ -57,6 +57,8 @@ export interface PageMetadata {
   ogTitle: string;
   ogDescription: string;
   ogLocale: string;
+  ogImage?: string;
+  ogType?: 'website' | 'article';
   canonical: string;
   alternates: { hreflang: string; href: string }[];
   jsonLd: Record<string, unknown>;
@@ -87,6 +89,16 @@ export function buildPageMetadata(input: PageMetadataInput): PageMetadata {
     hreflang: LOCALE_INFO[alt].lang,
     href: absoluteUrl(paths[alt]),
   }));
+
+  let ogImage: string | undefined = undefined;
+  let ogType: 'website' | 'article' = 'website';
+
+  if (kind.type === 'BlogPosting' || kind.type === 'Article') {
+    ogType = 'article';
+    if (kind.image) {
+      ogImage = kind.image.startsWith('http') ? kind.image : absoluteUrl(kind.image);
+    }
+  }
 
   const publisher = {
     '@type': 'Organization',
@@ -150,6 +162,8 @@ export function buildPageMetadata(input: PageMetadataInput): PageMetadata {
     ogTitle,
     ogDescription,
     ogLocale: info.ogLocale,
+    ogImage,
+    ogType,
     canonical,
     alternates,
     jsonLd: {

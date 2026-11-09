@@ -244,6 +244,15 @@ export const en = {
         },
       ],
     },
+    featuredVideos: {
+      badge: 'Video Spotlight',
+      title: 'Doctor Insights & Health Masterclasses',
+      subTitle:
+        'Watch recorded medical talks, expert wellness advice, and preventative health tutorials from certified healthcare professionals.',
+      emptyState: 'No featured videos yet. Check back soon for fresh health talks!',
+      watchNow: 'Watch Talk',
+      durationLabel: 'min',
+    },
     featuresGeneral: {
       title: 'Evidence-Based Wellness for Everyday Life',
       subTitle:

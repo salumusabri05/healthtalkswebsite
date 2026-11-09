@@ -3,7 +3,17 @@ import '@styles/global.css';
 
 interface Props {
   title: string;
-  activeNav?: 'dashboard' | 'articles' | 'categories' | 'announcements' | 'messages';
+  activeNav?:
+    | 'dashboard'
+    | 'articles'
+    | 'categories'
+    | 'announcements'
+    | 'messages'
+    | 'subscribers'
+    | 'features'
+    | 'carousel'
+    | 'videos'
+    | 'tags';
 }
 
 const { title, activeNav = 'dashboard' } = Astro.props;
@@ -19,7 +29,7 @@ const { title, activeNav = 'dashboard' } = Astro.props;
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700&display=swap"
       rel="stylesheet"
     />
     <script is:inline>
@@ -39,7 +49,7 @@ const { title, activeNav = 'dashboard' } = Astro.props;
             <span class="text-lg font-extrabold tracking-tight text-dark-green">HealthTalks</span>
           </a>
           <span class="rounded-full bg-primary-soft px-2.5 py-0.5 text-xs font-bold text-dark-green border border-border">
-            CMS Admin
+            CMS Admin Portal
           </span>
         </div>
 
@@ -49,24 +59,24 @@ const { title, activeNav = 'dashboard' } = Astro.props;
             target="_blank"
             class="inline-flex items-center gap-1.5 rounded-lg border border-border bg-white px-3 py-1.5 text-xs font-bold text-text transition hover:bg-primary-soft hover:text-dark-green"
           >
-            <svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <span>Tazama Tovuti (Live)</span>
+            <svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
               <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
               <polyline points="15 3 21 3 21 9" />
               <line x1="10" y1="14" x2="21" y2="3" />
             </svg>
-            Tazama Tovuti (View Site)
           </a>
 
           <div class="flex items-center gap-2 border-s border-border ps-3">
-            <div class="size-8 rounded-full bg-dark-green text-white flex items-center justify-center font-bold text-xs">
-              HT
+            <div class="size-8 rounded-full bg-primary-soft text-dark-green flex items-center justify-center font-bold text-xs border border-border">
+              AD
             </div>
-            <span class="text-xs font-bold text-text hidden sm:inline" id="admin-user-display">Msimamizi</span>
+            <span class="text-xs font-bold text-text-muted hidden sm:inline" id="admin-user-display">Admin</span>
             <button
               type="button"
               id="admin-logout-btn"
-              title="Toka kwenye CMS (Sign Out)"
-              class="ms-1 rounded-lg border border-border p-1.5 text-text-muted hover:bg-red-50 hover:text-red-600 hover:border-red-200 transition cursor-pointer"
+              title="Toka (Log out)"
+              class="rounded-lg p-1.5 text-text-muted hover:bg-red-50 hover:text-red-600 transition cursor-pointer"
             >
               <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
@@ -79,98 +89,203 @@ const { title, activeNav = 'dashboard' } = Astro.props;
       </div>
     </header>
 
-    {/* Admin Shell */}
-    <div class="mx-auto flex w-full max-w-7xl flex-1 px-4 py-6 sm:px-6 lg:px-8">
+    {/* Admin Main Layout */}
+    <div class="mx-auto flex w-full max-w-7xl flex-1 px-4 py-6 sm:px-6 lg:px-8 gap-8">
       {/* Sidebar Navigation */}
-      <aside class="hidden w-64 shrink-0 lg:block pe-6">
-        <nav class="space-y-1">
-          <a
-            href="/admin"
-            class={`flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-bold transition ${
-              activeNav === 'dashboard'
-                ? 'bg-primary-soft text-dark-green border border-border'
-                : 'text-text-muted hover:bg-white hover:text-dark-green'
-            }`}
-          >
-            <svg class="size-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect width="7" height="9" x="3" y="3" rx="1" />
-              <rect width="7" height="5" x="14" y="3" rx="1" />
-              <rect width="7" height="9" x="14" y="12" rx="1" />
-              <rect width="7" height="5" x="3" y="16" rx="1" />
-            </svg>
-            Dashibodi (Dashboard)
-          </a>
+      <aside class="w-64 shrink-0 hidden md:block">
+        <nav class="sticky top-24 space-y-6 rounded-2xl border border-border bg-white p-4 shadow-2xs text-xs">
+          {/* Overview */}
+          <div>
+            <div class="px-3 pb-2 text-[10px] font-extrabold uppercase tracking-wider text-text-muted">
+              Usimamizi Mkuu
+            </div>
+            <a
+              href="/admin"
+              class={`flex items-center gap-3 rounded-xl px-3 py-2 font-bold transition ${
+                activeNav === 'dashboard'
+                  ? 'bg-primary-soft text-dark-green border border-border'
+                  : 'text-text-muted hover:bg-bg hover:text-dark-green'
+              }`}
+            >
+              <svg class="size-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect width="7" height="9" x="3" y="3" rx="1" />
+                <rect width="7" height="5" x="14" y="3" rx="1" />
+                <rect width="7" height="9" x="14" y="12" rx="1" />
+                <rect width="7" height="5" x="3" y="16" rx="1" />
+              </svg>
+              Dashibodi Kuu (Overview)
+            </a>
+          </div>
 
-          <a
-            href="/admin/articles"
-            class={`flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-bold transition ${
-              activeNav === 'articles'
-                ? 'bg-primary-soft text-dark-green border border-border'
-                : 'text-text-muted hover:bg-white hover:text-dark-green'
-            }`}
-          >
-            <svg class="size-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z" />
-              <path d="M6 6h10" />
-              <path d="M6 10h10" />
-            </svg>
-            Makala za Afya (Articles)
-          </a>
+          {/* Articles & Categories */}
+          <div>
+            <div class="px-3 pb-2 text-[10px] font-extrabold uppercase tracking-wider text-text-muted">
+              Maudhui ya Afya
+            </div>
+            <div class="space-y-1">
+              <a
+                href="/admin/articles"
+                class={`flex items-center gap-3 rounded-xl px-3 py-2 font-bold transition ${
+                  activeNav === 'articles'
+                    ? 'bg-primary-soft text-dark-green border border-border'
+                    : 'text-text-muted hover:bg-bg hover:text-dark-green'
+                }`}
+              >
+                <svg class="size-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z" />
+                  <path d="M6 6h10" />
+                  <path d="M6 10h10" />
+                </svg>
+                Makala & Rasimu
+              </a>
 
-          <a
-            href="/admin/articles/new"
-            class="flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-bold text-dark-green hover:bg-primary-soft transition"
-          >
-            <svg class="size-5 shrink-0 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="12" cy="12" r="10" />
-              <line x1="12" y1="8" x2="12" y2="16" />
-              <line x1="8" y1="12" x2="16" y2="12" />
-            </svg>
-            Andika Makala Mpya (New)
-          </a>
+              <a
+                href="/admin/articles/new"
+                class="flex items-center gap-3 rounded-xl px-3 py-2 font-bold text-dark-green hover:bg-primary-soft/60 transition"
+              >
+                <svg class="size-4 shrink-0 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="12" y1="8" x2="12" y2="16" />
+                  <line x1="8" y1="12" x2="16" y2="12" />
+                </svg>
+                Andika Makala Mpya
+              </a>
 
-          <a
-            href="/admin/categories"
-            class={`flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-bold transition ${
-              activeNav === 'categories'
-                ? 'bg-primary-soft text-dark-green border border-border'
-                : 'text-text-muted hover:bg-white hover:text-dark-green'
-            }`}
-          >
-            <svg class="size-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
-            </svg>
-            Mada & Makundi (Categories)
-          </a>
+              <a
+                href="/admin/categories"
+                class={`flex items-center gap-3 rounded-xl px-3 py-2 font-bold transition ${
+                  activeNav === 'categories'
+                    ? 'bg-primary-soft text-dark-green border border-border'
+                    : 'text-text-muted hover:bg-bg hover:text-dark-green'
+                }`}
+              >
+                <svg class="size-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
+                </svg>
+                Makundi ya Afya
+              </a>
 
-          <a
-            href="/admin/announcements"
-            class={`flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-bold transition ${
-              activeNav === 'announcements'
-                ? 'bg-primary-soft text-dark-green border border-border'
-                : 'text-text-muted hover:bg-white hover:text-dark-green'
-            }`}
-          >
-            <svg class="size-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="m3 11 18-5v12L3 14v-3z" />
-              <path d="M11.6 16.8a3 3 0 1 1-5.8-1.6" />
-            </svg>
-            Matangazo (Announcements)
-          </a>
+              <a
+                href="/admin/tags"
+                class={`flex items-center gap-3 rounded-xl px-3 py-2 font-bold transition ${
+                  activeNav === 'tags'
+                    ? 'bg-primary-soft text-dark-green border border-border'
+                    : 'text-text-muted hover:bg-bg hover:text-dark-green'
+                }`}
+              >
+                <svg class="size-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2Z" />
+                  <circle cx="7" cy="7" r=".5" fill="currentColor" />
+                </svg>
+                Lebo za Makala (Tags)
+              </a>
+            </div>
+          </div>
 
-          <a
-            href="/admin/messages"
-            class={`flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-bold transition ${
-              activeNav === 'messages'
-                ? 'bg-primary-soft text-dark-green border border-border'
-                : 'text-text-muted hover:bg-white hover:text-dark-green'
-            }`}
-          >
-            <svg class="size-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-            </svg>
-            Ujumbe & Maswali (Messages)
-          </a>
+          {/* Landing & Media Management */}
+          <div>
+            <div class="px-3 pb-2 text-[10px] font-extrabold uppercase tracking-wider text-text-muted">
+              Ukurasa wa Mwanzo & Media
+            </div>
+            <div class="space-y-1">
+              <a
+                href="/admin/carousel"
+                class={`flex items-center gap-3 rounded-xl px-3 py-2 font-bold transition ${
+                  activeNav === 'carousel'
+                    ? 'bg-primary-soft text-dark-green border border-border'
+                    : 'text-text-muted hover:bg-bg hover:text-dark-green'
+                }`}
+              >
+                <svg class="size-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect width="18" height="18" x="3" y="3" rx="2" />
+                  <circle cx="9" cy="9" r="2" />
+                  <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
+                </svg>
+                Picha za Slaidi (Carousel)
+              </a>
+
+              <a
+                href="/admin/videos"
+                class={`flex items-center gap-3 rounded-xl px-3 py-2 font-bold transition ${
+                  activeNav === 'videos'
+                    ? 'bg-primary-soft text-dark-green border border-border'
+                    : 'text-text-muted hover:bg-bg hover:text-dark-green'
+                }`}
+              >
+                <svg class="size-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="23 7 16 12 23 17 23 7" />
+                  <rect width="15" height="14" x="1" y="5" rx="2" />
+                </svg>
+                Video & Mazungumzo (Videos)
+              </a>
+
+              <a
+                href="/admin/features"
+                class={`flex items-center gap-3 rounded-xl px-3 py-2 font-bold transition ${
+                  activeNav === 'features'
+                    ? 'bg-primary-soft text-dark-green border border-border'
+                    : 'text-text-muted hover:bg-bg hover:text-dark-green'
+                }`}
+              >
+                <svg class="size-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                Vipengele vya Jukwaa (Features)
+              </a>
+            </div>
+          </div>
+
+          {/* Communication & Subscribers */}
+          <div>
+            <div class="px-3 pb-2 text-[10px] font-extrabold uppercase tracking-wider text-text-muted">
+              Mawasiliano & Jamii
+            </div>
+            <div class="space-y-1">
+              <a
+                href="/admin/announcements"
+                class={`flex items-center gap-3 rounded-xl px-3 py-2 font-bold transition ${
+                  activeNav === 'announcements'
+                    ? 'bg-primary-soft text-dark-green border border-border'
+                    : 'text-text-muted hover:bg-bg hover:text-dark-green'
+                }`}
+              >
+                <svg class="size-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="m3 11 18-5v12L3 14v-3z" />
+                  <path d="M11.6 16.8a3 3 0 1 1-5.8-1.6" />
+                </svg>
+                Matangazo (Announcements)
+              </a>
+
+              <a
+                href="/admin/messages"
+                class={`flex items-center gap-3 rounded-xl px-3 py-2 font-bold transition ${
+                  activeNav === 'messages'
+                    ? 'bg-primary-soft text-dark-green border border-border'
+                    : 'text-text-muted hover:bg-bg hover:text-dark-green'
+                }`}
+              >
+                <svg class="size-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                </svg>
+                Ujumbe & Maswali (Messages)
+              </a>
+
+              <a
+                href="/admin/subscribers"
+                class={`flex items-center gap-3 rounded-xl px-3 py-2 font-bold transition ${
+                  activeNav === 'subscribers'
+                    ? 'bg-primary-soft text-dark-green border border-border'
+                    : 'text-text-muted hover:bg-bg hover:text-dark-green'
+                }`}
+              >
+                <svg class="size-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect width="20" height="16" x="2" y="4" rx="2" />
+                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                </svg>
+                Wanaofuatilia Jarida (Subscribers)
+              </a>
+            </div>
+          </div>
         </nav>
       </aside>
 

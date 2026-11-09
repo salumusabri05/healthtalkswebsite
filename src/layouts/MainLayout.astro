@@ -2,6 +2,7 @@
 import Meta from '@components/Meta.astro';
 import Navbar from '@components/sections/navbar&footer/Navbar.astro';
 import FooterSection from '@components/sections/navbar&footer/FooterSection.astro';
+import VideoPopupModal from '@components/ui/modals/VideoPopupModal.astro';
 import { buildPageMetadata, type PageKind } from '@utils/metadata';
 import { getCopy } from '@/copy';
 import type { MarketingLocale } from '@utils/locale';
@@ -84,6 +85,7 @@ const metadata = buildPageMetadata({
       </main>
     </div>
     {!hideFooter && <FooterSection locale={locale} />}
+    <VideoPopupModal locale={locale} />
     <script>
       // https://preline.co
       import 'preline';

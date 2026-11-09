@@ -1,0 +1,226 @@
+---
+import AdminLayout from '@/layouts/AdminLayout.astro';
+import { getTags } from '@/utils/supabase';
+
+const tags = await getTags();
+const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL || 'https://rgbnwbeyrjxmgmamwdgd.supabase.co';
+const supabaseKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY || import.meta.env.SUPABASE_SERVICE_ROLE_KEY || '';
+---
+
+<AdminLayout title="Lebo za Makala (Article Tags)" activeNav="tags">
+  <div class="space-y-6">
+    {/* Page Header */}
+    <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <div>
+        <h1 class="text-2xl font-extrabold tracking-tight text-dark-green sm:text-3xl">
+          Lebo za Makala (Article Tags)
+        </h1>
+        <p class="mt-1 text-sm text-text-muted">
+          Tengeneza na simamia vitambulisho vya mada vinavyowasaidia wasomaji kutafuta makala.
+        </p>
+      </div>
+
+      <button
+        type="button"
+        id="open-tag-modal-btn"
+        class="inline-flex items-center gap-2 rounded-xl bg-dark-green px-4 py-2.5 text-xs font-bold text-white shadow-sm transition hover:bg-accent cursor-pointer"
+      >
+        <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <line x1="12" y1="5" x2="12" y2="19" />
+          <line x1="5" y1="12" x2="19" y2="12" />
+        </svg>
+        Tengeneza Lebo Mpya (New Tag)
+      </button>
+    </div>
+
+    {/* Tags Table */}
+    <div class="rounded-2xl border border-border bg-white shadow-2xs overflow-hidden">
+      <div class="p-4 border-b border-border bg-bg flex items-center justify-between">
+        <span class="text-xs font-bold text-text-muted uppercase tracking-wider">
+          Jumla: {tags.length} Lebo
+        </span>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-start text-sm">
+          <thead class="bg-white text-xs font-bold uppercase tracking-wider text-text-muted border-b border-border">
+            <tr>
+              <th class="px-6 py-3.5 text-start">Jina la Lebo (Tag Name)</th>
+              <th class="px-6 py-3.5 text-start">Slug</th>
+              <th class="px-6 py-3.5 text-start">Tarehe Iliyotengenezwa</th>
+              <th class="px-6 py-3.5 text-end">Vitendo</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-border">
+            {tags.length === 0 ? (
+              <tr>
+                <td colspan="4" class="px-6 py-8 text-center text-xs text-text-muted">
+                  Hakuna lebo zilizotengenezwa bado. Bofya kitufe cha juu kuweka lebo ya kwanza (mf. Lishe, Kinga, Kisukari).
+                </td>
+              </tr>
+            ) : (
+              tags.map(tag => (
+                <tr class="hover:bg-primary-soft/20 transition" data-id={tag.id}>
+                  <td class="px-6 py-4 font-bold text-dark-green flex items-center gap-2">
+                    <span class="size-2 rounded-full bg-accent"></span>
+                    <span>{tag.name}</span>
+                  </td>
+                  <td class="px-6 py-4 text-xs font-mono text-text-muted">
+                    #{tag.slug}
+                  </td>
+                  <td class="px-6 py-4 text-xs text-text-muted">
+                    {tag.created_at ? new Date(tag.created_at).toLocaleDateString('sw-TZ') : '—'}
+                  </td>
+                  <td class="px-6 py-4 text-end">
+                    <button
+                      type="button"
+                      class="delete-tag-btn rounded-lg border border-red-200 bg-white px-2.5 py-1.5 text-xs font-bold text-red-600 hover:bg-red-50 transition cursor-pointer"
+                      data-id={tag.id}
+                      data-name={tag.name}
+                    >
+                      Futa
+                    </button>
+                  </td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  {/* Tag Modal */}
+  <div id="tag-modal" class="fixed inset-0 z-50 hidden bg-text/60 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="relative w-full max-w-md rounded-3xl bg-white p-6 shadow-2xl border border-border">
+      <div class="flex items-center justify-between border-b border-border pb-3">
+        <h2 class="text-base font-extrabold text-dark-green">Tengeneza Lebo Mpya</h2>
+        <button type="button" id="close-tag-modal-btn" class="size-7 rounded-full border border-border text-text-muted flex items-center justify-center cursor-pointer">✕</button>
+      </div>
+
+      <form id="tag-form" class="mt-4 space-y-4">
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-text">Jina la Lebo (Tag Name) *</label>
+          <input
+            type="text"
+            id="tag-name"
+            required
+            placeholder="mf. Lishe Bora, Afya ya Uzazi, Kisukari"
+            class="mt-1 block w-full rounded-xl border border-border bg-bg px-3.5 py-2 text-sm text-text focus:outline-none focus:border-accent"
+          />
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-text">Slug (Hiari - Auto generated)</label>
+          <input
+            type="text"
+            id="tag-slug"
+            placeholder="mf. lishe-bora"
+            class="mt-1 block w-full rounded-xl border border-border bg-bg px-3.5 py-2 text-sm text-text focus:outline-none focus:border-accent"
+          />
+        </div>
+
+        <div class="pt-2 flex justify-end gap-2 border-t border-border">
+          <button type="button" id="cancel-tag-modal-btn" class="px-4 py-2 text-xs font-bold text-text-muted hover:text-text cursor-pointer">Ghairi</button>
+          <button type="submit" id="save-tag-btn" class="rounded-xl bg-dark-green px-5 py-2 text-xs font-bold text-white hover:bg-accent transition cursor-pointer">Hifadhi Lebo</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script define:vars={{ supabaseUrl, supabaseKey }}>
+    const modal = document.getElementById('tag-modal');
+    const nameInput = document.getElementById('tag-name');
+    const slugInput = document.getElementById('tag-slug');
+
+    nameInput?.addEventListener('input', () => {
+      if (slugInput && !slugInput.dataset.manual) {
+        slugInput.value = nameInput.value
+          .toLowerCase()
+          .trim()
+          .replace(/[^\w\s-]/g, '')
+          .replace(/[\s_-]+/g, '-')
+          .replace(/^-+|-+$/g, '');
+      }
+    });
+
+    slugInput?.addEventListener('input', () => {
+      slugInput.dataset.manual = 'true';
+    });
+
+    document.getElementById('open-tag-modal-btn')?.addEventListener('click', () => {
+      if (nameInput) nameInput.value = '';
+      if (slugInput) {
+        slugInput.value = '';
+        delete slugInput.dataset.manual;
+      }
+      modal?.classList.remove('hidden');
+    });
+
+    document.getElementById('close-tag-modal-btn')?.addEventListener('click', () => modal?.classList.add('hidden'));
+    document.getElementById('cancel-tag-modal-btn')?.addEventListener('click', () => modal?.classList.add('hidden'));
+
+    // Save Tag
+    document.getElementById('tag-form')?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = nameInput?.value.trim();
+      const slug = slugInput?.value.trim() || name?.toLowerCase().replace(/[\s_]+/g, '-');
+
+      if (!name) return;
+
+      try {
+        const res = await fetch(`${supabaseUrl}/rest/v1/tags`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': supabaseKey,
+            'Authorization': `Bearer ${supabaseKey}`,
+          },
+          body: JSON.stringify({
+            name,
+            slug,
+            created_at: new Date().toISOString(),
+          }),
+        });
+
+        if (res.ok) {
+          alert('Lebo imehifadhiwa!');
+          window.location.reload();
+        } else {
+          alert('Haikuweza kuhifadhi. Huenda lebo hii tayari ipo.');
+        }
+      } catch (err) {
+        console.error(err);
+        alert('Hitilafu ya mtandao.');
+      }
+    });
+
+    // Delete Tag
+    document.querySelectorAll('.delete-tag-btn').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const id = btn.getAttribute('data-id');
+        const name = btn.getAttribute('data-name');
+        if (!confirm(`Je, una uhakika unataka kufuta lebo "${name}"?`)) return;
+
+        try {
+          const res = await fetch(`${supabaseUrl}/rest/v1/tags?id=eq.${id}`, {
+            method: 'DELETE',
+            headers: {
+              'apikey': supabaseKey,
+              'Authorization': `Bearer ${supabaseKey}`,
+            },
+          });
+          if (res.ok) {
+            document.querySelector(`tr[data-id="${id}"]`)?.remove();
+          } else {
+            alert('Haikuweza kufuta.');
+          }
+        } catch (err) {
+          console.error(err);
+          alert('Hitilafu ya mtandao.');
+        }
+      });
+    });
+  </script>
+</AdminLayout>
+

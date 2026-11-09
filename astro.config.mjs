@@ -8,9 +8,9 @@ import mdx from '@astrojs/mdx';
 // https://astro.build/config
 export default defineConfig({
   // https://docs.astro.build/en/guides/images/#authorizing-remote-images
-  site: 'https://healthtalks.org',
+  site: 'https://healthtalks.co.tz',
   image: {
-    domains: ['images.unsplash.com'],
+    domains: ['images.unsplash.com', 'rgbnwbeyrjxmgmamwdgd.supabase.co'],
   },
   // i18n: {
   //   defaultLocale: "en",

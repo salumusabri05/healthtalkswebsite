@@ -1,0 +1,136 @@
+---
+import type { MarketingLocale } from '@utils/locale';
+import { getCopy } from '@/copy';
+import { getActiveFeaturedVideos } from '@/utils/supabase';
+
+interface Props {
+  locale: MarketingLocale;
+}
+
+const { locale } = Astro.props;
+const t = getCopy(locale);
+const copy = t.home.featuredVideos;
+
+const videos = await getActiveFeaturedVideos();
+if (!videos || videos.length === 0) {
+  // If no videos, don't render section
+  return;
+}
+---
+
+<section class="relative mx-auto max-w-[85rem] px-4 py-16 sm:px-6 lg:px-8">
+  {/* Header */}
+  <div class="mb-10 text-center sm:mx-auto sm:max-w-2xl">
+    <div class="inline-flex items-center gap-1.5 rounded-full border border-dark-green/20 bg-primary-soft/50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-dark-green">
+      <span class="inline-block size-2 rounded-full bg-accent animate-pulse"></span>
+      {copy.badge}
+    </div>
+    <h2 class="mt-3 text-3xl font-extrabold tracking-tight text-dark-green sm:text-4xl">
+      {copy.title}
+    </h2>
+    <p class="mt-3 text-base text-text-muted">
+      {copy.subTitle}
+    </p>
+  </div>
+
+  {/* Videos Grid */}
+  <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:gap-10">
+    {videos.map((video) => {
+      const isDirectVideo = video.video_url?.endsWith('.mp4') || video.video_url?.includes('supabase.co/storage');
+      const isYoutube = video.video_url?.includes('youtube.com') || video.video_url?.includes('youtu.be');
+
+      return (
+        <article class="group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-border bg-white shadow-2xs transition-all duration-300 hover:border-dark-green/40 hover:shadow-md">
+          {/* Media Player Area */}
+          <div class="relative aspect-video w-full overflow-hidden bg-neutral-950">
+            {isDirectVideo ? (
+              <video
+                controls
+                playsinline
+                preload="metadata"
+                poster={video.thumbnail_url || undefined}
+                class="size-full object-cover"
+              >
+                <source src={video.video_url} type="video/mp4" />
+                Kivinjari chako hakiauni video tag.
+              </video>
+            ) : isYoutube ? (
+              <iframe
+                src={video.video_url.replace('watch?v=', 'embed/').split('&')[0]}
+                title={video.title}
+                class="size-full border-0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+            ) : video.thumbnail_url ? (
+              <a href={video.video_url} target="_blank" rel="noopener noreferrer" class="relative block size-full group/thumb">
+                <img src={video.thumbnail_url} alt={video.title} class="size-full object-cover transition-transform duration-300 group-hover/thumb:scale-105" />
+                <div class="absolute inset-0 bg-black/30 flex items-center justify-center transition-colors group-hover/thumb:bg-black/20">
+                  <span class="size-14 rounded-full bg-dark-green/90 text-white flex items-center justify-center shadow-lg transition-transform group-hover/thumb:scale-110">
+                    <svg class="size-6 ml-0.5 fill-current" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  </span>
+                </div>
+              </a>
+            ) : (
+              <div class="size-full flex items-center justify-center bg-dark-green/10 text-dark-green">
+                <svg class="size-16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <polygon points="23 7 16 12 23 17 23 7" />
+                  <rect width="15" height="14" x="1" y="5" rx="2" />
+                </svg>
+              </div>
+            )}
+
+            {/* Duration Badge */}
+            {video.duration && (
+              <div class="absolute bottom-3 right-3 z-10 pointer-events-none rounded-lg bg-black/80 backdrop-blur-xs px-2.5 py-1 text-xs font-mono font-bold text-white shadow-xs">
+                {Math.floor(video.duration / 60)}:{(video.duration % 60).toString().padStart(2, '0')} {copy.durationLabel}
+              </div>
+            )}
+
+            {/* Verified Badge */}
+            <div class="absolute top-3 left-3 z-10 pointer-events-none rounded-full bg-dark-green/90 backdrop-blur-xs px-3 py-1 text-[11px] font-bold text-white shadow-xs flex items-center gap-1.5">
+              <svg class="size-3 text-primary" viewBox="0 0 24 24" fill="currentColor">
+                <path fill-rule="evenodd" d="M8.603 3.799A4.49 4.49 0 0112 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 013.498 1.307 4.491 4.491 0 011.307 3.497A4.49 4.49 0 0121.75 12a4.49 4.49 0 01-1.549 3.397 4.491 4.491 0 01-1.307 3.497 4.491 4.491 0 01-3.497 1.307A4.49 4.49 0 0112 21.75a4.49 4.49 0 01-3.397-1.549 4.49 4.49 0 01-3.498-1.306 4.491 4.491 0 01-1.307-3.498A4.49 4.49 0 012.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 011.307-3.497 4.49 4.49 0 013.497-1.307zm7.007 6.387a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd" />
+              </svg>
+              <span>HealthTalks Media</span>
+            </div>
+          </div>
+
+          {/* Details */}
+          <div class="flex flex-1 flex-col justify-between p-6 sm:p-7">
+            <div>
+              <h3 class="text-xl font-extrabold text-dark-green leading-snug">
+                {video.title}
+              </h3>
+              {video.description && (
+                <p class="mt-2 text-sm text-text-muted leading-relaxed line-clamp-3">
+                  {video.description}
+                </p>
+              )}
+            </div>
+
+            <div class="mt-6 flex items-center justify-between border-t border-border/70 pt-4">
+              <a
+                href={video.video_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-2 text-xs font-bold text-dark-green transition hover:text-accent"
+              >
+                <span>{copy.watchNow}</span>
+                <svg class="size-3.5 transition-transform group-hover:translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M5 12h14" />
+                  <path d="m12 5 7 7-7 7" />
+                </svg>
+              </a>
+
+              <span class="text-[11px] font-semibold text-text-muted">
+                {video.file_type || 'MP4 HD'}
+              </span>
+            </div>
+          </div>
+        </article>
+      );
+    })}
+  </div>
+</section>
+

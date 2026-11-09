@@ -233,6 +233,15 @@ export const sw: Copy = {
         },
       ],
     },
+    featuredVideos: {
+      badge: 'Video & Mazungumzo',
+      title: 'Vipindi vya Video na Ushauri wa Madaktari',
+      subTitle:
+        'Tazama vipindi vya elimu ya afya, mahojiano na wataalamu, na mafunzo ya kinga ya maradhi kutoka kwa madaktari walioidhinishwa.',
+      emptyState: 'Hakuna video zilizowekwa kwa sasa. Karibu tena hivi karibuni!',
+      watchNow: 'Tazama Kipindi',
+      durationLabel: 'dakika',
+    },
     featuresGeneral: {
       title: 'Elimu ya Afya Inayotegemea Ushahidi wa Kisayansi',
       subTitle:

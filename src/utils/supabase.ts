@@ -76,6 +76,60 @@ export interface ContactMessage {
   created_at?: string;
 }
 
+export interface NewsletterSubscriber {
+  id: string;
+  email: string;
+  name?: string;
+  subscribed_at?: string;
+  is_active: boolean;
+  source?: string;
+}
+
+export interface FeatureItem {
+  id: string;
+  title: string;
+  description: string;
+  icon?: string;
+  display_order?: number;
+  image_url?: string;
+  created_at?: string;
+}
+
+export interface CarouselImage {
+  id: string;
+  title: string;
+  description?: string;
+  image_url: string;
+  image_alt?: string;
+  display_order?: number;
+  status: string;
+  link_url?: string;
+  click_count?: number;
+  created_at?: string;
+}
+
+export interface FeaturedVideo {
+  id: string;
+  title: string;
+  description?: string;
+  video_url: string;
+  thumbnail_url?: string;
+  duration?: number;
+  display_order?: number;
+  status: string;
+  view_count?: number;
+  file_size?: number;
+  file_type?: string;
+  created_at?: string;
+}
+
+export interface TagItem {
+  id: string;
+  name: string;
+  slug: string;
+  created_at?: string;
+}
+
 // Data fetching helpers
 export async function getArticles() {
   const { data, error } = await supabase
@@ -152,4 +206,71 @@ export async function getContactMessages() {
     .order('created_at', { ascending: false });
   if (error) console.error('Error fetching contact messages:', error);
   return (data as ContactMessage[]) || [];
+}
+
+export async function getNewsletterSubscribers() {
+  const { data, error } = await supabase
+    .from('newsletter_subscribers')
+    .select('*')
+    .order('subscribed_at', { ascending: false });
+  if (error) console.error('Error fetching subscribers:', error);
+  return (data as NewsletterSubscriber[]) || [];
+}
+
+export async function getFeatures() {
+  const { data, error } = await supabase
+    .from('features')
+    .select('*')
+    .order('display_order', { ascending: true });
+  if (error) console.error('Error fetching features:', error);
+  return (data as FeatureItem[]) || [];
+}
+
+export async function getCarouselImages() {
+  const { data, error } = await supabase
+    .from('carousel_images')
+    .select('*')
+    .order('display_order', { ascending: true });
+  if (error) console.error('Error fetching carousel images:', error);
+  return (data as CarouselImage[]) || [];
+}
+
+export async function getFeaturedVideos() {
+  const { data, error } = await supabase
+    .from('featured_videos')
+    .select('*')
+    .order('display_order', { ascending: true });
+  if (error) console.error('Error fetching featured videos:', error);
+  return (data as FeaturedVideo[]) || [];
+}
+
+export async function getActiveFeaturedVideos() {
+  const { data, error } = await supabase
+    .from('featured_videos')
+    .select('*')
+    .eq('status', 'active')
+    .order('display_order', { ascending: true });
+  if (error) console.error('Error fetching active featured videos:', error);
+  return (data as FeaturedVideo[]) || [];
+}
+
+export async function getStorageFiles(bucket: string, folder: string = '') {
+  const { data, error } = await supabase.storage.from(bucket).list(folder, {
+    limit: 100,
+    sortBy: { column: 'created_at', order: 'desc' },
+  });
+  if (error) {
+    console.error(`Error listing files in bucket ${bucket}:`, error);
+    return [];
+  }
+  return data || [];
+}
+
+export async function getTags() {
+  const { data, error } = await supabase
+    .from('tags')
+    .select('*')
+    .order('name', { ascending: true });
+  if (error) console.error('Error fetching tags:', error);
+  return (data as TagItem[]) || [];
 }
