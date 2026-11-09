@@ -1,12 +1,15 @@
 ---
 import Icon from './icons/Icon.astro';
-import { LOCALE_INFO, MARKETING_LOCALES, alternatePaths } from '@utils/locale';
+import { LOCALE_INFO, MARKETING_LOCALES, alternatePaths, type MarketingLocale } from '@utils/locale';
+import { getCopy } from '@/copy';
 
-/**
- * Switches the current page between marketing locales. Each link points at
- * the same page in the other locale, so it works without JavaScript.
- */
-const { copy: t } = Astro.locals;
+interface Props {
+  locale?: MarketingLocale;
+}
+
+const { locale: propLocale } = Astro.props;
+const locale = propLocale ?? Astro.locals.locale ?? 'sw';
+const t = getCopy(locale);
 const alternates = alternatePaths(Astro.url.pathname);
 ---
 
@@ -16,23 +19,29 @@ const alternates = alternatePaths(Astro.url.pathname);
     type="button"
     aria-label={t.layout.changeLanguage}
     title={t.layout.changeLanguage}
-    class="hs-dropdown-toggle inline-flex items-center gap-x-2 rounded-lg px-1.5 py-1.5 text-sm font-medium text-neutral-600 ring-zinc-500 outline-hidden transition duration-300 hover:bg-neutral-200 hover:text-orange-400 dark:border-neutral-700 dark:text-neutral-400 dark:ring-zinc-200 dark:hover:bg-neutral-700 dark:hover:text-orange-300 dark:focus:outline-hidden"
+    class="hs-dropdown-toggle inline-flex items-center gap-x-2 rounded-lg px-2 py-1.5 text-sm font-semibold text-text outline-none transition duration-200 hover:bg-primary-soft hover:text-dark-green focus-visible:ring-2 focus-visible:ring-accent"
   >
-    <Icon name="earth" class="h-4 w-4 shrink-0" />
-    <Icon name="chevronDown" class="hs-dropdown-open:rotate-180 size-4" />
+    <Icon name="earth" class="h-4 w-4 shrink-0 text-accent" />
+    <span class="text-xs uppercase font-bold text-dark-green">{locale}</span>
+    <Icon name="chevronDown" class="hs-dropdown-open:rotate-180 size-3.5 text-text-muted" />
   </button>
 
   <div
-    class="hs-dropdown-menu duration hs-dropdown-open:opacity-100 top-[98%]! left-[20%]! mt-2 hidden transform-none! rounded-lg bg-neutral-50 p-2 opacity-0 shadow-md transition-[opacity,margin] before:absolute before:start-0 before:-top-4 before:h-4 before:w-full after:absolute after:start-0 after:-bottom-4 after:h-4 after:w-full md:top-[80%]! md:left-[90%]! dark:divide-neutral-700 dark:border dark:border-neutral-700 dark:bg-neutral-800"
+    class="hs-dropdown-menu duration hs-dropdown-open:opacity-100 top-[98%]! left-[20%]! mt-2 hidden transform-none! rounded-xl border border-border bg-white p-2 opacity-0 shadow-lg transition-[opacity,margin] md:top-[80%]! md:left-[90%]! z-50 min-w-36"
     aria-labelledby="hs-dropdown-default"
   >
-    {MARKETING_LOCALES.map(locale => (
+    {MARKETING_LOCALES.map(loc => (
       <a
-        class="flex items-center gap-x-3.5 rounded-lg px-3 py-2 text-sm text-neutral-800 hover:bg-neutral-100 focus:bg-neutral-100 focus:outline-hidden dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700"
-        href={alternates[locale]}
-        hreflang={LOCALE_INFO[locale].lang}
+        class={`flex items-center justify-between rounded-lg px-3 py-2 text-sm font-medium transition ${
+          loc === locale
+            ? 'bg-primary-soft text-dark-green font-bold'
+            : 'text-text hover:bg-primary-soft/50 hover:text-dark-green'
+        }`}
+        href={alternates[loc]}
+        hreflang={LOCALE_INFO[loc].lang}
       >
-        {LOCALE_INFO[locale].label}
+        <span>{LOCALE_INFO[loc].label}</span>
+        {loc === locale && <span class="size-1.5 rounded-full bg-dark-green"></span>}
       </a>
     ))}
   </div>

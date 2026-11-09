@@ -1,6 +1,6 @@
 ---
 // Extract properties from Astro.props
-const { aria, dataTab, id, heading, content, first } = Astro.props;
+const { aria, dataTab, id, heading, content, first, index = 0 } = Astro.props;
 
 // Define TypeScript interface for properties
 interface Props {
@@ -10,44 +10,36 @@ interface Props {
   heading?: string;
   content?: string;
   first?: boolean;
+  index?: number;
 }
-// Define button classes
+
+// Clean HealthTalks styling: inactive is light/transparent, active is crisp white card with green accents
 const BUTTON_CLASS =
-  'dark:hover:bg-neutral-700 rounded-xl p-4 text-start outline-hidden ring-zinc-500 transition duration-300 hover:bg-neutral-200 focus-visible:ring-3 hs-tab-active:bg-neutral-50 hs-tab-active:shadow-md hs-tab-active:hover:border-transparent dark:ring-zinc-200 dark:focus:outline-hidden  dark:hs-tab-active:bg-neutral-700/60 md:p-5';
-
-/*
-first: This property should be set to true for the initial TabNav component in your list
-to ensure that it's visible when the page first loads. All subsequent TabNav components
-should omit this property or set it to false.
-
-Example:
-<TabNav id="" dataTab="" aria="" heading="" paragraph="" first={true} />
-<TabNav id="" dataTab="" aria="" heading="" paragraph="" />
-<TabNav id="" dataTab="" aria="" heading="" paragraph="" />
-*/
+  'tab-nav-btn group relative w-full text-start rounded-2xl p-4 md:p-5 transition-all duration-300 cursor-pointer border border-transparent ' +
+  'hover:bg-primary-soft/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent ' +
+  'hs-tab-active:bg-white hs-tab-active:shadow-lg hs-tab-active:border-border hs-tab-active:hover:bg-white ' +
+  '[&.active]:bg-white [&.active]:shadow-lg [&.active]:border-border [&.active]:hover:bg-white';
 ---
 
-{/* Tab button with dynamic class based on 'first' property, id, tab data, and aria-controls  */}
 <button
   type="button"
-  class={`${first ? 'active ' : ''}${BUTTON_CLASS}`}
+  class={`${first ? 'active hs-tab-active ' : ''}${BUTTON_CLASS}`}
   id={id}
   data-hs-tab={dataTab}
+  data-tab-index={index}
   aria-controls={aria}
   aria-selected={first ? 'true' : 'false'}
   role="tab"
 >
-  {/* Slot for additional content */}
-  <span class="flex">
-    <slot />
-    {/* Container for the heading and content of the tab */}
-    <span class="ms-6 grow">
-      {/* Heading of the tab, changes color when active */}
-      <span class="hs-tab-active:text-orange-400 dark:hs-tab-active:text-orange-300 block text-lg font-bold text-neutral-800 dark:text-neutral-200">
+  <span class="flex items-start">
+    <span class="mt-0.5 shrink-0 transition-colors duration-300 text-accent group-hover:text-dark-green hs-tab-active:text-dark-green [.active_&]:text-dark-green">
+      <slot />
+    </span>
+    <span class="ms-4 grow">
+      <span class="block text-base md:text-lg font-bold text-text transition-colors duration-300 hs-tab-active:text-dark-green [.active_&]:text-dark-green">
         {heading}
       </span>
-      {/* Content of the tab, changes color when active */}
-      <span class="hs-tab-active:text-neutral-600 dark:hs-tab-active:text-neutral-200 mt-1 block text-neutral-500 dark:text-neutral-400">
+      <span class="mt-1 block text-sm leading-relaxed text-text-muted transition-colors duration-300 hs-tab-active:text-text [.active_&]:text-text">
         {content}
       </span>
     </span>

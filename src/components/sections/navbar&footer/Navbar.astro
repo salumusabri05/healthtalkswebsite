@@ -6,9 +6,16 @@ import BrandLogo from '@components/BrandLogo.astro';
 import LanguagePicker from '@components/ui/LanguagePicker.astro';
 import NavbarToggle from '@components/ui/buttons/NavbarToggle.astro';
 import { navLinks } from '@data/navigation';
-import { localePath } from '@utils/locale';
+import { localePath, type MarketingLocale } from '@utils/locale';
+import { getCopy } from '@/copy';
 
-const { locale, copy: t } = Astro.locals;
+interface Props {
+  locale?: MarketingLocale;
+}
+
+const { locale: propLocale } = Astro.props;
+const locale = propLocale ?? Astro.locals.locale ?? 'sw';
+const t = getCopy(locale);
 ---
 
 {/* Main header component */}
@@ -49,7 +56,7 @@ const { locale, copy: t } = Astro.locals;
         ))}
 
         <Authentication />
-        <LanguagePicker />
+        <LanguagePicker locale={locale} />
         {/* ThemeIcon component specifically for larger screens */}
         <span class="hidden md:inline-block">
           <ThemeIcon />

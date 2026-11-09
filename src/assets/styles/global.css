@@ -63,11 +63,11 @@
   --color-orange-900: var(--text);
   --color-orange-950: var(--text);
 
-  /* Neutral mappings ensure text is never washed-out/dim */
+  /* Neutral mappings ensure text is never washed-out/dim while light backgrounds remain soft */
   --color-neutral-50: var(--white);
   --color-neutral-100: var(--bg);
-  --color-neutral-200: var(--text);
-  --color-neutral-300: var(--text);
+  --color-neutral-200: var(--primary-soft);
+  --color-neutral-300: var(--border);
   --color-neutral-400: var(--text-muted);
   --color-neutral-500: var(--text-muted);
   --color-neutral-600: var(--text-muted);
@@ -78,8 +78,8 @@
 
   --color-gray-50: var(--white);
   --color-gray-100: var(--bg);
-  --color-gray-200: var(--text);
-  --color-gray-300: var(--text);
+  --color-gray-200: var(--primary-soft);
+  --color-gray-300: var(--border);
   --color-gray-400: var(--text-muted);
   --color-gray-500: var(--text-muted);
   --color-gray-600: var(--text-muted);
@@ -90,8 +90,8 @@
 
   --color-zinc-50: var(--white);
   --color-zinc-100: var(--bg);
-  --color-zinc-200: var(--text);
-  --color-zinc-300: var(--text);
+  --color-zinc-200: var(--primary-soft);
+  --color-zinc-300: var(--border);
   --color-zinc-400: var(--text-muted);
   --color-zinc-500: var(--text-muted);
   --color-zinc-600: var(--text-muted);

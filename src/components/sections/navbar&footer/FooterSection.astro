@@ -6,9 +6,16 @@ import Icon from '@components/ui/icons/Icon.astro';
 import BrandLogo from '@components/BrandLogo.astro';
 import { SITE } from '@data/constants';
 import { footerSections, socialLinks } from '@data/navigation';
-import { localePath } from '@utils/locale';
+import { localePath, type MarketingLocale } from '@utils/locale';
+import { getCopy } from '@/copy';
 
-const { locale, copy: t } = Astro.locals;
+interface Props {
+  locale?: MarketingLocale;
+}
+
+const { locale: propLocale } = Astro.props;
+const locale = propLocale ?? Astro.locals.locale ?? 'sw';
+const t = getCopy(locale);
 const footer = t.nav.footer;
 ---
 

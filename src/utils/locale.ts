@@ -87,17 +87,15 @@ export function splitLocale(pathname: string): {
 
 /**
  * Resolve the locale of the current request. The pathname is authoritative
- * for marketing pages; `Astro.currentLocale` (driven by Starlight's i18n
- * config) is only a fallback.
+ * for marketing pages: prefixed routes (/en/...) are English, un-prefixed
+ * routes are default (Swahili).
  */
 export function resolveLocale(
   pathname: string,
-  currentLocale?: string | undefined
+  _currentLocale?: string | undefined
 ): MarketingLocale {
   const { locale } = splitLocale(pathname);
-  if (locale !== DEFAULT_LOCALE) return locale;
-  if (isMarketingLocale(currentLocale)) return currentLocale;
-  return DEFAULT_LOCALE;
+  return locale;
 }
 
 /**

@@ -1,7 +1,7 @@
 ---
 // Import the necessary dependencies
+import { Image } from 'astro:assets';
 import TabNav from '@components/ui/blocks/TabNav.astro';
-import TabContent from '@components/ui/blocks/TabContent.astro';
 import Icon from '@components/ui/icons/Icon.astro';
 import type { IconName } from '@components/ui/icons/icons';
 
@@ -26,57 +26,161 @@ interface Props {
 }
 ---
 
-<section class="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 2xl:max-w-full">
-  <div class="relative p-6 md:p-16">
-    <div class="relative z-10 lg:grid lg:grid-cols-12 lg:items-center lg:gap-16">
-      {/* Section's heading and tab navigation */}
-      <div class="mb-10 lg:order-2 lg:col-span-6 lg:col-start-8 lg:mb-0">
-        <h2 class="text-2xl font-bold text-dark-green sm:text-3xl">
-          {/* About Fragment: https://docs.astro.build/en/basics/astro-syntax/#fragments */}
-          <Fragment set:html={title} />
-        </h2>
-        {/* Tab navigation - use the attribute 'first' in the first TabNav for the component to work */}
-        <nav class="mt-5 grid gap-4 md:mt-10" aria-label="Tabs" role="tablist">
+<section
+  id="scroll-feature-showcase"
+  class="relative mx-auto max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 2xl:max-w-full lg:min-h-[220vh]"
+>
+  {/* Sticky showcase container on desktop: pins as user scrolls */}
+  <div class="relative rounded-3xl bg-primary-soft/30 border border-border/50 p-6 md:p-12 lg:sticky lg:top-28">
+    <div class="relative z-10 lg:grid lg:grid-cols-12 lg:items-center lg:gap-12 xl:gap-16">
+      {/* Tab navigation column */}
+      <div class="mb-8 lg:order-2 lg:col-span-6 lg:col-start-7 lg:mb-0">
+        {title && (
+          <h2 class="text-2xl font-extrabold tracking-tight text-dark-green sm:text-3xl lg:text-4xl">
+            <Fragment set:html={title} />
+          </h2>
+        )}
+        {/* Tab navigation items */}
+        <nav class="mt-6 grid gap-3 md:gap-4 md:mt-8" aria-label="Health Topics Showcase" role="tablist">
           {tabs.map((tab, index) => (
             <TabNav
-              id={`tabs-with-card-item-${index + 1}`}
-              dataTab={`#tabs-with-card-${index + 1}`}
-              aria={`tabs-with-card-${index + 1}`}
+              id={`features-nav-tab-${index + 1}`}
+              dataTab={`#tab-image-panel-${index + 1}`}
+              aria={`tab-image-panel-${index + 1}`}
               heading={tab.heading}
               content={tab.content}
-              first={tab.first}
+              first={index === 0}
+              index={index}
             >
               <Icon
                 name={tab.svg}
-                class="mt-2 h-6 w-6 shrink-0 text-neutral-700 hs-tab-active:text-orange-400 md:h-7 md:w-7 dark:text-neutral-300 dark:hs-tab-active:text-orange-300"
+                class="size-6 md:size-7"
               />
             </TabNav>
           ))}
         </nav>
       </div>
 
-      {/* Contents for each tab - the 'first' attribute should be used in the first tab for that tab to be initially visible, 'second' changes the styles */}
+      {/* Visual Image container with smooth crossfading layers */}
       <div class="lg:col-span-6">
-        <div class="relative">
-          <div>
-            {tabs.map((tab, index) => (
-              <TabContent
-                id={`tabs-with-card-${index + 1}`}
-                aria={`tabs-with-card-item-${index + 1}`}
+        <div class="relative aspect-[4/3] sm:aspect-video lg:aspect-square w-full overflow-hidden rounded-2xl shadow-xl border border-border/60 bg-white">
+          {tabs.map((tab, index) => (
+            <div
+              id={`tab-image-panel-${index + 1}`}
+              class={`tab-image-layer absolute inset-0 transition-all duration-700 ease-out ${
+                index === 0
+                  ? 'opacity-100 scale-100 z-10'
+                  : 'opacity-0 scale-95 pointer-events-none z-0'
+              }`}
+            >
+              <Image
                 src={tab.src}
                 alt={tab.alt}
-                first={tab.first}
-                second={tab.second}
+                class="h-full w-full object-cover object-center"
+                draggable={'false'}
+                format={'avif'}
+                loading={index === 0 ? 'eager' : 'lazy'}
               />
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
-
-    <div class="absolute inset-0 grid h-full w-full grid-cols-12">
-      {/* Decorative background and sizing */}
-      <div class="col-span-full h-5/6 w-full rounded-xl bg-neutral-100 sm:h-3/4 lg:col-span-7 lg:col-start-6 lg:h-full dark:bg-white/[.075]"></div>
-    </div>
   </div>
 </section>
+
+<script>
+  function initScrolljack() {
+    const showcase = document.getElementById('scroll-feature-showcase');
+    if (!showcase) return;
+
+    const showcaseEl = showcase;
+    const tabBtns = showcaseEl.querySelectorAll<HTMLButtonElement>('.tab-nav-btn');
+    const imagePanels = showcaseEl.querySelectorAll<HTMLElement>('.tab-image-layer');
+    const totalTabs = tabBtns.length;
+    if (totalTabs === 0) return;
+
+    let currentIndex = 0;
+    let isUserClicking = false;
+    let clickTimeout: ReturnType<typeof setTimeout> | null = null;
+
+    function switchTab(index: number, smoothScroll = false) {
+      if (index < 0 || index >= totalTabs) return;
+      currentIndex = index;
+
+      tabBtns.forEach((btn, i) => {
+        const isActive = i === index;
+        btn.classList.toggle('active', isActive);
+        btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      });
+
+      imagePanels.forEach((img, i) => {
+        const isActive = i === index;
+        if (isActive) {
+          img.classList.remove('opacity-0', 'scale-95', 'pointer-events-none', 'z-0');
+          img.classList.add('opacity-100', 'scale-100', 'z-10');
+        } else {
+          img.classList.remove('opacity-100', 'scale-100', 'z-10');
+          img.classList.add('opacity-0', 'scale-95', 'pointer-events-none', 'z-0');
+        }
+      });
+
+      if (smoothScroll && window.innerWidth >= 1024) {
+        const rect = showcaseEl.getBoundingClientRect();
+        const scrollableDist = showcaseEl.offsetHeight - window.innerHeight;
+        if (scrollableDist > 0) {
+          const targetScrollTop =
+            window.scrollY + rect.top + (index / (totalTabs - 1)) * scrollableDist;
+          window.scrollTo({ top: targetScrollTop, behavior: 'smooth' });
+        }
+      }
+    }
+
+    // Click handler for direct navigation
+    tabBtns.forEach((btn, idx) => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        isUserClicking = true;
+        if (clickTimeout) clearTimeout(clickTimeout);
+        switchTab(idx, true);
+        clickTimeout = setTimeout(() => {
+          isUserClicking = false;
+        }, 800);
+      });
+    });
+
+    // Scroll listener: switches tabs without click as user scrolls through the pinned showcase
+    function handleScroll() {
+      if (isUserClicking) return;
+      if (window.innerWidth < 1024) return;
+
+      const rect = showcaseEl.getBoundingClientRect();
+      const scrollableDist = showcaseEl.offsetHeight - window.innerHeight;
+      if (scrollableDist <= 0) return;
+
+      const scrolled = -rect.top;
+      if (scrolled < 0) {
+        if (currentIndex !== 0) switchTab(0);
+        return;
+      }
+      if (scrolled > scrollableDist) {
+        if (currentIndex !== totalTabs - 1) switchTab(totalTabs - 1);
+        return;
+      }
+
+      const progress = Math.max(0, Math.min(1, scrolled / scrollableDist));
+      const targetIndex = Math.min(totalTabs - 1, Math.floor(progress * totalTabs));
+      if (targetIndex !== currentIndex) {
+        switchTab(targetIndex);
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initScrolljack);
+  } else {
+    initScrolljack();
+  }
+</script>

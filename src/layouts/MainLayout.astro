@@ -3,14 +3,15 @@ import Meta from '@components/Meta.astro';
 import Navbar from '@components/sections/navbar&footer/Navbar.astro';
 import FooterSection from '@components/sections/navbar&footer/FooterSection.astro';
 import { buildPageMetadata, type PageKind } from '@utils/metadata';
+import { getCopy } from '@/copy';
+import type { MarketingLocale } from '@utils/locale';
 import '@styles/global.css';
 
 /**
  * Marketing-page layout. A page tells it what the page *is* (title,
  * description, section, kind); the layout derives the whole `<head>` from
  * that via `buildPageMetadata()` and wraps the content in Navbar +
- * FooterSection. The locale is the one resolved from the URL by the
- * middleware (`Astro.locals.locale`), the single source for the whole tree.
+ * FooterSection.
  */
 interface Props {
   /** Page title without the site suffix. Omit on the home page. */
@@ -21,6 +22,7 @@ interface Props {
   section?: string;
   kind?: PageKind;
   hideFooter?: boolean;
+  locale?: MarketingLocale;
 }
 
 const {
@@ -30,8 +32,10 @@ const {
   section,
   kind,
   hideFooter = false,
+  locale: propLocale,
 } = Astro.props;
-const { locale, copy: t } = Astro.locals;
+const locale = propLocale ?? Astro.locals.locale ?? 'sw';
+const t = getCopy(locale);
 
 const metadata = buildPageMetadata({
   locale,
@@ -74,12 +78,12 @@ const metadata = buildPageMetadata({
     The Navbar is placed at the top, with a slot for the main content and FooterSection at the bottom.
     */}
     <div class="mx-auto w-full max-w-(--breakpoint-2xl) grow px-4 sm:px-6 lg:px-8">
-      <Navbar />
+      <Navbar locale={locale} />
       <main id="main-content">
         <slot />
       </main>
     </div>
-    {!hideFooter && <FooterSection />}
+    {!hideFooter && <FooterSection locale={locale} />}
     <script>
       // https://preline.co
       import 'preline';
