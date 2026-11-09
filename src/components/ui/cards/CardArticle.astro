@@ -32,6 +32,7 @@ const formattedDate = article.created_at
         alt={article.title}
         class="size-full object-cover object-center transition duration-500 ease-out group-hover:scale-105"
         loading="lazy"
+        onerror="this.onerror=null; this.src='/images/healthymeal.jpeg';"
       />
     ) : (
       <div class="flex size-full items-center justify-center bg-gradient-to-br from-primary-soft to-border text-dark-green font-extrabold text-2xl">

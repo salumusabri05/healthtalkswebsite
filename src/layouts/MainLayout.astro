@@ -56,12 +56,15 @@ const metadata = buildPageMetadata({
   <head>
     <Meta metadata={metadata} />
     <script is:inline>
-      // Load user theme preference (defaults to clean brand theme)
-      if (localStorage.getItem('hs_theme') === 'dark') {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
+      // HealthTalks brand palette is a crisp, clean light-green theme
+      document.documentElement.classList.remove('dark');
+
+      // Safeguard against third-party accessibility keydown undefined key length errors
+      window.addEventListener('keydown', (e) => {
+        if (!e.key) {
+          try { Object.defineProperty(e, 'key', { value: '' }); } catch (_) {}
+        }
+      }, true);
     </script>
     <script>
       import '@scripts/lenisSmoothScroll.js';

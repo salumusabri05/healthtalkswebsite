@@ -47,6 +47,7 @@ const { locale, badge, featured, stories } = Astro.props;
                 alt={featured.title}
                 class="h-full w-full object-cover object-center transition duration-500 ease-out group-hover:scale-103"
                 loading="eager"
+                onerror="this.onerror=null; this.src='/images/healthymeal.jpeg';"
               />
             ) : (
               <Image
@@ -121,6 +122,7 @@ const { locale, badge, featured, stories } = Astro.props;
                     alt={story.title}
                     class="h-full w-full object-cover object-center transition duration-300 group-hover:scale-105"
                     loading="lazy"
+                    onerror="this.onerror=null; this.src='/images/healthymeal.jpeg';"
                   />
                 ) : (
                   <Image

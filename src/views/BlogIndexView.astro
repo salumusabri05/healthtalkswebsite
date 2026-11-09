@@ -66,6 +66,7 @@ const [featuredArticle, ...otherArticles] = dbArticles;
                   alt={featuredArticle.title}
                   class="size-full object-cover transition duration-500 hover:scale-103"
                   loading="eager"
+                  onerror="this.onerror=null; this.src='/images/healthymeal.jpeg';"
                 />
               ) : (
                 <div class="flex size-full items-center justify-center text-3xl font-bold text-dark-green bg-primary-soft">

@@ -16,10 +16,10 @@
   --primary-hover: #8FD16C;  /* hover state for primary */
   --primary-soft: #E4F5D8;   /* section backgrounds, cards, badges */
   --bg: #F4FAEE;             /* page background */
-  --dark-green: #2E7D1F;     /* headings, nav, footer, secondary buttons */
-  --accent: #4CAF2A;         /* links, icons, progress bars */
-  --text: #1F2A1C;           /* body text */
-  --text-muted: #5B6B57;     /* captions, placeholders */
+  --dark-green: #1B5E14;     /* headings, nav, footer, secondary buttons */
+  --accent: #2E7D1F;         /* links, icons, progress bars */
+  --text: #111810;           /* deep, clear, solid body text */
+  --text-muted: #2E3E2B;     /* crisp, readable, high-contrast text for excerpts & descriptions */
   --border: #D5E8C8;         /* dividers, input outlines */
   --white: #FFFFFF;          /* cards, forms, text on dark green */
 }
@@ -66,23 +66,23 @@
   /* Neutral mappings ensure text is never washed-out/dim while light backgrounds remain soft */
   --color-neutral-50: var(--white);
   --color-neutral-100: var(--bg);
-  --color-neutral-200: var(--primary-soft);
-  --color-neutral-300: var(--border);
-  --color-neutral-400: var(--text-muted);
-  --color-neutral-500: var(--text-muted);
-  --color-neutral-600: var(--text-muted);
+  --color-neutral-200: var(--dark-green);
+  --color-neutral-300: var(--text);
+  --color-neutral-400: #3E513A;
+  --color-neutral-500: #2E3E2B;
+  --color-neutral-600: #2E3E2B;
   --color-neutral-700: var(--text);
-  --color-neutral-800: var(--text);
+  --color-neutral-800: var(--dark-green);
   --color-neutral-900: var(--dark-green);
   --color-neutral-950: var(--text);
 
   --color-gray-50: var(--white);
   --color-gray-100: var(--bg);
-  --color-gray-200: var(--primary-soft);
-  --color-gray-300: var(--border);
-  --color-gray-400: var(--text-muted);
-  --color-gray-500: var(--text-muted);
-  --color-gray-600: var(--text-muted);
+  --color-gray-200: var(--dark-green);
+  --color-gray-300: var(--text);
+  --color-gray-400: #3E513A;
+  --color-gray-500: #2E3E2B;
+  --color-gray-600: #2E3E2B;
   --color-gray-700: var(--text);
   --color-gray-800: var(--dark-green);
   --color-gray-900: var(--dark-green);
@@ -90,11 +90,11 @@
 
   --color-zinc-50: var(--white);
   --color-zinc-100: var(--bg);
-  --color-zinc-200: var(--primary-soft);
-  --color-zinc-300: var(--border);
-  --color-zinc-400: var(--text-muted);
-  --color-zinc-500: var(--text-muted);
-  --color-zinc-600: var(--text-muted);
+  --color-zinc-200: var(--dark-green);
+  --color-zinc-300: var(--text);
+  --color-zinc-400: #3E513A;
+  --color-zinc-500: #2E3E2B;
+  --color-zinc-600: #2E3E2B;
   --color-zinc-700: var(--text);
   --color-zinc-800: var(--dark-green);
   --color-zinc-900: var(--dark-green);
