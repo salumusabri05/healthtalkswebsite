@@ -1,10 +1,38 @@
 ---
 import BlogPostView from '@views/BlogPostView.astro';
 import { staticPathsFor } from '@utils/content';
+import { getPublishedArticles, type Article } from '@/utils/supabase';
+import type { CollectionEntry } from 'astro:content';
 
-export const getStaticPaths = () => staticPathsFor('blog', 'sw');
+export async function getStaticPaths() {
+  const dbArticles = await getPublishedArticles();
+  const dbPaths: Array<{ params: { id: string }; props: { article: Article | null; entry: CollectionEntry<'blog'> | null } }> = [];
 
-const { entry } = Astro.props;
+  for (const article of dbArticles) {
+    if (article.slug) {
+      dbPaths.push({
+        params: { id: article.slug },
+        props: { article, entry: null },
+      });
+    }
+    if (article.id && article.id !== article.slug) {
+      dbPaths.push({
+        params: { id: article.id },
+        props: { article, entry: null },
+      });
+    }
+  }
+
+  const staticEntries = await staticPathsFor('blog', 'sw');
+  const contentPaths = staticEntries.map(e => ({
+    params: e.params,
+    props: { article: null as Article | null, entry: e.props.entry as CollectionEntry<'blog'> | null },
+  }));
+
+  return [...dbPaths, ...contentPaths];
+}
+
+const { article, entry } = Astro.props;
 ---
 
-<BlogPostView post={entry} />
+<BlogPostView article={article} post={entry} locale="sw" />

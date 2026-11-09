@@ -41,14 +41,23 @@ const { locale, badge, featured, stories } = Astro.props;
       >
         <div class="relative aspect-[16/10] sm:aspect-[16/9] w-full overflow-hidden rounded-2xl bg-primary-soft/30">
           {featured.src && (
-            <Image
-              src={featured.src}
-              alt={featured.title}
-              class="h-full w-full object-cover object-center transition duration-500 ease-out group-hover:scale-103"
-              draggable={'false'}
-              format={'avif'}
-              loading="eager"
-            />
+            typeof featured.src === 'string' ? (
+              <img
+                src={featured.src}
+                alt={featured.title}
+                class="h-full w-full object-cover object-center transition duration-500 ease-out group-hover:scale-103"
+                loading="eager"
+              />
+            ) : (
+              <Image
+                src={featured.src}
+                alt={featured.title}
+                class="h-full w-full object-cover object-center transition duration-500 ease-out group-hover:scale-103"
+                draggable={'false'}
+                format={'avif'}
+                loading="eager"
+              />
+            )
           )}
           <span class="absolute top-3 left-3 rounded-full bg-white/90 backdrop-blur-md px-3 py-1 text-xs font-bold text-dark-green shadow-xs border border-border/60">
             {featured.tag}
@@ -106,16 +115,25 @@ const { locale, badge, featured, stories } = Astro.props;
           >
             <div class="size-20 sm:size-22 shrink-0 overflow-hidden rounded-xl bg-primary-soft/30 border border-border/40 shadow-2xs">
               {story.src && (
-                <Image
-                  src={story.src}
-                  alt={story.title}
-                  class="h-full w-full object-cover object-center transition duration-300 group-hover:scale-105"
-                  draggable={'false'}
-                  format={'avif'}
-                  loading="lazy"
-                  width={180}
-                  height={180}
-                />
+                typeof story.src === 'string' ? (
+                  <img
+                    src={story.src}
+                    alt={story.title}
+                    class="h-full w-full object-cover object-center transition duration-300 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                ) : (
+                  <Image
+                    src={story.src}
+                    alt={story.title}
+                    class="h-full w-full object-cover object-center transition duration-300 group-hover:scale-105"
+                    draggable={'false'}
+                    format={'avif'}
+                    loading="lazy"
+                    width={180}
+                    height={180}
+                  />
+                )
               )}
             </div>
 

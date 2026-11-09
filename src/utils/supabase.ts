@@ -86,6 +86,37 @@ export async function getArticles() {
   return (data as Article[]) || [];
 }
 
+export async function getPublishedArticles() {
+  const { data, error } = await supabase
+    .from('articles')
+    .select('*, categories(name, slug, color)')
+    .eq('status', 'published')
+    .order('created_at', { ascending: false });
+  if (error) console.error('Error fetching published articles:', error);
+  return (data as Article[]) || [];
+}
+
+export async function getArticleBySlugOrId(identifier: string) {
+  // First try slug
+  let { data, error } = await supabase
+    .from('articles')
+    .select('*, categories(name, slug, color)')
+    .eq('slug', identifier)
+    .single();
+
+  if (!data) {
+    // Try id
+    const res = await supabase
+      .from('articles')
+      .select('*, categories(name, slug, color)')
+      .eq('id', identifier)
+      .single();
+    data = res.data;
+  }
+  if (error && !data) console.error('Error fetching article by slug or id:', error);
+  return data as Article | null;
+}
+
 export async function getArticleById(id: string) {
   const { data, error } = await supabase
     .from('articles')

@@ -26,6 +26,7 @@ import seniorHealthImage from '@images/health/elderly_and_nurse.jpeg';
 import dailyWellnessImage from '@images/health/washinghands.jpeg';
 import { getCopy } from '@/copy';
 import { localePath, type MarketingLocale } from '@utils/locale';
+import { getPublishedArticles } from '@/utils/supabase';
 
 /** The home page in one locale. Copy comes from the locale's copy table. */
 interface Props {
@@ -42,6 +43,43 @@ const testimonials = copy.testimonials.quotes.map(quote => ({
   ...quote,
   avatarSrc: testimonialAvatar,
 }));
+
+// Fetch real articles from Supabase
+const publishedArticles = await getPublishedArticles();
+const dbFeatured = publishedArticles[0];
+const dbStories = publishedArticles.slice(1, 5);
+
+const featuredStory = dbFeatured
+  ? {
+      tag: dbFeatured.categories?.name || 'Afya',
+      title: dbFeatured.title,
+      description: dbFeatured.excerpt || 'Soma makala hii ya kisayansi kuhusu afya na ustawi...',
+      author: dbFeatured.author_name || 'HealthTalks Team',
+      readTime: 'Dakika 4 kusoma',
+      src: dbFeatured.featured_image || gutHealthImage,
+      href: localePath(locale, `/blog/${dbFeatured.slug || dbFeatured.id}`),
+    }
+  : {
+      ...copy.trending.featured,
+      src: gutHealthImage,
+    };
+
+const fallbackImages = [womenHealthImage, sleepHealthImage, seniorHealthImage, dailyWellnessImage];
+
+const trendingStories = dbStories.length > 0
+  ? dbStories.map((article, idx) => ({
+      tag: article.categories?.name || 'Afya',
+      title: article.title,
+      readTime: 'Dakika 3 kusoma',
+      src: article.featured_image || fallbackImages[idx % fallbackImages.length],
+      href: localePath(locale, `/blog/${article.slug || article.id}`),
+    }))
+  : [
+      { ...copy.trending.stories[0], src: womenHealthImage },
+      { ...copy.trending.stories[1], src: sleepHealthImage },
+      { ...copy.trending.stories[2], src: seniorHealthImage },
+      { ...copy.trending.stories[3], src: dailyWellnessImage },
+    ];
 ---
 
 <MainLayout locale={locale}>
@@ -70,28 +108,8 @@ const testimonials = copy.testimonials.quotes.map(quote => ({
   <TrendingSection
     locale={locale}
     badge={copy.trending.badge}
-    featured={{
-      ...copy.trending.featured,
-      src: gutHealthImage,
-    }}
-    stories={[
-      {
-        ...copy.trending.stories[0],
-        src: womenHealthImage,
-      },
-      {
-        ...copy.trending.stories[1],
-        src: sleepHealthImage,
-      },
-      {
-        ...copy.trending.stories[2],
-        src: seniorHealthImage,
-      },
-      {
-        ...copy.trending.stories[3],
-        src: dailyWellnessImage,
-      },
-    ]}
+    featured={featuredStory}
+    stories={trendingStories}
   />
 
   <FeaturesGeneral
