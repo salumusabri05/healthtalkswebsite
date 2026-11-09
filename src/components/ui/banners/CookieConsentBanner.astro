@@ -1,0 +1,210 @@
+---
+import type { MarketingLocale } from '@utils/locale';
+
+interface Props {
+  locale?: MarketingLocale;
+}
+
+const { locale = 'sw' } = Astro.props;
+const isSwahili = locale === 'sw';
+
+const title = isSwahili
+  ? 'Faragha Yako na Uzoefu Wako wa Kiafya Ni Kipaumbele Chetu'
+  : 'Your Privacy and Health Literacy Experience are Our Priority';
+
+const description = isSwahili
+  ? 'HealthTalks inatumia vidakuzi (cookies) kuhakikisha usalama wa maudhui ya kitabibu, kuhifadhi mapendeleo yako ya lugha, kuboresha utendaji wa video za afya, na kukuletea makala sahihi za ustawi kulingana na miongozo ya kisayansi.'
+  : 'HealthTalks uses cookies to ensure medical content security, preserve language preferences, optimize health video streaming, and deliver evidence-based preventative wellness guides tailored to your interests.';
+---
+
+<!-- Extreme Large Cookie Consent Banner -->
+<aside
+  id="ht-cookie-consent-banner"
+  class="fixed bottom-0 inset-x-0 z-100 hidden translate-y-full opacity-0 transition-all duration-500 ease-out p-3 sm:p-5 lg:p-6 pointer-events-none"
+  role="region"
+  aria-label="Cookie Consent"
+>
+  <div class="mx-auto max-w-5xl overflow-hidden rounded-3xl border-2 border-dark-green/30 bg-white/98 shadow-3xl backdrop-blur-xl pointer-events-auto">
+    <!-- Top Accent Bar -->
+    <div class="h-2 w-full bg-gradient-to-r from-dark-green via-accent to-primary"></div>
+
+    <div class="p-6 sm:p-8 lg:p-10">
+      <!-- Header with Cookie Badge -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-border/80 pb-6">
+        <div class="flex items-center gap-3">
+          <div class="flex size-14 shrink-0 items-center justify-center rounded-2xl bg-primary-soft text-3xl shadow-xs border border-border">
+            🍪
+          </div>
+          <div>
+            <div class="inline-flex items-center gap-1.5 rounded-full bg-dark-green/10 px-3 py-0.5 text-xs font-bold text-dark-green">
+              <span class="size-2 rounded-full bg-accent animate-pulse"></span>
+              {isSwahili ? 'Sera ya Vidakuzi na Faragha' : 'Cookie & Privacy Compliance'}
+            </div>
+            <h2 class="mt-1 text-xl sm:text-2xl lg:text-3xl font-extrabold tracking-tight text-dark-green">
+              {title}
+            </h2>
+          </div>
+        </div>
+
+        <button
+          type="button"
+          id="ht-cookie-close-icon"
+          class="size-8 self-end sm:self-center rounded-full border border-border text-text-muted hover:bg-neutral-100 hover:text-dark-green transition flex items-center justify-center text-sm font-bold cursor-pointer"
+          aria-label="Close"
+        >
+          ✕
+        </button>
+      </div>
+
+      <!-- Main Description -->
+      <p class="mt-4 text-sm sm:text-base leading-relaxed text-text">
+        {description}
+      </p>
+
+      <!-- 3 Feature Pillars / Cookie Types -->
+      <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+        <!-- Pillar 1: Essential -->
+        <div class="rounded-2xl border border-border bg-bg/60 p-4 transition hover:border-dark-green/30">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold uppercase tracking-wider text-dark-green flex items-center gap-1.5">
+              <span>🔒</span> {isSwahili ? 'Vidakuzi vya Lazima' : 'Strictly Necessary'}
+            </span>
+            <span class="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-bold text-emerald-800">
+              {isSwahili ? 'Inahitajika' : 'Always Active'}
+            </span>
+          </div>
+          <p class="mt-2 text-xs text-text-muted leading-relaxed">
+            {isSwahili
+              ? 'Huwezesha urambazaji salama, ulinzi wa tovuti dhidi ya mashambulizi, na ufikiaji wa mfumo.'
+              : 'Essential for site security, basic navigation, and reliable access to medical content.'}
+          </p>
+        </div>
+
+        <!-- Pillar 2: Analytics -->
+        <div class="rounded-2xl border border-border bg-bg/60 p-4 transition hover:border-dark-green/30">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold uppercase tracking-wider text-dark-green flex items-center gap-1.5">
+              <span>📊</span> {isSwahili ? 'Uchambuzi & Utendaji' : 'Analytics & Insights'}
+            </span>
+            <span class="rounded-full bg-primary-soft px-2 py-0.5 text-[10px] font-bold text-dark-green">
+              {isSwahili ? 'Imeboreshwa' : 'Optimized'}
+            </span>
+          </div>
+          <p class="mt-2 text-xs text-text-muted leading-relaxed">
+            {isSwahili
+              ? 'Hutusaidia kuelewa makala za afya zinazosomwa zaidi ili madaktari wetu waziandikie maelezo ya ziada.'
+              : 'Helps us identify the most impactful health stories so physicians can produce deeper guides.'}
+          </p>
+        </div>
+
+        <!-- Pillar 3: Personalization -->
+        <div class="rounded-2xl border border-border bg-bg/60 p-4 transition hover:border-dark-green/30">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold uppercase tracking-wider text-dark-green flex items-center gap-1.5">
+              <span>🎯</span> {isSwahili ? 'Mapendeleo Binafsi' : 'Personalization'}
+            </span>
+            <span class="rounded-full bg-primary-soft px-2 py-0.5 text-[10px] font-bold text-dark-green">
+              {isSwahili ? 'Hiari' : 'Optional'}
+            </span>
+          </div>
+          <p class="mt-2 text-xs text-text-muted leading-relaxed">
+            {isSwahili
+              ? 'Hukumbuka lugha unayopendelea (Kiswahili/English) na mada za afya unazofuatilia mara kwa mara.'
+              : 'Remembers your language choice and health topics of interest for a smoother experience.'}
+          </p>
+        </div>
+      </div>
+
+      <!-- Action Buttons Bar -->
+      <div class="mt-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t border-border/80 pt-6">
+        <p class="text-xs text-text-muted">
+          {isSwahili ? 'Kwa kubofya "Kubali Yote", unakubali matumizi yetu ya vidakuzi.' : 'By clicking "Accept All", you agree to our comprehensive cookie policy.'}
+        </p>
+
+        <div class="flex flex-wrap items-center gap-3">
+          <button
+            type="button"
+            id="ht-cookie-reject-btn"
+            class="rounded-2xl border-2 border-border bg-white px-5 py-3 text-xs sm:text-sm font-bold text-text hover:bg-neutral-100 hover:border-dark-green/40 transition cursor-pointer"
+          >
+            {isSwahili ? 'Vidakuzi vya Lazima Tu' : 'Essential Only'}
+          </button>
+
+          <button
+            type="button"
+            id="ht-cookie-accept-btn"
+            class="rounded-2xl bg-dark-green px-7 py-3 text-xs sm:text-sm font-extrabold text-white shadow-md hover:bg-accent hover:shadow-lg transition cursor-pointer"
+          >
+            {isSwahili ? '✓ Kubali Vidakuzi Vyote' : '✓ Accept All Cookies'}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    const banner = document.getElementById('ht-cookie-consent-banner');
+    const acceptBtn = document.getElementById('ht-cookie-accept-btn');
+    const rejectBtn = document.getElementById('ht-cookie-reject-btn');
+    const closeIcon = document.getElementById('ht-cookie-close-icon');
+
+    if (!banner) return;
+
+    function showBanner() {
+      banner.classList.remove('hidden');
+      requestAnimationFrame(() => {
+        banner.classList.remove('translate-y-full', 'opacity-0');
+        banner.classList.add('translate-y-0', 'opacity-100');
+      });
+    }
+
+    function hideBanner() {
+      banner.classList.remove('translate-y-0', 'opacity-100');
+      banner.classList.add('translate-y-full', 'opacity-0');
+      setTimeout(() => {
+        banner.classList.add('hidden');
+      }, 500);
+
+      // Save consent
+      try {
+        localStorage.setItem('ht_cookie_consent_status', 'dismissed');
+      } catch (e) {}
+
+      // Trigger the Extreme Newsletter Popup immediately after cookies banner is handled!
+      window.dispatchEvent(new CustomEvent('ht:cookies-handled'));
+    }
+
+    acceptBtn?.addEventListener('click', () => {
+      try { localStorage.setItem('ht_cookie_consent_status', 'accepted_all'); } catch (e) {}
+      hideBanner();
+    });
+
+    rejectBtn?.addEventListener('click', () => {
+      try { localStorage.setItem('ht_cookie_consent_status', 'essential_only'); } catch (e) {}
+      hideBanner();
+    });
+
+    closeIcon?.addEventListener('click', () => {
+      hideBanner();
+    });
+
+    // Check if user has already handled cookies
+    let status = null;
+    try {
+      status = localStorage.getItem('ht_cookie_consent_status');
+    } catch (e) {}
+
+    if (!status) {
+      // Show cookies banner after 600ms of visiting site
+      setTimeout(showBanner, 600);
+    } else {
+      // If cookies already handled on previous visits, signal immediately
+      setTimeout(() => {
+        window.dispatchEvent(new CustomEvent('ht:cookies-handled'));
+      }, 800);
+    }
+  });
+</script>
+

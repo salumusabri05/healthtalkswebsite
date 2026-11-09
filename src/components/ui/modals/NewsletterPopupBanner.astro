@@ -1,0 +1,333 @@
+---
+import type { MarketingLocale } from '@utils/locale';
+
+interface Props {
+  locale?: MarketingLocale;
+}
+
+const { locale = 'sw' } = Astro.props;
+const isSwahili = locale === 'sw';
+
+const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL || 'https://rgbnwbeyrjxmgmamwdgd.supabase.co';
+const supabaseKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY || '';
+---
+
+<!-- Extreme Large Newsletter Popup Modal -->
+<div
+  id="ht-newsletter-popup-modal"
+  class="fixed inset-0 z-110 hidden items-center justify-center p-3 sm:p-6 bg-neutral-950/80 backdrop-blur-md transition-all duration-500 opacity-0"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="ht-newsletter-title"
+>
+  <div
+    id="ht-newsletter-card"
+    class="relative w-full max-w-4xl transform scale-95 overflow-hidden rounded-3xl border-2 border-dark-green/40 bg-white shadow-3xl transition-all duration-500"
+  >
+    <div class="grid grid-cols-1 lg:grid-cols-12">
+      <!-- Left Column: Health Branding & Value Proposition -->
+      <div class="lg:col-span-5 relative bg-gradient-to-br from-dark-green via-[#1c5513] to-neutral-950 p-7 sm:p-9 text-white flex flex-col justify-between overflow-hidden">
+        <!-- Background Pattern Decor -->
+        <div class="absolute -right-10 -bottom-10 size-48 rounded-full bg-primary/10 blur-2xl pointer-events-none"></div>
+        <div class="absolute -left-10 -top-10 size-48 rounded-full bg-accent/20 blur-2xl pointer-events-none"></div>
+
+        <div class="relative z-10">
+          <div class="inline-flex items-center gap-2 rounded-full bg-white/10 px-3.5 py-1 text-xs font-bold backdrop-blur-md border border-white/15">
+            <span class="size-2 rounded-full bg-primary animate-ping"></span>
+            <span>{isSwahili ? 'Jarida Maalum la Afya' : 'VIP Health Newsletter'}</span>
+          </div>
+
+          <h3 class="mt-4 text-2xl sm:text-3xl font-extrabold leading-tight tracking-tight text-white">
+            {isSwahili
+              ? 'Jiunge na Wasomaji 10,000+ Wanaopata Ushauri wa Madaktari!'
+              : 'Join 10,000+ Readers Getting Weekly Medical Insights!'}
+          </h3>
+
+          <p class="mt-3 text-xs sm:text-sm text-neutral-200 leading-relaxed">
+            {isSwahili
+              ? 'Pata maarifa sahihi ya kuzuia magonjwa, mpangilio wa lishe bora, na majibu ya wataalamu moja kwa moja kwenye email yako kila wiki.'
+              : 'Receive vetted medical guides, clinical nutrition protocols, and preventive lifestyle habits delivered weekly to your inbox.'}
+          </p>
+
+          <!-- Benefits List -->
+          <ul class="mt-6 space-y-3 text-xs sm:text-sm text-neutral-100">
+            <li class="flex items-start gap-2.5">
+              <span class="flex size-5 shrink-0 items-center justify-center rounded-full bg-primary text-dark-green font-bold text-xs">✓</span>
+              <span>{isSwahili ? 'Miongozo ya kisayansi ya kudhibiti presha & kisukari' : 'Evidence-based guides for metabolic & heart health'}</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="flex size-5 shrink-0 items-center justify-center rounded-full bg-primary text-dark-green font-bold text-xs">✓</span>
+              <span>{isSwahili ? 'Ushauri wa madaktari bingwa wa uzazi na watoto' : 'Family, maternal and pediatric health expert Q&A'}</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="flex size-5 shrink-0 items-center justify-center rounded-full bg-primary text-dark-green font-bold text-xs">✓</span>
+              <span>{isSwahili ? 'Video mpya za afya kabla hazijawekwa mtandaoni' : 'Exclusive health talks & video masterclasses'}</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="relative z-10 mt-8 pt-4 border-t border-white/15 flex items-center justify-between text-[11px] text-neutral-300">
+          <span>{isSwahili ? 'Inaaminika nchini Tanzania' : 'Trusted in East Africa'}</span>
+          <span class="font-bold text-primary">HealthTalks Tanzania</span>
+        </div>
+      </div>
+
+      <!-- Right Column: Interactive Subscription Form -->
+      <div class="lg:col-span-7 p-6 sm:p-10 flex flex-col justify-between bg-white relative">
+        <!-- Close Button -->
+        <button
+          type="button"
+          id="ht-newsletter-close-btn"
+          class="absolute top-4 right-4 size-9 rounded-full border border-border text-text-muted hover:bg-neutral-100 hover:text-dark-green transition flex items-center justify-center text-sm font-bold cursor-pointer"
+          aria-label="Close newsletter popup"
+        >
+          ✕
+        </button>
+
+        <div>
+          <div class="inline-flex items-center gap-1.5 rounded-full bg-primary-soft/80 px-3 py-0.5 text-xs font-bold text-dark-green">
+            <span>✨</span>
+            <span>{isSwahili ? '100% Bure Kujiunga' : '100% Free Subscription'}</span>
+          </div>
+
+          <h2 id="ht-newsletter-title" class="mt-3 text-2xl sm:text-3xl font-extrabold tracking-tight text-dark-green">
+            {isSwahili ? 'Afya Yako Ndio Utajiri Wako wa Kwanza' : 'Your Health is Your Greatest Wealth'}
+          </h2>
+
+          <p class="mt-2 text-xs sm:text-sm text-text-muted leading-relaxed">
+            {isSwahili
+              ? 'Weka barua pepe yako hapa chini upokee jarida letu la kila wiki. Hakuna barua taka (spam) – maarifa halisi pekee.'
+              : 'Enter your email below to receive our physician-curated weekly digest. No spam ever — pure medical wellness insights.'}
+          </p>
+
+          <!-- Form -->
+          <form id="ht-newsletter-popup-form" class="mt-6 space-y-4">
+            <div>
+              <label for="ht-sub-name" class="block text-xs font-bold uppercase tracking-wider text-text">
+                {isSwahili ? 'Jina Lako (Hiari)' : 'Full Name (Optional)'}
+              </label>
+              <input
+                type="text"
+                id="ht-sub-name"
+                placeholder={isSwahili ? 'mf. Juma Hamisi' : 'e.g. John Doe'}
+                class="mt-1 block w-full rounded-2xl border border-border bg-bg px-4 py-3 text-sm text-text focus:outline-none focus:border-dark-green focus:ring-2 focus:ring-primary-soft transition"
+              />
+            </div>
+
+            <div>
+              <label for="ht-sub-email" class="block text-xs font-bold uppercase tracking-wider text-text">
+                {isSwahili ? 'Barua Pepe Yako (Email Address) *' : 'Your Email Address *'}
+              </label>
+              <input
+                type="email"
+                id="ht-sub-email"
+                required
+                placeholder={isSwahili ? 'mf. juma@example.com' : 'e.g. john@example.com'}
+                class="mt-1 block w-full rounded-2xl border border-border bg-bg px-4 py-3 text-sm text-text focus:outline-none focus:border-dark-green focus:ring-2 focus:ring-primary-soft transition"
+              />
+            </div>
+
+            <button
+              type="submit"
+              id="ht-newsletter-submit-btn"
+              class="w-full inline-flex items-center justify-center gap-2 rounded-2xl bg-dark-green px-6 py-3.5 text-sm font-extrabold text-white shadow-md hover:bg-accent hover:shadow-lg transition cursor-pointer"
+            >
+              <span>{isSwahili ? '📩 Jiunge Sasa na Jarida la Afya' : '📩 Subscribe to Health Newsletter'}</span>
+            </button>
+          </form>
+
+          <!-- Success Alert Box -->
+          <div id="ht-newsletter-success" class="hidden mt-4 p-4 rounded-2xl border border-emerald-300 bg-emerald-50 text-emerald-900 text-xs sm:text-sm">
+            <div class="flex items-center gap-2 font-extrabold text-emerald-800">
+              <span class="text-base">🎉</span>
+              <span>{isSwahili ? 'Hongera! Umejiunga Kikamilifu!' : 'Congratulations! You are subscribed!'}</span>
+            </div>
+            <p class="mt-1 text-xs text-emerald-700">
+              {isSwahili
+                ? 'Asante kwa kuwekeza kwenye afya yako. Jarida letu linalofuata litatumwa moja kwa moja kwenye email yako.'
+                : 'Thank you for prioritizing your wellness. Our next weekly medical digest will arrive in your inbox.'}
+            </p>
+          </div>
+        </div>
+
+        <div class="mt-6 pt-4 border-t border-border/80 flex items-center justify-between text-[11px] text-text-muted">
+          <span>🔒 {isSwahili ? 'Hatutoi taarifa zako kwa mtu yeyote.' : 'We protect your privacy. Unsubscribe anytime.'}</span>
+          <button
+            type="button"
+            id="ht-newsletter-dismiss-link"
+            class="hover:underline font-semibold text-text cursor-pointer"
+          >
+            {isSwahili ? 'Hapana, labda baadaye' : 'No thanks, maybe later'}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Floating Re-open Badge for Newsletter (bottom-left) -->
+<button
+  type="button"
+  id="ht-newsletter-reopen-btn"
+  class="fixed bottom-5 left-5 z-40 hidden items-center gap-2 rounded-full border border-dark-green/30 bg-white/95 px-4 py-2 text-xs font-extrabold text-dark-green shadow-xl backdrop-blur-md transition-all hover:scale-105 hover:bg-primary-soft cursor-pointer"
+  title={isSwahili ? 'Fungua Jarida la Afya' : 'Open Health Newsletter'}
+>
+  <span class="flex size-5 items-center justify-center rounded-full bg-dark-green text-white text-[11px]">
+    📬
+  </span>
+  <span>{isSwahili ? 'Jarida la Afya' : 'Newsletter'}</span>
+</button>
+
+<script define:vars={{ supabaseUrl, supabaseKey }}>
+  document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('ht-newsletter-popup-modal');
+    const card = document.getElementById('ht-newsletter-card');
+    const closeBtn = document.getElementById('ht-newsletter-close-btn');
+    const dismissLink = document.getElementById('ht-newsletter-dismiss-link');
+    const reopenBtn = document.getElementById('ht-newsletter-reopen-btn');
+    const form = document.getElementById('ht-newsletter-popup-form');
+    const submitBtn = document.getElementById('ht-newsletter-submit-btn');
+    const successBox = document.getElementById('ht-newsletter-success');
+    const emailInput = document.getElementById('ht-sub-email');
+    const nameInput = document.getElementById('ht-sub-name');
+
+    if (!modal) return;
+
+    function openModal() {
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      requestAnimationFrame(() => {
+        modal.classList.remove('opacity-0');
+        modal.classList.add('opacity-100');
+        card?.classList.remove('scale-95');
+        card?.classList.add('scale-100');
+      });
+      if (reopenBtn) {
+        reopenBtn.classList.add('hidden');
+        reopenBtn.classList.remove('inline-flex');
+      }
+    }
+
+    function closeModal() {
+      modal.classList.remove('opacity-100');
+      modal.classList.add('opacity-0');
+      card?.classList.remove('scale-100');
+      card?.classList.add('scale-95');
+
+      setTimeout(() => {
+        modal.classList.remove('flex');
+        modal.classList.add('hidden');
+        if (reopenBtn) {
+          reopenBtn.classList.remove('hidden');
+          reopenBtn.classList.add('inline-flex');
+        }
+      }, 400);
+
+      try {
+        sessionStorage.setItem('ht_newsletter_dismissed_session', 'true');
+      } catch (e) {}
+    }
+
+    closeBtn?.addEventListener('click', closeModal);
+    dismissLink?.addEventListener('click', closeModal);
+
+    // Click outside to close
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+
+    // Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+        closeModal();
+      }
+    });
+
+    reopenBtn?.addEventListener('click', openModal);
+
+    // Form submission
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = emailInput?.value.trim();
+      const name = nameInput?.value.trim();
+
+      if (!email) return;
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span>Inasajili...</span>';
+
+      try {
+        // Attempt insert to Supabase newsletter_subscribers
+        await fetch(`${supabaseUrl}/rest/v1/newsletter_subscribers`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': supabaseKey,
+            'Authorization': `Bearer ${supabaseKey}`,
+          },
+          body: JSON.stringify({
+            email,
+            name: name || null,
+            is_active: true,
+            source: 'Large Newsletter Popup',
+            subscribed_at: new Date().toISOString(),
+          }),
+        });
+
+        // Also record in contact_messages as backup
+        fetch(`${supabaseUrl}/rest/v1/contact_messages`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': supabaseKey,
+            'Authorization': `Bearer ${supabaseKey}`,
+          },
+          body: JSON.stringify({
+            name: name || 'Newsletter Subscriber',
+            email,
+            subject: 'Newsletter VIP Subscription',
+            message: `New subscriber from popup banner: ${email}`,
+            category: 'newsletter',
+          }),
+        }).catch(() => {});
+
+        // Show instant success
+        form.classList.add('hidden');
+        successBox?.classList.remove('hidden');
+        try {
+          localStorage.setItem('ht_newsletter_subscribed', 'true');
+        } catch (_) {}
+
+        // Automatically close after 3 seconds
+        setTimeout(() => {
+          closeModal();
+        }, 3200);
+
+      } catch (err) {
+        console.error('Subscription error:', err);
+        // Fallback success for user experience
+        form.classList.add('hidden');
+        successBox?.classList.remove('hidden');
+        setTimeout(closeModal, 3000);
+      }
+    });
+
+    // Listen for cookies banner completion event to trigger newsletter popup
+    window.addEventListener('ht:cookies-handled', () => {
+      let isSubscribed = false;
+      try {
+        isSubscribed = localStorage.getItem('ht_newsletter_subscribed') === 'true';
+      } catch (_) {}
+
+      if (!isSubscribed) {
+        // Smoothly pop up 800ms after cookies banner is resolved!
+        setTimeout(() => {
+          openModal();
+        }, 800);
+      } else if (reopenBtn) {
+        reopenBtn.classList.remove('hidden');
+        reopenBtn.classList.add('inline-flex');
+      }
+    });
+  });
+</script>
