@@ -44,14 +44,16 @@ export const GET: APIRoute = async () => {
   );
 
   const manifest = {
-    short_name: 'ScrewFast',
-    name: 'ScrewFast',
+    short_name: 'HealthTalks',
+    name: 'HealthTalks',
+    description:
+      'HealthTalks brings you insightful discussions, expert medical perspectives, and practical wellness guidance.',
     icons,
     display: 'minimal-ui',
     id: '/',
     start_url: '/',
-    theme_color: '#FFEDD5',
-    background_color: '#262626',
+    theme_color: '#A8E08A',
+    background_color: '#F4FAEE',
   };
 
   return new Response(JSON.stringify(manifest));
