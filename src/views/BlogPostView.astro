@@ -12,6 +12,7 @@ import { getCopy } from '@/copy';
 import type { MarketingLocale } from '@utils/locale';
 import { localePath } from '@utils/locale';
 import { getPublishedArticles, type Article } from '@/utils/supabase';
+import { formatArticleContent } from '@utils/formatContent';
 
 interface Props {
   article?: Article | null;
@@ -143,7 +144,7 @@ const relatedPosts = post
     {article ? (
       <div
         class="medium-article-body prose prose-lg max-w-none text-text"
-        set:html={article.content || '<p>Hakuna maudhui yaliyohifadhiwa bado.</p>'}
+        set:html={formatArticleContent(article.content, article.title)}
       />
     ) : (
       markdownContent && (

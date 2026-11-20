@@ -42,33 +42,48 @@ const { title, activeNav = 'dashboard' } = Astro.props;
   <body class="flex h-full flex-col font-sans text-text antialiased">
     {/* Admin Top Navigation Bar */}
     <header class="sticky top-0 z-40 border-b border-border bg-white shadow-2xs">
-      <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center gap-4">
-          <a href="/admin" class="flex items-center gap-2.5">
-            <img src="/logo.jpg" alt="HealthTalks Logo" class="size-8 rounded-full object-cover border border-border" />
-            <span class="text-lg font-extrabold tracking-tight text-dark-green">HealthTalks</span>
+      <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-3 sm:px-6 lg:px-8">
+        <div class="flex items-center gap-2.5 sm:gap-4">
+          {/* Mobile Menu Hamburger Button */}
+          <button
+            type="button"
+            id="admin-mobile-menu-btn"
+            class="inline-flex md:hidden items-center justify-center rounded-xl border border-border p-2 text-text-muted hover:bg-primary-soft hover:text-dark-green transition cursor-pointer"
+            aria-label="Fungua menyu ya admin"
+          >
+            <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="3" y1="12" x2="21" y2="12" />
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <line x1="3" y1="18" x2="21" y2="18" />
+            </svg>
+          </button>
+
+          <a href="/admin" class="flex items-center gap-2 sm:gap-2.5">
+            <img src="/logo.jpg" alt="HealthTalks Logo" class="size-8 rounded-full object-cover border border-border shrink-0" />
+            <span class="text-base sm:text-lg font-extrabold tracking-tight text-dark-green">HealthTalks</span>
           </a>
-          <span class="rounded-full bg-primary-soft px-2.5 py-0.5 text-xs font-bold text-dark-green border border-border">
-            CMS Admin Portal
+          <span class="hidden sm:inline-block rounded-full bg-primary-soft px-2.5 py-0.5 text-xs font-bold text-dark-green border border-border">
+            CMS Admin
           </span>
         </div>
 
-        <div class="flex items-center gap-3">
+        <div class="flex items-center gap-2 sm:gap-3">
           <a
             href="/"
             target="_blank"
-            class="inline-flex items-center gap-1.5 rounded-lg border border-border bg-white px-3 py-1.5 text-xs font-bold text-text transition hover:bg-primary-soft hover:text-dark-green"
+            class="inline-flex items-center gap-1.5 rounded-lg border border-border bg-white px-2.5 py-1.5 text-xs font-bold text-text transition hover:bg-primary-soft hover:text-dark-green"
           >
-            <span>Tazama Tovuti (Live)</span>
-            <svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <span class="hidden sm:inline">Tazama Tovuti (Live)</span>
+            <span class="sm:hidden">Tovuti</span>
+            <svg class="size-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
               <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
               <polyline points="15 3 21 3 21 9" />
               <line x1="10" y1="14" x2="21" y2="3" />
             </svg>
           </a>
 
-          <div class="flex items-center gap-2 border-s border-border ps-3">
-            <div class="size-8 rounded-full bg-primary-soft text-dark-green flex items-center justify-center font-bold text-xs border border-border">
+          <div class="flex items-center gap-1.5 sm:gap-2 border-s border-border ps-2 sm:ps-3">
+            <div class="size-7 sm:size-8 rounded-full bg-primary-soft text-dark-green flex items-center justify-center font-bold text-xs border border-border shrink-0">
               AD
             </div>
             <span class="text-xs font-bold text-text-muted hidden sm:inline" id="admin-user-display">Admin</span>
@@ -89,9 +104,354 @@ const { title, activeNav = 'dashboard' } = Astro.props;
       </div>
     </header>
 
+    {/* Mobile Horizontal Quick-Nav Scroll Bar */}
+    <nav class="md:hidden border-b border-border bg-white px-3 py-2 overflow-x-auto scrollbar-none flex items-center gap-1.5 text-xs font-bold sticky top-16 z-30 shadow-2xs">
+      <a
+        href="/admin"
+        class={`shrink-0 rounded-lg px-3 py-1.5 transition ${
+          activeNav === 'dashboard'
+            ? 'bg-dark-green text-white shadow-xs'
+            : 'bg-primary-soft/40 text-text-muted hover:text-dark-green'
+        }`}
+      >
+        Dashibodi
+      </a>
+      <a
+        href="/admin/articles"
+        class={`shrink-0 rounded-lg px-3 py-1.5 transition ${
+          activeNav === 'articles'
+            ? 'bg-dark-green text-white shadow-xs'
+            : 'bg-primary-soft/40 text-text-muted hover:text-dark-green'
+        }`}
+      >
+        Makala
+      </a>
+      <a
+        href="/admin/articles/new"
+        class="shrink-0 rounded-lg px-3 py-1.5 bg-accent/20 text-dark-green border border-accent/40 font-extrabold hover:bg-accent/30 transition"
+      >
+        + Mpya
+      </a>
+      <a
+        href="/admin/categories"
+        class={`shrink-0 rounded-lg px-3 py-1.5 transition ${
+          activeNav === 'categories'
+            ? 'bg-dark-green text-white shadow-xs'
+            : 'bg-primary-soft/40 text-text-muted hover:text-dark-green'
+        }`}
+      >
+        Vitengo
+      </a>
+      <a
+        href="/admin/tags"
+        class={`shrink-0 rounded-lg px-3 py-1.5 transition ${
+          activeNav === 'tags'
+            ? 'bg-dark-green text-white shadow-xs'
+            : 'bg-primary-soft/40 text-text-muted hover:text-dark-green'
+        }`}
+      >
+        Lebo
+      </a>
+      <a
+        href="/admin/carousel"
+        class={`shrink-0 rounded-lg px-3 py-1.5 transition ${
+          activeNav === 'carousel'
+            ? 'bg-dark-green text-white shadow-xs'
+            : 'bg-primary-soft/40 text-text-muted hover:text-dark-green'
+        }`}
+      >
+        Carousel
+      </a>
+      <a
+        href="/admin/videos"
+        class={`shrink-0 rounded-lg px-3 py-1.5 transition ${
+          activeNav === 'videos'
+            ? 'bg-dark-green text-white shadow-xs'
+            : 'bg-primary-soft/40 text-text-muted hover:text-dark-green'
+        }`}
+      >
+        Video
+      </a>
+      <a
+        href="/admin/features"
+        class={`shrink-0 rounded-lg px-3 py-1.5 transition ${
+          activeNav === 'features'
+            ? 'bg-dark-green text-white shadow-xs'
+            : 'bg-primary-soft/40 text-text-muted hover:text-dark-green'
+        }`}
+      >
+        Vipengele
+      </a>
+      <a
+        href="/admin/announcements"
+        class={`shrink-0 rounded-lg px-3 py-1.5 transition ${
+          activeNav === 'announcements'
+            ? 'bg-dark-green text-white shadow-xs'
+            : 'bg-primary-soft/40 text-text-muted hover:text-dark-green'
+        }`}
+      >
+        Matangazo
+      </a>
+      <a
+        href="/admin/messages"
+        class={`shrink-0 rounded-lg px-3 py-1.5 transition ${
+          activeNav === 'messages'
+            ? 'bg-dark-green text-white shadow-xs'
+            : 'bg-primary-soft/40 text-text-muted hover:text-dark-green'
+        }`}
+      >
+        Ujumbe
+      </a>
+      <a
+        href="/admin/subscribers"
+        class={`shrink-0 rounded-lg px-3 py-1.5 transition ${
+          activeNav === 'subscribers'
+            ? 'bg-dark-green text-white shadow-xs'
+            : 'bg-primary-soft/40 text-text-muted hover:text-dark-green'
+        }`}
+      >
+        Wasajili
+      </a>
+    </nav>
+
+    {/* Mobile Slide-Over Drawer Navigation */}
+    <div
+      id="admin-drawer-backdrop"
+      class="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs transition-opacity duration-300 opacity-0 pointer-events-none md:hidden"
+    ></div>
+
+    <aside
+      id="admin-mobile-drawer"
+      class="fixed inset-y-0 start-0 z-50 w-72 max-w-[85vw] bg-white border-r border-border shadow-2xl p-5 overflow-y-auto transform -translate-x-full transition-transform duration-300 ease-in-out md:hidden flex flex-col justify-between"
+    >
+      <div class="space-y-6">
+        {/* Drawer Header */}
+        <div class="flex items-center justify-between border-b border-border pb-4">
+          <div class="flex items-center gap-2.5">
+            <img src="/logo.jpg" alt="HealthTalks" class="size-8 rounded-full object-cover border border-border" />
+            <div>
+              <div class="text-sm font-extrabold text-dark-green">HealthTalks</div>
+              <div class="text-[10px] text-text-muted">CMS Admin Menu</div>
+            </div>
+          </div>
+          <button
+            type="button"
+            id="admin-drawer-close-btn"
+            class="rounded-lg p-1.5 text-text-muted hover:bg-bg hover:text-dark-green transition cursor-pointer"
+            aria-label="Funga menyu"
+          >
+            <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </div>
+
+        {/* Drawer Links */}
+        <div class="space-y-5 text-xs">
+          <div>
+            <div class="px-3 pb-2 text-[10px] font-extrabold uppercase tracking-wider text-text-muted">
+              Usimamizi Mkuu
+            </div>
+            <a
+              href="/admin"
+              class={`flex items-center gap-3 rounded-xl px-3 py-2.5 font-bold transition ${
+                activeNav === 'dashboard'
+                  ? 'bg-primary-soft text-dark-green border border-border'
+                  : 'text-text-muted hover:bg-bg hover:text-dark-green'
+              }`}
+            >
+              <svg class="size-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect width="7" height="9" x="3" y="3" rx="1" />
+                <rect width="7" height="5" x="14" y="3" rx="1" />
+                <rect width="7" height="9" x="14" y="12" rx="1" />
+                <rect width="7" height="5" x="3" y="16" rx="1" />
+              </svg>
+              Dashibodi Kuu
+            </a>
+          </div>
+
+          <div>
+            <div class="px-3 pb-2 text-[10px] font-extrabold uppercase tracking-wider text-text-muted">
+              Maudhui ya Afya
+            </div>
+            <div class="space-y-1">
+              <a
+                href="/admin/articles"
+                class={`flex items-center gap-3 rounded-xl px-3 py-2.5 font-bold transition ${
+                  activeNav === 'articles'
+                    ? 'bg-primary-soft text-dark-green border border-border'
+                    : 'text-text-muted hover:bg-bg hover:text-dark-green'
+                }`}
+              >
+                <svg class="size-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z" />
+                  <path d="M6 6h10" />
+                  <path d="M6 10h10" />
+                </svg>
+                Makala & Rasimu
+              </a>
+              <a
+                href="/admin/articles/new"
+                class="flex items-center gap-3 rounded-xl px-3 py-2.5 font-bold text-dark-green bg-accent/20 hover:bg-accent/30 transition"
+              >
+                <svg class="size-4 shrink-0 text-dark-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="12" y1="8" x2="12" y2="16" />
+                  <line x1="8" y1="12" x2="16" y2="12" />
+                </svg>
+                Andika Makala Mpya
+              </a>
+              <a
+                href="/admin/categories"
+                class={`flex items-center gap-3 rounded-xl px-3 py-2.5 font-bold transition ${
+                  activeNav === 'categories'
+                    ? 'bg-primary-soft text-dark-green border border-border'
+                    : 'text-text-muted hover:bg-bg hover:text-dark-green'
+                }`}
+              >
+                <svg class="size-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
+                </svg>
+                Makundi ya Afya
+              </a>
+              <a
+                href="/admin/tags"
+                class={`flex items-center gap-3 rounded-xl px-3 py-2.5 font-bold transition ${
+                  activeNav === 'tags'
+                    ? 'bg-primary-soft text-dark-green border border-border'
+                    : 'text-text-muted hover:bg-bg hover:text-dark-green'
+                }`}
+              >
+                <svg class="size-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2Z" />
+                  <circle cx="7" cy="7" r=".5" fill="currentColor" />
+                </svg>
+                Lebo za Makala (Tags)
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <div class="px-3 pb-2 text-[10px] font-extrabold uppercase tracking-wider text-text-muted">
+              Ukurasa wa Mwanzo & Media
+            </div>
+            <div class="space-y-1">
+              <a
+                href="/admin/carousel"
+                class={`flex items-center gap-3 rounded-xl px-3 py-2.5 font-bold transition ${
+                  activeNav === 'carousel'
+                    ? 'bg-primary-soft text-dark-green border border-border'
+                    : 'text-text-muted hover:bg-bg hover:text-dark-green'
+                }`}
+              >
+                <svg class="size-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect width="18" height="18" x="3" y="3" rx="2" />
+                  <circle cx="9" cy="9" r="2" />
+                  <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
+                </svg>
+                Picha za Slaidi (Carousel)
+              </a>
+              <a
+                href="/admin/videos"
+                class={`flex items-center gap-3 rounded-xl px-3 py-2.5 font-bold transition ${
+                  activeNav === 'videos'
+                    ? 'bg-primary-soft text-dark-green border border-border'
+                    : 'text-text-muted hover:bg-bg hover:text-dark-green'
+                }`}
+              >
+                <svg class="size-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="23 7 16 12 23 17 23 7" />
+                  <rect width="15" height="14" x="1" y="5" rx="2" />
+                </svg>
+                Video & Mazungumzo
+              </a>
+              <a
+                href="/admin/features"
+                class={`flex items-center gap-3 rounded-xl px-3 py-2.5 font-bold transition ${
+                  activeNav === 'features'
+                    ? 'bg-primary-soft text-dark-green border border-border'
+                    : 'text-text-muted hover:bg-bg hover:text-dark-green'
+                }`}
+              >
+                <svg class="size-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                Vipengele vya Jukwaa
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <div class="px-3 pb-2 text-[10px] font-extrabold uppercase tracking-wider text-text-muted">
+              Mawasiliano & Jamii
+            </div>
+            <div class="space-y-1">
+              <a
+                href="/admin/announcements"
+                class={`flex items-center gap-3 rounded-xl px-3 py-2.5 font-bold transition ${
+                  activeNav === 'announcements'
+                    ? 'bg-primary-soft text-dark-green border border-border'
+                    : 'text-text-muted hover:bg-bg hover:text-dark-green'
+                }`}
+              >
+                <svg class="size-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="m3 11 18-5v12L3 14v-3z" />
+                  <path d="M11.6 16.8a3 3 0 1 1-5.8-1.6" />
+                </svg>
+                Matangazo
+              </a>
+              <a
+                href="/admin/messages"
+                class={`flex items-center gap-3 rounded-xl px-3 py-2.5 font-bold transition ${
+                  activeNav === 'messages'
+                    ? 'bg-primary-soft text-dark-green border border-border'
+                    : 'text-text-muted hover:bg-bg hover:text-dark-green'
+                }`}
+              >
+                <svg class="size-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                </svg>
+                Ujumbe & Maswali
+              </a>
+              <a
+                href="/admin/subscribers"
+                class={`flex items-center gap-3 rounded-xl px-3 py-2.5 font-bold transition ${
+                  activeNav === 'subscribers'
+                    ? 'bg-primary-soft text-dark-green border border-border'
+                    : 'text-text-muted hover:bg-bg hover:text-dark-green'
+                }`}
+              >
+                <svg class="size-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect width="20" height="16" x="2" y="4" rx="2" />
+                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                </svg>
+                Wanaofuatilia Jarida
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-6 border-t border-border mt-6">
+        <a
+          href="/"
+          target="_blank"
+          class="flex items-center justify-center gap-2 rounded-xl border border-border bg-bg py-2.5 text-xs font-bold text-dark-green hover:bg-primary-soft transition"
+        >
+          <span>Tazama Tovuti (Live)</span>
+          <svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+            <polyline points="15 3 21 3 21 9" />
+            <line x1="10" y1="14" x2="21" y2="3" />
+          </svg>
+        </a>
+      </div>
+    </aside>
+
     {/* Admin Main Layout */}
-    <div class="mx-auto flex w-full max-w-7xl flex-1 px-4 py-6 sm:px-6 lg:px-8 gap-8">
-      {/* Sidebar Navigation */}
+    <div class="mx-auto flex w-full max-w-7xl flex-1 px-3 sm:px-6 lg:px-8 py-5 sm:py-6 gap-6 sm:gap-8 min-w-0">
+      {/* Desktop Sidebar Navigation */}
       <aside class="w-64 shrink-0 hidden md:block">
         <nav class="sticky top-24 space-y-6 rounded-2xl border border-border bg-white p-4 shadow-2xs text-xs">
           {/* Overview */}
@@ -290,7 +650,7 @@ const { title, activeNav = 'dashboard' } = Astro.props;
       </aside>
 
       {/* Main Content Area */}
-      <main class="flex-1 overflow-y-auto">
+      <main class="flex-1 min-w-0">
         <slot />
       </main>
     </div>
@@ -314,6 +674,38 @@ const { title, activeNav = 'dashboard' } = Astro.props;
           localStorage.removeItem('healthtalks_admin_session');
           window.location.href = '/admin/login';
         }
+      });
+
+      // Mobile drawer toggle logic
+      const mobileMenuBtn = document.getElementById('admin-mobile-menu-btn');
+      const drawerCloseBtn = document.getElementById('admin-drawer-close-btn');
+      const mobileDrawer = document.getElementById('admin-mobile-drawer');
+      const drawerBackdrop = document.getElementById('admin-drawer-backdrop');
+
+      function openDrawer() {
+        if (!mobileDrawer || !drawerBackdrop) return;
+        drawerBackdrop.classList.remove('opacity-0', 'pointer-events-none');
+        drawerBackdrop.classList.add('opacity-100', 'pointer-events-auto');
+        mobileDrawer.classList.remove('-translate-x-full');
+        mobileDrawer.classList.add('translate-x-0');
+        document.body.classList.add('overflow-hidden');
+      }
+
+      function closeDrawer() {
+        if (!mobileDrawer || !drawerBackdrop) return;
+        drawerBackdrop.classList.remove('opacity-100', 'pointer-events-auto');
+        drawerBackdrop.classList.add('opacity-0', 'pointer-events-none');
+        mobileDrawer.classList.remove('translate-x-0');
+        mobileDrawer.classList.add('-translate-x-full');
+        document.body.classList.remove('overflow-hidden');
+      }
+
+      mobileMenuBtn?.addEventListener('click', openDrawer);
+      drawerCloseBtn?.addEventListener('click', closeDrawer);
+      drawerBackdrop?.addEventListener('click', closeDrawer);
+
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeDrawer();
       });
     </script>
   </body>
