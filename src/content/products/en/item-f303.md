@@ -1,55 +1,53 @@
 ---
-title: 'SF-FN F303'
-description: 'Hex Bolts'
+title: 'Cardiovascular Health & Hypertension Care'
+description: 'Actionable strategies for blood pressure management, heart vitality, stroke prevention, and vascular wellness.'
 main:
-  id: 4
+  id: 3
   content: |
-    Introducing the SF-FN F303 Hex Bolts – the perfect choice for heavy-duty fastening applications. Crafted with precision and durability in mind, these hex bolts provide the strength and reliability you need for your toughest projects.
-  imgCard: '@/images/product-image-4.avif'
-  imgMain: '@/images/product-image-main-4.avif'
-  imgAlt: 'Mockup boxes of hex bolts'
+    High blood pressure and cardiovascular diseases remain the leading preventable health threats. HealthTalks provides cardiologist-verified protocols to monitor your numbers, reduce arterial stiffness, and protect your heart.
+  imgCard: '@/images/health/elderly_and_nurse.jpeg'
+  imgMain: '@/images/health/elderly_and_nurse.jpeg'
+  imgAlt: 'Healthcare nurse monitoring vital signs and blood pressure for elderly patient'
 tabs:
   - id: 'tabs-with-card-item-1'
     dataTab: '#tabs-with-card-1'
-    title: 'Description'
+    title: 'Overview'
   - id: 'tabs-with-card-item-2'
     dataTab: '#tabs-with-card-2'
-    title: 'Specifications'
+    title: 'Heart Protocols'
   - id: 'tabs-with-card-item-3'
     dataTab: '#tabs-with-card-3'
-    title: 'Blueprints'
+    title: 'Screening Guides'
 longDescription:
-  title: 'Heavy-Duty Fastening Solutions'
+  title: 'Protecting Your Cardiovascular System'
   subTitle: |
-    The SF-FN F303 Hex Bolts are designed to handle the toughest fastening challenges with ease. Whether you're working on construction projects or heavy machinery, these hex bolts deliver the strength and reliability you need.
-  btnTitle: 'Contact sales to learn more'
-  btnURL: '#'
+    From dietary sodium reduction to managing daily emotional stress and aerobic conditioning, our cardiovascular programs empower you to take charge of your heart health.
+  btnTitle: 'Read Heart Health Articles'
+  btnURL: '/blog'
 descriptionList:
-  - title: 'Strength and Durability'
-    subTitle: 'Constructed from high-quality materials, these hex bolts are built to withstand heavy loads and tough conditions.'
-  - title: 'Precision Engineering'
-    subTitle: 'Engineered with precision-cut threads and exact specifications, ensuring a tight and secure fit every time.'
-  - title: 'Versatility'
-    subTitle: 'Suitable for a wide range of applications, from construction to machinery, providing versatile fastening solutions.'
+  - title: 'Blood Pressure Tracking'
+    subTitle: 'Learn how to accurately measure and log systolic and diastolic readings at home.'
+  - title: 'Heart-Healthy Nutrition'
+    subTitle: 'Clinical strategies adopting potassium-rich foods, magnesium, and reducing trans-fats.'
+  - title: 'Cardiovascular Fitness'
+    subTitle: 'Safe aerobic exercises that build endothelial health without over-stressing the myocardium.'
 specificationsLeft:
-  - title: 'Material'
-    subTitle: 'Made from premium-grade steel or alloy, offering exceptional strength and corrosion resistance.'
-  - title: 'Thread Design'
-    subTitle: 'Precision-cut threads ensure optimal grip and reliability, even in high-stress environments.'
-  - title: 'Quantity'
-    subTitle: 'Each set includes a sufficient quantity of hex bolts to tackle various projects and applications.'
-  - title: 'Sizes'
-    subTitle: 'Available in a range of sizes to accommodate different project requirements, ensuring versatility and compatibility.'
-specificationsRight:
-  - title: 'Finish'
-    subTitle: 'Finished with a protective coating to enhance corrosion resistance and extend service life.'
-  - title: 'Load Capacity'
-    subTitle: 'Designed to meet or exceed industry standards for load-bearing capacity, ensuring reliable performance under heavy loads.'
-  - title: 'Certifications'
-    subTitle: 'Compliant with relevant industry standards and certifications, guaranteeing quality and reliability.'
-  - title: 'Applications'
-    subTitle: 'Ideal for use in construction, machinery, automotive, and other heavy-duty applications that demand strong and reliable fastening.'
+  - title: 'Category'
+    subTitle: 'Cardiology, Internal Medicine & Vascular Health.'
+  - title: 'Target Audience'
+    subTitle: 'Adults managing hypertension, elevated cholesterol, or a family history of heart disease.'
+  - title: 'Medical Review'
+    subTitle: 'Formulated in partnership with clinical cardiologists and vascular specialists.'
+  - title: 'Format'
+    subTitle: 'Interactive blood pressure trackers, clinical explainers, and lifestyle workshops.'
+tableData:
+  - feature: ['Clinical Area', 'Actionable Target']
+    description:
+      - ['Blood Pressure', 'Maintain systolic < 120 mmHg and diastolic < 80 mmHg']
+      - ['Lipid Profile', 'Elevate HDL, manage triglycerides and ApoB through lifestyle choices']
+      - ['Salt Reduction', 'Limit sodium intake to under 2,000 mg/day with wholesome mineral balance']
+      - ['Daily Activity', '150 minutes of moderate-intensity aerobic movement weekly']
 blueprints:
-  first: '@/images/blueprint-1.avif'
-  second: '@/images/blueprint-2.avif'
+  first: '@/images/health/elderly_and_nurse.jpeg'
+  second: '@/images/health/groupjogging.jpeg'
 ---

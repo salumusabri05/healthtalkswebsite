@@ -1,55 +1,53 @@
 ---
-title: 'SF-BN B203'
-description: 'Tap Bolts and Nuts Set'
+title: 'Afya ya Uzazi, Mama na Mtoto'
+description: 'Elimu ya kina ya afya kwa wajawazito, malezi ya watoto wachanga, lishe bora ya watoto na ustawi wa familia.'
 main:
-  id: 3
+  id: 2
   content: |
-    Meet the SF-BN B203 – your reliable companion for professional-grade fastening. This comprehensive box set comes with a versatile selection of tap bolts and nuts, meticulously crafted to provide the strongest hold for your construction and assembly projects.
-  imgCard: '@/images/product-image-3.avif'
-  imgMain: '@/images/product-image-main-3.avif'
-  imgAlt: 'Mockup boxes of a tap bolts and nuts set'
+    Kila mama na mtoto anastahili huduma bora na salama ya afya. HealthTalks inawaunganisha wazazi na madaktari bingwa wa uzazi, wakunga na madaktari wa watoto kutoa miongozo tangu ujauzito hadi malezi ya awali.
+  imgCard: '@/images/health/mom_and_child.jpeg'
+  imgMain: '@/images/health/mom_and_child.jpeg'
+  imgAlt: 'Mama mwenye furaha akimlea mtoto wake mchanga'
 tabs:
   - id: 'tabs-with-card-item-1'
     dataTab: '#tabs-with-card-1'
-    title: 'Description'
+    title: 'Muhtasari'
   - id: 'tabs-with-card-item-2'
     dataTab: '#tabs-with-card-2'
-    title: 'Specifications'
+    title: 'Afya ya Mama'
   - id: 'tabs-with-card-item-3'
     dataTab: '#tabs-with-card-3'
-    title: 'Blueprints'
+    title: 'Ukuaji wa Mtoto'
 longDescription:
-  title: 'Strength Meets Precision'
+  title: 'Kulea Kizazi Chenye Afya na Nguvu'
   subTitle: |
-    The SF-BN B203 Tap Bolts and Nuts Set offers robust durability and precision for construction professionals, ensuring reliable performance in every application, from house framing to machinery assembly.
-  btnTitle: 'Contact sales to learn more'
-  btnURL: '#'
+    Rasilimali kamili za malezi na afya ya watoto zinazoelezea hatua za ukuaji, ratiba za chanjo, afya ya akili ya mama, na lishe bora ya kuanzia mwezi wa sita na kuendelea.
+  btnTitle: 'Soma Miongozo ya Familia'
+  btnURL: '/blog'
 descriptionList:
-  - title: 'Corrosion Resistance'
-    subTitle: 'Zinc coating not only provides a polished look but also shields against corrosion, ensuring longevity.'
-  - title: 'Improved Safety'
-    subTitle: 'A secure fitting translates to safer structures with reduced risk of component failure.'
-  - title: 'Convenience'
-    subTitle: 'This all-in-one set means you have the right size on hand, cutting down on project delays and additional trips to the hardware store.'
+  - title: 'Huduma za Kabla na Baada ya Kujifungua'
+    subTitle: 'Mwongozo sahihi wa lishe ya mama mjamzito, mazoezi salama, na kutambua dalili za hatari mapema.'
+  - title: 'Chanjo Muhimu za Watoto'
+    subTitle: 'Ratiba sahihi za chanjo na ufafanuzi wa kisayansi kuhusu umuhimu wa kumlinda mtoto dhidi ya magonjwa.'
+  - title: 'Maswali kwa Madaktari wa Watoto'
+    subTitle: 'Uliza maswali yako moja kwa moja kwa madaktari bingwa wa watoto kupitia vipindi vyetu vya wazi.'
 specificationsLeft:
-  - title: 'Material Composition'
-    subTitle: 'Manufactured from high-grade steel, delivering strength and reliability for demanding applications.'
-  - title: 'Surface Finish'
-    subTitle: 'Protected with a zinc coating to offer enhanced corrosion resistance and longevity.'
-  - title: 'Quantity Per Set'
-    subTitle: 'The set includes a balanced selection of 25 tap bolts and 25 matching nuts.'
-  - title: 'Size Assortment'
-    subTitle: 'Features a comprehensive range of sizes to cater to various project requirements, ensuring compatibility and versatility.'
-specificationsRight:
-  - title: 'Thread Details'
-    subTitle: 'Engineered with precision-cut threads for a secure fit and easy installation.'
-  - title: 'Mechanical Properties'
-    subTitle: 'Each bolt and nut is designed to meet specific load rating or strength grades, suitable for structural applications.'
-  - title: 'Standards and Certifications'
-    subTitle: 'Complies with relevant industry standards and certifications, ensuring consistent quality and safety.'
-  - title: 'Suitable Applications'
-    subTitle: 'Ideal for a wide array of uses, from construction environments to mechanical assemblies that demand strong and secure joints.'
+  - title: 'Kitengo'
+    subTitle: 'Uzazi, Malezi, Tiba ya Watoto na Afya ya Familia.'
+  - title: 'Walengwa'
+    subTitle: 'Wazazi watarajiwa, akina mama, akina baba na walezi wa watoto wachanga na watoto wadogo.'
+  - title: 'Uthibitisho wa Kitabibu'
+    subTitle: 'Imeandaliwa na madaktari wa watoto na wataalamu wa afya ya jamii nchini Tanzania.'
+  - title: 'Muundo wa Vipindi'
+    subTitle: 'Vipindi vya video, jedwali za chanjo, na makala za kitaalamu za ukuaji wa mtoto.'
+tableData:
+  - feature: ['Hatua ya Ukuaji', 'Kipaumbele cha Kitabibu']
+    description:
+      - ['Ujauzito (Miezi 1-9)', 'Virutubisho vya folic acid na madini chuma, vipimo vya ultrasound na presha']
+      - ['Mtoto Mchanga (0-6)', 'Kunyonyesha maziwa ya mama pekee, utunzaji wa joto na kitovu, kuzuia manjano']
+      - ['Mtoto (Miezi 6-12)', 'Kuanzisha vyakula laini vya asili, chanjo za lazima, kufuatilia ukuaji']
+      - ['Ukuaji (Miaka 1-3)', 'Lishe bora ya familia, uwezo wa kuongea na kutembea, usafi wa mtoto']
 blueprints:
-  first: '@/images/blueprint-1.avif'
-  second: '@/images/blueprint-2.avif'
+  first: '@/images/health/mom_and_child.jpeg'
+  second: '@/images/health/doctor.jpeg'
 ---

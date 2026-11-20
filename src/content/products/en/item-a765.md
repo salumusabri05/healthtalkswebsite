@@ -1,54 +1,53 @@
 ---
-title: 'SF-AB A765'
-description: 'Assorted Screw Set'
+title: 'Metabolic Health & Diabetes Prevention'
+description: 'Clinical nutrition protocols and lifestyle interventions to stabilize blood sugar and optimize metabolic vitality.'
 main:
-  id: 2
+  id: 1
   content: |
-    Introducing the SF-AB A765 Assorted Screw Set – the ultimate solution for your screw fastening needs. This comprehensive set includes a wide variety of screws meticulously curated to tackle various projects with ease and precision.
-  imgCard: '@/images/product-image-2.avif'
-  imgMain: '@/images/product-image-main-2.avif'
-  imgAlt: 'Mockup boxes of assorted screw set'
+    Empower your metabolic health with evidence-based nutrition and clinical strategies. HealthTalks brings together endocrinologists and clinical dietitians to deliver practical protocols that reverse insulin resistance and prevent type 2 diabetes.
+  imgCard: '@/images/health/healthymeal.jpeg'
+  imgMain: '@/images/health/healthymeal.jpeg'
+  imgAlt: 'Nutritious balanced meal supporting metabolic health'
 tabs:
   - id: 'tabs-with-card-item-1'
     dataTab: '#tabs-with-card-1'
-    title: 'Description'
+    title: 'Overview'
   - id: 'tabs-with-card-item-2'
     dataTab: '#tabs-with-card-2'
-    title: 'Specifications'
+    title: 'Clinical Protocols'
   - id: 'tabs-with-card-item-3'
     dataTab: '#tabs-with-card-3'
-    title: 'Blueprints'
+    title: 'Health Guides'
 longDescription:
-  title: 'Versatile Screw Fastening Solutions'
+  title: 'Comprehensive Metabolic Care'
   subTitle: |
-    The SF-AB A765 Assorted Screw Set offers unmatched versatility and convenience, making it the perfect choice for DIY enthusiasts and professionals alike. With a comprehensive selection of screws, you'll always have the right fastener for the job.
-  btnTitle: 'Contact sales to learn more'
-  btnURL: '#'
+    Designed for individuals and families seeking sustainable glucose control, sustained energy throughout the day, and long-term protection against metabolic disorders.
+  btnTitle: 'Read Nutrition Articles'
+  btnURL: '/blog'
 descriptionList:
-  - title: 'Wide Variety'
-    subTitle: 'Includes a diverse range of screw types and sizes to accommodate various applications and materials.'
-  - title: 'Ease of Use'
-    subTitle: 'Each screw is designed for effortless installation, ensuring hassle-free fastening every time.'
-  - title: 'Convenience'
-    subTitle: 'Eliminates the need for multiple trips to the hardware store, saving time and effort on your projects.'
+  - title: 'Whole-Food Nutrition'
+    subTitle: 'Learn to build nutrient-dense plates rich in dietary fiber, healthy fats, and unrefined proteins.'
+  - title: 'Glucose Monitoring & Insights'
+    subTitle: 'Understand post-meal glycemic responses and how to prevent dangerous insulin spikes.'
+  - title: 'Doctor-Led Consultations'
+    subTitle: 'Get direct answers from certified nutritionists and physicians during live monthly sessions.'
 specificationsLeft:
-  - title: 'Material'
-    subTitle: 'Constructed from high-quality materials such as stainless steel, ensuring durability and corrosion resistance.'
-  - title: 'Assortment'
-    subTitle: 'Contains a generous assortment of screws, including wood screws, machine screws, and sheet metal screws.'
-  - title: 'Quantity'
-    subTitle: 'Each set includes a sufficient quantity of screws to handle a wide range of projects and tasks.'
-  - title: 'Sizes'
-    subTitle: 'Available in various sizes to suit different project requirements, ensuring compatibility and versatility.'
+  - title: 'Category'
+    subTitle: 'Endocrinology, Preventive Medicine & Clinical Nutrition.'
+  - title: 'Target Audience'
+    subTitle: 'Individuals with prediabetes, metabolic syndrome, or seeking weight management.'
+  - title: 'Medical Review'
+    subTitle: 'All protocols are verified by licensed practitioners in accordance with WHO guidelines.'
+  - title: 'Format'
+    subTitle: 'Weekly audio-visual talks, downloadable meal templates, and live Q&A webinars.'
 tableData:
-  - feature: ['Specification', 'Value']
+  - feature: ['Program Pillar', 'Clinical Focus']
     description:
-      - ['Length (mm)', 'Various']
-      - ['Weight (g)', 'N/A']
-      - ['Material', 'Stainless Steel']
-      - ['Finish', 'Assorted']
-      - ['Package Contents', 'Various screws in a set']
+      - ['Dietary Strategy', 'Low-glycemic whole foods, high fiber, zero ultra-processed sugars']
+      - ['Physical Activity', 'Zone-2 cardio and post-meal walking to enhance insulin sensitivity']
+      - ['Monitoring', 'HbA1c tracking, fasting blood glucose, and lipid panel evaluation']
+      - ['Community Support', 'Access to HealthTalks moderated peer wellness circles']
 blueprints:
-  first: '@/images/blueprint-1.avif'
-  second: '@/images/blueprint-2.avif'
+  first: '@/images/health/fruits.jpeg'
+  second: '@/images/health/healthymeal.jpeg'
 ---

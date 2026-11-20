@@ -1,55 +1,53 @@
 ---
-title: 'SF-FN F303'
-description: 'Hex Bolts'
+title: 'Afya ya Moyo na Shinikizo la Damu'
+description: 'Mbinu thabiti za kudhibiti shinikizo la damu, kuimarisha nguvu ya moyo, na kuzuia kiharusi na magonjwa ya mishipa.'
 main:
-  id: 4
+  id: 3
   content: |
-    Introducing the SF-FN F303 Hex Bolts – the perfect choice for heavy-duty fastening applications. Crafted with precision and durability in mind, these hex bolts provide the strength and reliability you need for your toughest projects.
-  imgCard: '@/images/product-image-4.avif'
-  imgMain: '@/images/product-image-main-4.avif'
-  imgAlt: 'Mockup boxes of hex bolts'
+    Shinikizo la juu la damu na magonjwa ya moyo ni miongoni mwa changamoto kubwa za afya zinazoweza kuzuilika. HealthTalks inakupa miongozo ya madaktari ya kupima namba zako, kulinda mishipa ya damu na kuimarisha moyo.
+  imgCard: '@/images/health/elderly_and_nurse.jpeg'
+  imgMain: '@/images/health/elderly_and_nurse.jpeg'
+  imgAlt: 'Muuguzi akimpima mgonjwa mzee shinikizo la damu kwa uangalifu'
 tabs:
   - id: 'tabs-with-card-item-1'
     dataTab: '#tabs-with-card-1'
-    title: 'Description'
+    title: 'Muhtasari'
   - id: 'tabs-with-card-item-2'
     dataTab: '#tabs-with-card-2'
-    title: 'Specifications'
+    title: 'Kinga ya Moyo'
   - id: 'tabs-with-card-item-3'
     dataTab: '#tabs-with-card-3'
-    title: 'Blueprints'
+    title: 'Vipimo & Uchunguzi'
 longDescription:
-  title: 'Heavy-Duty Fastening Solutions'
+  title: 'Kulinda Mfumo Wako wa Moyo na Mishipa'
   subTitle: |
-    The SF-FN F303 Hex Bolts are designed to handle the toughest fastening challenges with ease. Whether you're working on construction projects or heavy machinery, these hex bolts deliver the strength and reliability you need.
-  btnTitle: 'Contact sales to learn more'
-  btnURL: '#'
+    Kuanzia kupunguza matumizi ya chumvi nyingi hadi kudhibiti msongo wa mawazo na kufanya mazoezi ya kila siku, programu zetu zinakupa uwezo wa kulinda uhai wako.
+  btnTitle: 'Soma Makala za Moyo'
+  btnURL: '/blog'
 descriptionList:
-  - title: 'Strength and Durability'
-    subTitle: 'Constructed from high-quality materials, these hex bolts are built to withstand heavy loads and tough conditions.'
-  - title: 'Precision Engineering'
-    subTitle: 'Engineered with precision-cut threads and exact specifications, ensuring a tight and secure fit every time.'
-  - title: 'Versatility'
-    subTitle: 'Suitable for a wide range of applications, from construction to machinery, providing versatile fastening solutions.'
+  - title: 'Kupima Shinikizo la Damu Nyumbani'
+    subTitle: 'Jifunze jinsi ya kupima kwa usahihi namba zako za systolic na diastolic ukiwa nyumbani.'
+  - title: 'Lishe ya Kulinda Moyo'
+    subTitle: 'Mbinu za kutumia vyakula vyenye madini ya potassium, mbogamboga za majani na kuepuka mafuta mabaya.'
+  - title: 'Mazoezi Salama ya Moyo'
+    subTitle: 'Mazoezi mepesi ya aerobic kama kutembea na kuogelea yanayoimarisha msukumo wa damu bila kuuchosha moyo.'
 specificationsLeft:
-  - title: 'Material'
-    subTitle: 'Made from premium-grade steel or alloy, offering exceptional strength and corrosion resistance.'
-  - title: 'Thread Design'
-    subTitle: 'Precision-cut threads ensure optimal grip and reliability, even in high-stress environments.'
-  - title: 'Quantity'
-    subTitle: 'Each set includes a sufficient quantity of hex bolts to tackle various projects and applications.'
-  - title: 'Sizes'
-    subTitle: 'Available in a range of sizes to accommodate different project requirements, ensuring versatility and compatibility.'
-specificationsRight:
-  - title: 'Finish'
-    subTitle: 'Finished with a protective coating to enhance corrosion resistance and extend service life.'
-  - title: 'Load Capacity'
-    subTitle: 'Designed to meet or exceed industry standards for load-bearing capacity, ensuring reliable performance under heavy loads.'
-  - title: 'Certifications'
-    subTitle: 'Compliant with relevant industry standards and certifications, guaranteeing quality and reliability.'
-  - title: 'Applications'
-    subTitle: 'Ideal for use in construction, machinery, automotive, and other heavy-duty applications that demand strong and reliable fastening.'
+  - title: 'Kitengo'
+    subTitle: 'Magonjwa ya Moyo, Tiba ya Ndani na Afya ya Mishipa ya Damu.'
+  - title: 'Walengwa'
+    subTitle: 'Watu wazima wenye presha ya kupanda, lehemu (cholesterol) iliyozidi, au historia ya moyo kifamilia.'
+  - title: 'Uthibitisho wa Kitabibu'
+    subTitle: 'Imethibitishwa na madaktari bingwa wa moyo kulingana na miongozo ya kisayansi.'
+  - title: 'Muundo wa Vipindi'
+    subTitle: 'Jedwali za kufuatilia presha, maelezo rahisi ya kitabibu, na warsha za video za afya.'
+tableData:
+  - feature: ['Kipimo cha Afya', 'Kiwango Kinachopendekezwa']
+    description:
+      - ['Shinikizo la Damu', 'Kiwango cha kawaida: chini ya 120/80 mmHg']
+      - ['Mafuta ya Damu (Lipid)', 'Kupunguza triglycerides na lehemu mbaya (LDL) kupitia chakula']
+      - ['Chumvi Chakulani', 'Kutozidisha kijiko kimoja kidogo cha chai kwa siku (chini ya 2,000 mg)']
+      - ['Mazoezi ya Kila Wiki', 'Angalau dakika 150 za mazoezi ya wastani kama kutembea kwa kasi']
 blueprints:
-  first: '@/images/blueprint-1.avif'
-  second: '@/images/blueprint-2.avif'
+  first: '@/images/health/elderly_and_nurse.jpeg'
+  second: '@/images/health/groupjogging.jpeg'
 ---

@@ -68,28 +68,28 @@ export const en = {
     megaMenu: {
       services: {
         guides: {
-          title: 'Explore Advice and Explanations',
+          title: 'Health Guides & Advice',
           description:
-            "Dive deep into helpful guides and explanations for all of ScrewFast's features",
+            'Dive deep into helpful guides, medical explanations, and wellness articles from certified doctors',
         },
         integrations: {
-          title: 'Discover Integrations',
+          title: 'Community Programs',
           description:
-            'Supercharge Your Workflow. Seamless integrations with all your favorite tools',
+            'Engage with interactive webinars, community dialogues, and live health Q&A sessions',
         },
         experts: {
-          title: 'Expert Services',
-          description: "Go beyond tools with ScrewFast's expert services",
+          title: 'Medical Specialists',
+          description: 'Access trusted medical advice and panels with leading clinicians',
         },
         tools: {
-          title: 'Cutting-Edge Tools',
+          title: 'Health Literacy Topics',
           description:
-            "Build Smarter, Faster. Experience next-level efficiency with ScrewFast's cutting-edge construction tools",
+            'Live healthier, longer. Evidence-based strategies for metabolic, heart, and lifestyle vitality',
         },
         plans: {
-          title: 'Simple Plans',
+          title: 'Community Memberships',
           description:
-            "Boost your efficiency with ScrewFast's straightforward, value-driven plans",
+            'Join our community to access exclusive doctor masterclasses and health archives',
         },
         community: {
           title: 'Community Forum',
@@ -327,72 +327,70 @@ export const en = {
   },
 
   services: {
-    title: 'Services',
+    title: 'Programs & Services',
     metaDescription:
-      'Uniting expertise with your vision, ScrewFast provides exceptional service and comprehensive solutions in the hardware and construction industry, from consultation to project completion.',
-    ogTitle: 'Expert Consultation Services | ScrewFast',
+      'Connecting medical expertise with community wellness, HealthTalks delivers comprehensive health education, preventive programs, and clinical consultations.',
+    ogTitle: 'Health Programs & Expert Medical Services | HealthTalks',
     intro: {
-      title: 'Uniting Expertise with Your Vision',
+      title: 'Expert Medical Guidance for Healthier Communities',
       subTitle:
-        'At ScrewFast, we take pride in providing comprehensive solutions and exceptional service in the hardware and construction industry. Our experienced team is dedicated to supporting your project from inception to completion with a range of specialized services.',
-      cta: 'Schedule a Consultation',
+        'At HealthTalks, we pride ourselves on delivering evidence-based medical education and actionable wellness guidance. Our team of certified clinicians and health advocates supports your journey toward lasting vitality.',
+      cta: 'Contact Our Medical Team',
     },
     articles: {
       guidance: {
-        title: 'Delivering Expert Guidance',
+        title: 'Delivering Evidence-Based Clinical Guidance',
         subTitle:
-          'Embarking on a construction project can be overwhelming. With our professional consultation services, we guide you through every stage, ensuring you make informed decisions. Whether you are a DIY enthusiast or a skilled contractor, our experts are on hand to offer tailored advice on product selection, project scope, and compliance with local regulations.',
+          'Navigating personal health decisions can feel daunting. Through our interactive sessions and clinical guides, we help you understand disease prevention, nutritional strategies, and diagnostic screenings so you can make confident, informed choices.',
         imageAlts: [
-          'Blueprints and digital tablet with construction plans.',
-          'Person working in the office',
+          'Doctor consulting with patient in clinical setting',
+          'Medical specialists discussing health research',
         ],
       },
       craftsmanship: {
-        title: 'Transforming Designs into Reality',
+        title: 'Building Sustainable Health & Nutrition Habits',
         subTitle:
-          'Our skilled craftsmen bring precision and excellence to every construction project. From minor installations to substantial structural work, ScrewFast offers reliable construction services to turn your plans into tangible outcomes. We ensure the highest standards of safety and workmanship, utilizing top-quality tools and materials from our extensive inventory.',
-        imageAlts: ['Construction site before and after'],
-        cta: 'Learn More',
+          'Lifelong wellness is built on small, consistent daily decisions. We provide science-backed protocols for whole-food nutrition, metabolic health, reducing refined sugars, and safeguarding cardiovascular vitality.',
+        imageAlts: ['Fresh wholesome fruits and balanced nutrition'],
+        cta: 'Explore Wellness Guides',
       },
       oversight: {
-        title: 'Navigating Projects with Professional Oversight',
+        title: 'Maternal, Newborn & Family Health Initiatives',
         subTitle:
-          'Effective project management is at the heart of any successful build. ScrewFast provides thorough planning and robust management services that keep your project on time and within budget. Let us handle the complexities of workflow coordination, resource allocation, and stakeholder communication while you focus on your vision.',
+          'The health of mothers and children forms the cornerstone of resilient communities. HealthTalks delivers vetted pediatric advice, prenatal and postnatal care guides, and essential childhood immunization literacy.',
         imageAlts: [
-          'Construction workers orchestrating a project',
-          'Aerial view of managed construction',
+          'Mother holding and nurturing child with care',
+          'Pediatric specialist conducting developmental checkup',
         ],
       },
       maintenance: {
-        title: 'Ensuring Long-lasting Performance',
+        title: 'Sustaining Immunity & Preventative Hygiene',
         subTitle:
-          "Our commitment to your project doesn't end at completion. ScrewFast offers ongoing maintenance and support services to ensure your construction's longevity and performance. From regular check-ups to emergency assistance, our responsive team is there to provide seamless support.",
-        imageAlts: [
-          'Man in orange and black vest wearing white helmet holding yellow and black power tool',
-        ],
+          'Prevention is always superior to cure. We promote evidence-based hygiene practices, environmental sanitation, restorative sleep hygiene, and holistic stress management to keep illnesses at bay.',
+        imageAlts: ['Person thoroughly washing hands with clean water and soap'],
       },
       bespoke: {
-        title: 'Crafting Bespoke Strategies for Unique Challenges',
+        title: 'Workplace Wellness & Corporate Health Programs',
         subTitle:
-          'For our larger enterprise clients, ScrewFast offers custom solutions designed to meet specific industry challenges. By understanding your unique needs, we engineer tailored strategies aimed at optimizing your operations, enhancing efficiency, and driving your business forward.',
+          'For organizations, schools, and enterprise teams, HealthTalks designs bespoke corporate wellness workshops, health screenings, and mental resilience seminars that elevate staff productivity and reduce chronic disease risks.',
         imageAlts: [
-          'In progress building structure',
-          'Brown and gray building under construction',
+          'Team members participating in healthy corporate fitness routine',
+          'Nutritious meal and wellness session for employees',
         ],
-        cta: 'Read more',
+        cta: 'Partner With Us',
       },
     },
     stats: {
-      title: 'By the Numbers',
+      title: 'Our Health Impact by the Numbers',
       subTitle:
-        'Our commitment to quality and reliability is evident in every project we undertake. At ScrewFast, we are dedicated to delivering industry-leading services that ensure your construction projects are built to last.',
-      mainStatTitle: '96%',
+        'Our commitment to medical credibility and actionable health education is reflected across every community initiative we lead.',
+      mainStatTitle: '98%',
       mainStatSubTitle:
-        'of our clients rate their experience with ScrewFast as exceptional',
+        'of community members report adopting healthier daily habits after HealthTalks sessions',
       stats: [
-        { stat: '99.8%', description: 'project completion rate' },
-        { stat: '5,000+', description: 'successful installations' },
-        { stat: '85%', description: 'client growth year-over-year' },
+        { stat: '10,000+', description: 'listeners & readers reached' },
+        { stat: '150+', description: 'certified medical specialists' },
+        { stat: '100%', description: 'evidence-based clinical content' },
       ],
     },
   },

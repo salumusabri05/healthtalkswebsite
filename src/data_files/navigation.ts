@@ -31,7 +31,7 @@ export const footerSections: {
   {
     id: 'ecosystem',
     links: [
-      { id: 'documentation', path: '/welcome-to-docs/' },
+      { id: 'documentation', path: '/blog' },
       { id: 'tools', path: '/products' },
       { id: 'services', path: '/services' },
     ],

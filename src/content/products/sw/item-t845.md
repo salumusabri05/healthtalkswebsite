@@ -1,55 +1,53 @@
 ---
-title: 'SF-TB T845'
-description: 'Machine Screws'
+title: 'Kinga ya Magonjwa na Afya ya Akili'
+description: 'Ustawi kamili unaojumuisha usingizi bora, utulivu wa akili, kuimarisha kinga ya mwili na mtindo bora wa maisha.'
 main:
-  id: 1
+  id: 4
   content: |
-    Introducing the SF-TB T845 – your go-to solution for precision fastening in machinery and equipment. This comprehensive set of machine screws is meticulously crafted to meet the stringent demands of industrial applications, ensuring secure and reliable fastening.
-  imgCard: '@/images/product-image-1.avif'
-  imgMain: '@/images/product-image-main-1.avif'
-  imgAlt: 'Mockup boxes of machine screws set'
+    Afya ya kweli inahusisha mwili na akili kwa pamoja. HealthTalks inakupa mbinu za vitendo za kupunguza msongo wa mawazo, kupata usingizi mnono wenye uponyaji, na kujenga kinga thabiti ya mwili.
+  imgCard: '@/images/health/groupjogging.jpeg'
+  imgMain: '@/images/health/groupjogging.jpeg'
+  imgAlt: 'Kikundi cha watu wakifanya mazoezi ya pamoja asubuhi kwa ajili ya afya ya mwili na akili'
 tabs:
   - id: 'tabs-with-card-item-1'
     dataTab: '#tabs-with-card-1'
-    title: 'Description'
+    title: 'Muhtasari'
   - id: 'tabs-with-card-item-2'
     dataTab: '#tabs-with-card-2'
-    title: 'Specifications'
+    title: 'Afya ya Akili'
   - id: 'tabs-with-card-item-3'
     dataTab: '#tabs-with-card-3'
-    title: 'Blueprints'
+    title: 'Usingizi & Kinga'
 longDescription:
-  title: 'Precision Fastening Solutions'
+  title: 'Kujenga Ustahimilivu wa Mwili na Akili'
   subTitle: |
-    The SF-TB T845 Machine Screws offer unparalleled precision and reliability for industrial applications, ensuring seamless operation and longevity for your machinery and equipment.
-  btnTitle: 'Contact sales to learn more'
-  btnURL: '#'
+    Gundua ushahidi wa kisayansi kuhusu jinsi usingizi wa kutosha, utulivu wa kisaikolojia, shughuli za kijamii, na usafi wa mazingira unavyoimarisha kinga yako dhidi ya maradhi.
+  btnTitle: 'Soma Miongozo ya Ustawi'
+  btnURL: '/blog'
 descriptionList:
-  - title: 'Durability'
-    subTitle: 'Crafted from high-quality materials, these machine screws are built to withstand the rigors of industrial environments.'
-  - title: 'Precision Engineering'
-    subTitle: 'Engineered with precision-cut threads and exact specifications, ensuring a tight and secure fit for every application.'
-  - title: 'Versatility'
-    subTitle: 'Suitable for a wide range of machinery and equipment, providing versatile fastening solutions for various industrial needs.'
+  - title: 'Ubora wa Usingizi'
+    subTitle: 'Mbinu za kulala kwa wakati katika mazingira ya giza na utulivu ili kuruhusu seli za mwili kujirekebisha.'
+  - title: 'Kudhibiti Msongo wa Mawazo'
+    subTitle: 'Kujifunza mbinu za kupumua kwa kina na kuweka mipaka ya kazi ili kupunguza homoni ya cortisol.'
+  - title: 'Mshikamano wa Kijamii'
+    subTitle: 'Kushiriki katika shughuli za pamoja na familia na marafiki kunakosaidia afya ya kisaikolojia na uhai mrefu.'
 specificationsLeft:
-  - title: 'Material Composition'
-    subTitle: 'Constructed from premium-grade steel or alloy for exceptional strength and durability.'
-  - title: 'Surface Finish'
-    subTitle: 'Finished with a protective coating to enhance corrosion resistance and extend service life.'
-  - title: 'Quantity Per Set'
-    subTitle: 'Each set contains a comprehensive assortment of machine screws to meet diverse industrial requirements.'
-  - title: 'Size Range'
-    subTitle: 'Available in various sizes and lengths to accommodate different machinery and equipment specifications.'
-specificationsRight:
-  - title: 'Thread Specifications'
-    subTitle: 'Precision-engineered threads ensure optimal grip and reliability, even in high-vibration environments.'
-  - title: 'Load Capacity'
-    subTitle: 'Designed to meet or exceed industry standards for load-bearing capacity, ensuring safe and reliable operation.'
-  - title: 'Certifications'
-    subTitle: 'Compliant with relevant industry standards and certifications, guaranteeing quality and reliability.'
-  - title: 'Applications'
-    subTitle: 'Ideal for use in a wide range of industrial machinery, equipment, and assemblies that demand precise and secure fastening.'
+  - title: 'Kitengo'
+    subTitle: 'Saikolojia ya Afya, Tiba ya Usingizi na Mfumo wa Kinga.'
+  - title: 'Walengwa'
+    subTitle: 'Mtu yeyote anayetaka kuondoa uchovu sugu, msongo wa mawazo, na kuimarisha kinga ya mwili.'
+  - title: 'Uthibitisho wa Kitabibu'
+    subTitle: 'Imepitiwa na wataalamu wa afya ya akili na watafiti wa kinga ya mwili.'
+  - title: 'Muundo wa Vipindi'
+    subTitle: 'Miongozo ya usingizi bora, vipindi vya sauti vya utulivu, na mazungumzo ya wazi ya kijamii.'
+tableData:
+  - feature: ['Nguzo ya Ustawi', 'Mwenendo Bora wa Kila Siku']
+    description:
+      - ['Masaa ya Usingizi', 'Masaa 7 hadi 9 ya usingizi mzito bila mwanga wa simu au skrini chumbani']
+      - ['Kupunguza Msongo', 'Mazoezi ya kupumua kwa utulivu na kutembea katika mazingira ya asili']
+      - ['Mwanga wa Asubuhi', 'Kupata mwanga wa jua asubuhi kurekebisha mzunguko wa kibaolojia wa usingizi']
+      - ['Kujikinga na Maambukizi', 'Kunawa mikono kwa maji safi na sabuni, kunywa maji salama, na lishe safi']
 blueprints:
-  first: '@/images/blueprint-1.avif'
-  second: '@/images/blueprint-2.avif'
+  first: '@/images/health/sleepinginanet.jpeg'
+  second: '@/images/health/washinghands.jpeg'
 ---

@@ -5,14 +5,14 @@ import AlternatingSections, {
   type Article,
 } from '@components/ui/blocks/AlternatingSections.astro';
 import FeaturesStats from '@components/sections/features/FeaturesStats.astro';
-import blueprints from '@images/blueprints-image.avif';
-import personWorking from '@images/person-working.avif';
-import beforeAfter from '@images/before-after.avif';
-import constructionWorkers from '@images/construction-workers.avif';
-import aerialView from '@images/aerial-view.avif';
-import usingTools from '@images/using-tools.avif';
-import progressBuilding from '@images/progress-building.avif';
-import underConstruction from '@images/under-construction.avif';
+import doctor from '@images/health/doctor.jpeg';
+import groupSession from '@images/health/groupsession.jpeg';
+import healthyMeal from '@images/health/healthymeal.jpeg';
+import momAndChild from '@images/health/mom_and_child.jpeg';
+import elderlyAndNurse from '@images/health/elderly_and_nurse.jpeg';
+import washingHands from '@images/health/washinghands.jpeg';
+import groupJogging from '@images/health/groupjogging.jpeg';
+import fruits from '@images/health/fruits.jpeg';
 import { getCopy } from '@/copy';
 import type { MarketingLocale } from '@utils/locale';
 
@@ -30,37 +30,37 @@ const articles: Article[] = [
     title: articleCopy.guidance.title,
     subTitle: articleCopy.guidance.subTitle,
     images: [
-      { src: blueprints, alt: articleCopy.guidance.imageAlts[0] },
-      { src: personWorking, alt: articleCopy.guidance.imageAlts[1] },
+      { src: doctor, alt: articleCopy.guidance.imageAlts[0] },
+      { src: groupSession, alt: articleCopy.guidance.imageAlts[1] },
     ],
   },
   {
     title: articleCopy.craftsmanship.title,
     subTitle: articleCopy.craftsmanship.subTitle,
-    images: [{ src: beforeAfter, alt: articleCopy.craftsmanship.imageAlts[0] }],
-    cta: { title: articleCopy.craftsmanship.cta, url: '#' },
+    images: [{ src: healthyMeal, alt: articleCopy.craftsmanship.imageAlts[0] }],
+    cta: { title: articleCopy.craftsmanship.cta, url: '/blog' },
   },
   {
     title: articleCopy.oversight.title,
     subTitle: articleCopy.oversight.subTitle,
     images: [
-      { src: constructionWorkers, alt: articleCopy.oversight.imageAlts[0] },
-      { src: aerialView, alt: articleCopy.oversight.imageAlts[1] },
+      { src: momAndChild, alt: articleCopy.oversight.imageAlts[0] },
+      { src: elderlyAndNurse, alt: articleCopy.oversight.imageAlts[1] },
     ],
   },
   {
     title: articleCopy.maintenance.title,
     subTitle: articleCopy.maintenance.subTitle,
-    images: [{ src: usingTools, alt: articleCopy.maintenance.imageAlts[0] }],
+    images: [{ src: washingHands, alt: articleCopy.maintenance.imageAlts[0] }],
   },
   {
     title: articleCopy.bespoke.title,
     subTitle: articleCopy.bespoke.subTitle,
     images: [
-      { src: progressBuilding, alt: articleCopy.bespoke.imageAlts[0] },
-      { src: underConstruction, alt: articleCopy.bespoke.imageAlts[1] },
+      { src: groupJogging, alt: articleCopy.bespoke.imageAlts[0] },
+      { src: fruits, alt: articleCopy.bespoke.imageAlts[1] },
     ],
-    cta: { title: articleCopy.bespoke.cta, url: '#' },
+    cta: { title: articleCopy.bespoke.cta, url: '/contact' },
   },
 ];
 ---

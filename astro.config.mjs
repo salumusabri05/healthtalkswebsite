@@ -101,9 +101,9 @@ export default defineConfig({
       ],
       social: [
         {
-          icon: 'github',
-          label: 'GitHub',
-          href: 'https://github.com/mearashadowfax/ScrewFast',
+          icon: 'instagram',
+          label: 'Instagram',
+          href: 'https://www.instagram.com/healthtalks.official?psln=MTk3YWgxOTduZzNnYw%3D%3D&utm_source=qr',
         },
       ],
       disable404Route: true,
@@ -121,14 +121,14 @@ export default defineConfig({
           tag: 'meta',
           attrs: {
             property: 'og:image',
-            content: 'https://screwfast.uk' + '/social.webp',
+            content: 'https://healthtalks.co.tz/social.png',
           },
         },
         {
           tag: 'meta',
           attrs: {
             property: 'twitter:image',
-            content: 'https://screwfast.uk' + '/social.webp',
+            content: 'https://healthtalks.co.tz/social.png',
           },
         },
       ],
